@@ -1,5 +1,10 @@
 # Print To 3D - Slice your design to gcode
-![Print-To-3D](./images/P3D_appicon.png)
+[![Print-To-3D](./images/P3D_appicon.png)](https://apps.apple.com/us/app/print-to-3d/id1614819811)
+<a href="https://apps.apple.com/us/app/print-to-3d/id1614819811?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1647993600&h=f6f86a5cca7e99bd123ee10ebc632a6e" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+
+<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1647993600&h=f6f86a5cca7e99bd123ee10ebc632a6e" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;">
+
+[![App Store Link](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1647993600&h=f6f86a5cca7e99bd123ee10ebc632a6e)](https://apps.apple.com/us/app/print-to-3d/id1614819811?itsct=apps_box_badge&amp;itscg=30200)
 
 Finally, 3D printing comes to iPad !
 
