@@ -11,7 +11,7 @@ Move, rotate and zoom your models. Select your 3D printer from an extensive list
 
 Selection of features:
 - 44 FDM 3D printers supported
-- Load (binary) STL- and OBJ-Files
+- Load STL- and OBJ-Files
 - Can define pre/post printing G-Code commands - specific for your printer
 - Modify the default printer settings as per your needs
 - Upload your gcode file directly to your octoprint server
