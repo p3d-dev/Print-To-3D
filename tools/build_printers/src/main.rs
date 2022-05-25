@@ -1,11 +1,11 @@
-use std::env;
-use std::io::{Error, Read};
-use std::process::Command;
-use std::fs::{File,DirEntry};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::env;
+use std::fs::{DirEntry, File};
+use std::io::{Error, Read};
+use std::process::Command;
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Debug)]
 struct Extruder01 {
     nozzle: f32,
     filament: f32,
@@ -14,14 +14,14 @@ struct Extruder01 {
     select: Vec<String>,
 }
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Debug)]
 struct Command01 {
     fan_power: String,
     progress: Option<String>,
     layer: Option<Vec<String>>,
 }
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Debug)]
 struct Settings01 {
     nozzle_size: Option<f32>,
     origin_center: bool,
@@ -31,16 +31,17 @@ struct Settings01 {
     bed_circle: Option<bool>,
 }
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Debug)]
 struct GridApps01 {
     pre: Vec<String>,
     post: Vec<String>,
     cmd: Command01,
     extruders: Option<Vec<Extruder01>>,
-    settings: Settings01
+    settings: Settings01,
 }
 
-#[derive(Deserialize,Debug)]
+#[allow(non_snake_case)]
+#[derive(Deserialize, Debug)]
 struct Extruder02 {
     extFilament: f32,
     extNozzle: f32,
@@ -50,12 +51,13 @@ struct Extruder02 {
     extOffsetY: i16,
 }
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Debug)]
 struct Settings02 {
-    need: bool
+    need: bool,
 }
 
-#[derive(Deserialize,Debug)]
+#[allow(non_snake_case)]
+#[derive(Deserialize, Debug)]
 struct GridApps02 {
     deviceName: String,
     bedWidth: i16,
@@ -72,52 +74,131 @@ struct GridApps02 {
     gcodeTrack: Vec<String>,
     gcodeFan: Vec<String>,
     extruders: Vec<Extruder02>,
-    settings: Option<Settings02>
+    settings: Option<Settings02>,
 }
 
+#[derive(Deserialize, Debug)]
+struct Default<T> {
+    default_value: Option<T>,
+    value: Option<T>,
+}
+
+#[derive(Deserialize, Debug)]
+struct OverridesV2 {
+    machine_name: Option<Default<String>>,
+    machine_heated_bed: Option<Default<bool>>,
+    machine_nozzle_size: Option<Default<f32>>,
+    machine_width: Option<Default<f32>>,
+    machine_height: Option<Default<f32>>,
+    machine_depth: Option<Default<f32>>,
+    machine_center_is_zero: Option<Default<bool>>,
+    machine_start_gcode: Option<Default<String>>,
+    machine_end_gcode: Option<Default<String>>,
+    machine_shape: Option<Default<String>>,
+    material_diameter: Option<Default<f32>>,
+}
+
+#[derive(Deserialize, Debug)]
+struct LongSetting<T> {
+    default_value: Option<T>,
+}
+
+#[derive(Deserialize, Debug)]
+struct DetailedSettingsV2 {
+    machine_name: Option<LongSetting<String>>,
+    machine_heated_bed: Option<LongSetting<bool>>,
+    machine_nozzle_size: Option<LongSetting<f32>>,
+    machine_width: Option<LongSetting<f32>>,
+    machine_height: Option<LongSetting<f32>>,
+    machine_depth: Option<LongSetting<f32>>,
+    machine_center_is_zero: Option<LongSetting<bool>>,
+    machine_start_gcode: Option<LongSetting<String>>,
+    machine_end_gcode: Option<LongSetting<String>>,
+    machine_shape: Option<LongSetting<String>>,
+    material_diameter: Option<LongSetting<f32>>,
+}
+
+#[derive(Deserialize, Debug)]
+struct MachineSettingsV2 {
+    children: DetailedSettingsV2,
+}
+
+#[derive(Deserialize, Debug)]
+struct SettingsV2 {
+    machine_settings: MachineSettingsV2,
+}
+
+#[derive(Deserialize, Debug)]
+struct CuraV2 {
+    name: String,
+    inherits: Option<String>,
+    overrides: Option<OverridesV2>,
+    settings: Option<SettingsV2>,
+}
+
+enum Source {
+    Gridapps,
+    Cura,
+}
 
 fn main() -> Result<(), Error> {
-    let repos: Vec<(&'static str, &'static str, &'static str)> = vec![(
-        "https://github.com/GridSpace/grid-apps.git",
-        "grid-apps",
-        "grid-apps/src/kiri-dev/fdm",
-    )];
+    let repos: Vec<(&'static str, &'static str, &'static str, Source)> = vec![
+        (
+            "https://github.com/GridSpace/grid-apps.git",
+            "grid-apps",
+            "grid-apps/src/kiri-dev/fdm",
+            Source::Gridapps,
+        ),
+        (
+            "https://github.com/p3d-dev/Cura.git",
+            "Cura",
+            "Cura/resources/definitions",
+            Source::Cura,
+        ),
+    ];
 
     let temp_dir = env::temp_dir();
     println!("Temporary directory: {}", temp_dir.display());
 
-    for (repo, repo_name, dir) in repos {
+    for (repo, repo_name, dir, source) in repos {
         println!("Process {}", repo);
         let output = Command::new("git")
-                     .arg("clone")
-                     .arg(repo)
-                     .arg(temp_dir.join(repo_name))
-                     .status()?;
+            .arg("clone")
+            .arg("--depth")
+            .arg("1")
+            .arg(repo)
+            .arg(temp_dir.join(repo_name))
+            .status()?;
         println!("{:?}", output);
 
         let cfg_dir = temp_dir.join(dir);
-        
+
         for entry in std::fs::read_dir(cfg_dir)? {
             let entry = entry?;
             if entry.file_type()?.is_dir() {
-                println!("skip sub directory {:?}",entry.path());
-            }
-            else {
+                println!("skip sub directory {:?}", entry.path());
+            } else {
                 //println!("process {:?}",entry.path());
                 let mut file = File::open(entry.path())?;
                 let mut contents = String::new();
                 file.read_to_string(&mut contents)?;
-                match serde_json::from_str::<GridApps01>(&contents) {
-                    Ok(cfg) => (),
-                    Err(e1) => {
-                match serde_json::from_str::<GridApps02>(&contents) {
-                    Ok(cfg) => (),
-                    Err(e2) => println!("{:?}: {:?}i {:?}", entry.path(), e1,e2)
-                }
-                    }
+                match source {
+                    Source::Gridapps => match serde_json::from_str::<GridApps01>(&contents) {
+                        Ok(cfg) => (),
+                        Err(e1) => match serde_json::from_str::<GridApps02>(&contents) {
+                            Ok(cfg) => (),
+                            Err(e2) => println!("{:?}: {:?} {:?}", entry.path(), e1, e2),
+                        },
+                    },
+                    Source::Cura => match serde_json::from_str::<CuraV2>(&contents) {
+                        Ok(cfg) => (),
+                        Err(e1) => {
+                            println!("{:?}: {:?}", entry.path(), e1)
+                        }
+                    },
                 }
             }
-       }
+        }
     }
     Ok(())
 }
