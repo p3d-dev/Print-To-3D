@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::env;
 use std::fs::File;
-use std::io::{Error, Read, BufWriter};
+use std::io::{BufWriter, Error, Read};
 use std::process::Command;
 
 mod cura;
@@ -19,13 +19,13 @@ enum Source {
 }
 
 fn generalized(name: &str) -> String {
-    name.replace("/","")
-        .replace("_","")
-        .replace(" ","")
-        .replace("(","")
-        .replace(")",")")
-        .replace("+","plus")
-        .replace(".","")
+    name.replace("/", "")
+        .replace("_", "")
+        .replace(" ", "")
+        .replace("(", "")
+        .replace(")", ")")
+        .replace("+", "plus")
+        .replace(".", "")
         .to_lowercase()
         .to_string()
 }
@@ -39,8 +39,7 @@ fn main() -> Result<(), Error> {
         if let Some(p3d) = P3dPrinter::from_gridapps(name.clone(), ga) {
             let key = generalized(&p3d.name);
             entries.insert(key, p3d);
-        }
-        else {
+        } else {
             println!("Incomplete gridapps definition: {}", name);
         }
     }
@@ -52,18 +51,18 @@ fn main() -> Result<(), Error> {
             if let Some(ga) = entries.remove(&key) {
                 collision += 1;
                 if let Some(p3d_new) = P3dPrinter::resolve_conflict(ga, p3d) {
-                    println!("{}: resolved collision {} into {}", collision, key, p3d_new.name);
+                    println!(
+                        "{}: resolved collision {} into {}",
+                        collision, key, p3d_new.name
+                    );
                     entries.insert(key, p3d_new);
-                }
-                else {
+                } else {
                     println!("{}: UNRESOLVED collision {}", collision, key);
                 }
-            }
-            else {
+            } else {
                 entries.insert(key, p3d);
             }
-        }
-        else {
+        } else {
             println!("Incomplete cura definition: {}", cura.printer_name());
         }
     }
@@ -75,20 +74,31 @@ fn main() -> Result<(), Error> {
         fname.push("printer");
         fname.push("x");
         let printer_name = &e.name;
-        let xname = printer_name.replace("/","_").replace(" ","_").replace("(","_").replace(")",")").replace("+","_plus");
-        fname.set_file_name(format!("{}.json",xname));
-//        println!("{:?}",fname);
+        let xname = printer_name
+            .replace("/", "_")
+            .replace(" ", "_")
+            .replace("(", "_")
+            .replace(")", ")")
+            .replace("+", "_plus");
+        fname.set_file_name(format!("{}.json", xname));
+        //        println!("{:?}",fname);
         let mut file = File::create(fname)?;
         let writer = BufWriter::new(file);
         serde_json::to_writer_pretty(writer, &e);
-//        println!("{}: {:#?}", name, e);
+        //        println!("{}: {:#?}", name, e);
     }
 
     Ok(())
 }
 
-fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<String, CuraV2>, HashMap<String, CuraExtruderV2>), Error>
-{
+fn load_and_parse() -> Result<
+    (
+        HashMap<String, Box<dyn GridApps>>,
+        HashMap<String, CuraV2>,
+        HashMap<String, CuraExtruderV2>,
+    ),
+    Error,
+> {
     let mut gridapps_entries: HashMap<String, Box<dyn GridApps>> = HashMap::new();
     let mut cura_entries: HashMap<String, CuraV2> = HashMap::new();
     let mut cura_extruder_entries: HashMap<String, CuraExtruderV2> = HashMap::new();
@@ -137,15 +147,15 @@ fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<Strin
                 let mut file = File::open(fname)?;
                 let mut contents = String::new();
                 file.read_to_string(&mut contents)?;
-                        match serde_json::from_str::<CuraExtruderV2>(&contents) {
-                            Ok(cfg) => {
-                                cura_extruder_entries.insert("fdmextruder".to_string(), cfg);
-                            },
-                            Err(e1) => {
-                                println!("fdm_extruder: {:?}", e1)
-                            }
-                        }
-            },
+                match serde_json::from_str::<CuraExtruderV2>(&contents) {
+                    Ok(cfg) => {
+                        cura_extruder_entries.insert("fdmextruder".to_string(), cfg);
+                    }
+                    Err(e1) => {
+                        println!("fdm_extruder: {:?}", e1)
+                    }
+                }
+            }
             _ => {}
         }
 
@@ -188,22 +198,24 @@ fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<Strin
                         },
                         Source::Cura => match serde_json::from_str::<CuraV2>(&contents) {
                             Ok(cfg) => {
-                                let key = name.replace(".def.json","");
+                                let key = name.replace(".def.json", "");
                                 cura_entries.insert(key, cfg);
                             }
                             Err(e1) => {
                                 println!("{:?}: {:?}", entry.file_name(), e1)
                             }
                         },
-                        Source::CuraExtruder => match serde_json::from_str::<CuraExtruderV2>(&contents) {
-                            Ok(cfg) => {
-                                let key = name.replace(".def.json","");
-                                cura_extruder_entries.insert(key, cfg);
+                        Source::CuraExtruder => {
+                            match serde_json::from_str::<CuraExtruderV2>(&contents) {
+                                Ok(cfg) => {
+                                    let key = name.replace(".def.json", "");
+                                    cura_extruder_entries.insert(key, cfg);
+                                }
+                                Err(e1) => {
+                                    println!("{:?}: {:?}", entry.file_name(), e1)
+                                }
                             }
-                            Err(e1) => {
-                                println!("{:?}: {:?}", entry.file_name(), e1)
-                            }
-                        },
+                        }
                     }
                 }
             }
