@@ -20,8 +20,26 @@
     210,
     320
   ],
-  "pre_gcode": "G21\nG90 \nM107\nG28\nG1 Y-110 Z15\nG0 Z{layer_height_0}\nG92 E0\nG1 F200 Y-100 E6\nG92 E0",
-  "post_gcode": "G28\nG91\nG1 E-6 F300\nM104 S0\nG1 E-1000 F5000\nM84\nG90",
+  "pre_gcode": [
+    "G21",
+    "G90 ",
+    "M107",
+    "G28",
+    "G1 Y-110 Z15",
+    "G0 Z{layer_height_0}",
+    "G92 E0",
+    "G1 F200 Y-100 E6",
+    "G92 E0"
+  ],
+  "post_gcode": [
+    "G28",
+    "G91",
+    "G1 E-6 F300",
+    "M104 S0",
+    "G1 E-1000 F5000",
+    "M84",
+    "G90"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

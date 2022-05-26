@@ -20,8 +20,24 @@
     240,
     480
   ],
-  "pre_gcode": "M104 S{temp} T{tool} ; set extruder temperature\nG21             ; Make sure we're in metric mode\nG90             ; set absolute positioning mode\nM83             ; set relative positioning for extruder\nG28             ; home axes\nG92 E0          ; zero the extruded\nM109 S{temp} T{tool} ; wait for extruder to reach target temp\nG1 F200 E3.5    ; set feed speed, prime nozzle\nG92 E0          ; zero the extruded\nG1 Z30          ; position near the bed before first position",
-  "post_gcode": "G28             ; home axes\nM104 S0 T{tool} ; turn off right extruder\nM140 S0 T{tool} ; turn off bed\nM84             ; disable stepper motors",
+  "pre_gcode": [
+    "M104 S{temp} T{tool} ; set extruder temperature",
+    "G21             ; Make sure we're in metric mode",
+    "G90             ; set absolute positioning mode",
+    "M83             ; set relative positioning for extruder",
+    "G28             ; home axes",
+    "G92 E0          ; zero the extruded",
+    "M109 S{temp} T{tool} ; wait for extruder to reach target temp",
+    "G1 F200 E3.5    ; set feed speed, prime nozzle",
+    "G92 E0          ; zero the extruded",
+    "G1 Z30          ; position near the bed before first position"
+  ],
+  "post_gcode": [
+    "G28             ; home axes",
+    "M104 S0 T{tool} ; turn off right extruder",
+    "M140 S0 T{tool} ; turn off bed",
+    "M84             ; disable stepper motors"
+  ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": ""

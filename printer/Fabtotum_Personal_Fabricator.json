@@ -20,8 +20,32 @@
     234,
     241
   ],
-  "pre_gcode": ";Layer height: {layer_height}\n;Walls: {wall_thickness}\n;Fill: {infill_sparse_density}\n;Top\\Bottom Thickness: {top_bottom_thickness}\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nG4 S1 ;1 millisecond pause to buffer the bep bep \nM300 S2 ;FAB bep bep (start the print, go check the oozing and skirt lines adesion) \nG4 S1 ;1 second pause to reach the printer (run fast)\nG92 E0 ;zero the extruded length \nG1 F200 E35    ;slowly extrude 35mm of filament to clean the nozzle and build up extrusion pressure \nG92 E0 ;zero the extruded length again \n;print",
-  "post_gcode": "M104 S0 ;extruder heater off\nM140 S0 ;heated bed heater off (if you have it)\nG91 ;relative positioning\nG1 E-1 F300    ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+0.5 E-3 X+5 Y+5 F5000 ;move Z up a bit and retract filament even more\n;end of the print\nM84 ;steppers off\nG90 ;absolute positioning\nM300 S2 ;FAB bep bep (end print)",
+  "pre_gcode": [
+    ";Layer height: {layer_height}",
+    ";Walls: {wall_thickness}",
+    ";Fill: {infill_sparse_density}",
+    ";Top\\Bottom Thickness: {top_bottom_thickness}",
+    "G90 ;absolute positioning",
+    "M82 ;set extruder to absolute mode",
+    "G4 S1 ;1 millisecond pause to buffer the bep bep ",
+    "M300 S2 ;FAB bep bep (start the print, go check the oozing and skirt lines adesion) ",
+    "G4 S1 ;1 second pause to reach the printer (run fast)",
+    "G92 E0 ;zero the extruded length ",
+    "G1 F200 E35    ;slowly extrude 35mm of filament to clean the nozzle and build up extrusion pressure ",
+    "G92 E0 ;zero the extruded length again ",
+    ";print"
+  ],
+  "post_gcode": [
+    "M104 S0 ;extruder heater off",
+    "M140 S0 ;heated bed heater off (if you have it)",
+    "G91 ;relative positioning",
+    "G1 E-1 F300    ;retract the filament a bit before lifting the nozzle, to release some of the pressure",
+    "G1 Z+0.5 E-3 X+5 Y+5 F5000 ;move Z up a bit and retract filament even more",
+    ";end of the print",
+    "M84 ;steppers off",
+    "G90 ;absolute positioning",
+    "M300 S2 ;FAB bep bep (end print)"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

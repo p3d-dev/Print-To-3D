@@ -20,8 +20,26 @@
     103,
     78
   ],
-  "pre_gcode": "G21                 ; set to mm\nG90                 ; set absolute positioning mode\nM82                 ; set absolute positioning for extruder\nM104 S{temp}        ; set extruder temperature\nM109 S{temp}        ; wait for extruder to reach target temp\nG28 X0 Y0           ; move X/Y to min endstops\nG28 Z0              ; move Z to min endstops\nG92 X0 Y0 Z0        ; reset all axes positions\nG92 E0              ; reset extruder distance position (zero the extruder)\nG1 F{travel_speed}  ; set feed speed\nM117 ULIO Printing  ; text for screen",
-  "post_gcode": "M104 S0                        ; turn off right extruder\nM107                           ; turn off filament cooling fan\nG1 Z{z_max} F300               ; drop bed\nG28 X0 Y0                      ; home XY axes\nM84                            ; disable stepper motors",
+  "pre_gcode": [
+    "G21                 ; set to mm",
+    "G90                 ; set absolute positioning mode",
+    "M82                 ; set absolute positioning for extruder",
+    "M104 S{temp}        ; set extruder temperature",
+    "M109 S{temp}        ; wait for extruder to reach target temp",
+    "G28 X0 Y0           ; move X/Y to min endstops",
+    "G28 Z0              ; move Z to min endstops",
+    "G92 X0 Y0 Z0        ; reset all axes positions",
+    "G92 E0              ; reset extruder distance position (zero the extruder)",
+    "G1 F{travel_speed}  ; set feed speed",
+    "M117 ULIO Printing  ; text for screen"
+  ],
+  "post_gcode": [
+    "M104 S0                        ; turn off right extruder",
+    "M107                           ; turn off filament cooling fan",
+    "G1 Z{z_max} F300               ; drop bed",
+    "G28 X0 Y0                      ; home XY axes",
+    "M84                            ; disable stepper motors"
+  ],
   "fan_gcode": "M106 S200",
   "progress_gcode": "",
   "layer_gcode": ""

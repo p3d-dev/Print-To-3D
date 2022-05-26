@@ -20,8 +20,32 @@
     305,
     305
   ],
-  "pre_gcode": "G1 Z15.0 F12000         ; move the platform down 15mm\nG1 X150 Y5 F12000       ; center extruder on X\nM107                    ; turn off filament cooling fan\nM83                     ; use relative positioning for extruder\nM104 S{temp}            ; set extruder temperature\nG21                     ; use metric values\nG90                     ; use absolute positioning mode\nG28                     ; move to endstops\nG29                     ; perform auto-levelling\nM109 S{temp}            ; wait for extruder to reach target temp\nG1 X150 Y5 Z0.3         ; move the platform to purge extrusion\nG92 E0                  ; zero the extruded length\nG1 F200 X250 E30        ; extrude 30mm of feed stock\nG92 E0                  ; zero the extruded length again\nG1 X150 Y150 Z25 F12000 ; center head for print\nG1 F12000               ; set head seek rate",
-  "post_gcode": "G1 E-1 F300             ; retract the filament to release pressure\nG1 Z{z_max} E-5 F1200   ; drop bed, retract more filament\nG28 X0 Y0               ; move X/Y to min endstops\nM107                    ; turn off filament cooling fan\nM104 S0                 ; turn off extruder\nM84                     ; disable stepper motors",
+  "pre_gcode": [
+    "G1 Z15.0 F12000         ; move the platform down 15mm",
+    "G1 X150 Y5 F12000       ; center extruder on X",
+    "M107                    ; turn off filament cooling fan",
+    "M83                     ; use relative positioning for extruder",
+    "M104 S{temp}            ; set extruder temperature",
+    "G21                     ; use metric values",
+    "G90                     ; use absolute positioning mode",
+    "G28                     ; move to endstops",
+    "G29                     ; perform auto-levelling",
+    "M109 S{temp}            ; wait for extruder to reach target temp",
+    "G1 X150 Y5 Z0.3         ; move the platform to purge extrusion",
+    "G92 E0                  ; zero the extruded length",
+    "G1 F200 X250 E30        ; extrude 30mm of feed stock",
+    "G92 E0                  ; zero the extruded length again",
+    "G1 X150 Y150 Z25 F12000 ; center head for print",
+    "G1 F12000               ; set head seek rate"
+  ],
+  "post_gcode": [
+    "G1 E-1 F300             ; retract the filament to release pressure",
+    "G1 Z{z_max} E-5 F1200   ; drop bed, retract more filament",
+    "G28 X0 Y0               ; move X/Y to min endstops",
+    "M107                    ; turn off filament cooling fan",
+    "M104 S0                 ; turn off extruder",
+    "M84                     ; disable stepper motors"
+  ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": ""

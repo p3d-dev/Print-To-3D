@@ -20,8 +20,29 @@
     150,
     240
   ],
-  "pre_gcode": "G21 \nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nG28 ;Home \nG1 Z15.0 F1500 ;move the platform down 15mm\nG92 E0 \nG1 F300 E10\nG92 E0\nM302\nM163 S0 P0.9; Set Mix Factor\nM163 S1 P0.1; Set Mix Factor\nM164 S0\n",
-  "post_gcode": "G92 E10\nG1 E-10 F300\nG28 X0 Y0 ;move X Y to min endstops\nM82\nM84 ;steppers off\n",
+  "pre_gcode": [
+    "G21 ",
+    "G90 ;absolute positioning",
+    "M82 ;set extruder to absolute mode",
+    "G28 ;Home ",
+    "G1 Z15.0 F1500 ;move the platform down 15mm",
+    "G92 E0 ",
+    "G1 F300 E10",
+    "G92 E0",
+    "M302",
+    "M163 S0 P0.9; Set Mix Factor",
+    "M163 S1 P0.1; Set Mix Factor",
+    "M164 S0",
+    ""
+  ],
+  "post_gcode": [
+    "G92 E10",
+    "G1 E-10 F300",
+    "G28 X0 Y0 ;move X Y to min endstops",
+    "M82",
+    "M84 ;steppers off",
+    ""
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

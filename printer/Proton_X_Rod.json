@@ -20,8 +20,32 @@
     304,
     300
   ],
-  "pre_gcode": "G28 ;Home\nG0 X-2 Y150 F6000 ;Move to the side\nG0 Z0.3 F200 ;Move nozzle down\nM192 ; Wait for probe temperature to settle\nG28 Z\nG29\nG0 X0 Y0 Z30 F6000\nM84 E\nM0\nG1 Z15.0 F6000 ;Move the platform down 15mm\n",
-  "post_gcode": "M400\nM104 S0\nM140 S0\nM107\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 R5 X\nG0 Y300 F3000\nM84\n",
+  "pre_gcode": [
+    "G28 ;Home",
+    "G0 X-2 Y150 F6000 ;Move to the side",
+    "G0 Z0.3 F200 ;Move nozzle down",
+    "M192 ; Wait for probe temperature to settle",
+    "G28 Z",
+    "G29",
+    "G0 X0 Y0 Z30 F6000",
+    "M84 E",
+    "M0",
+    "G1 Z15.0 F6000 ;Move the platform down 15mm",
+    ""
+  ],
+  "post_gcode": [
+    "M400",
+    "M104 S0",
+    "M140 S0",
+    "M107",
+    ";Retract the filament",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G28 R5 X",
+    "G0 Y300 F3000",
+    "M84",
+    ""
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

@@ -20,8 +20,28 @@
     310,
     300
   ],
-  "pre_gcode": "; -- START GCODE --\nG21                     ;set units to millimetres\nG90                     ;set to absolute positioning\nM106 S0                 ;set fan speed to zero (turned off)\nG28 X0 Y0               ;move to the X/Y origin (Home)\nG28 Z0                  ;move to the Z origin (Home)\nG1 Z5.0 F200          ;move Z to position 5.0 mm\nG92 E0                  ;zero the extruded length\n; -- end of START GCODE --",
-  "post_gcode": "; -- END GCODE --\nM104 S0                 ;set extruder temperature to zero (turned off)\nM140 S0  ;set temp of bed to Zero  \nG91                     ;set to relative positioning\nG1 E-10 F300            ;retract the filament a bit to release some of the pressure\nG1 F2000 X0 Y300                 ;move X to min and Y to max \nG90                     ;set to absolute positioning\nM84                     ;turn off steppers\n; -- end of END GCODE --",
+  "pre_gcode": [
+    "; -- START GCODE --",
+    "G21                     ;set units to millimetres",
+    "G90                     ;set to absolute positioning",
+    "M106 S0                 ;set fan speed to zero (turned off)",
+    "G28 X0 Y0               ;move to the X/Y origin (Home)",
+    "G28 Z0                  ;move to the Z origin (Home)",
+    "G1 Z5.0 F200          ;move Z to position 5.0 mm",
+    "G92 E0                  ;zero the extruded length",
+    "; -- end of START GCODE --"
+  ],
+  "post_gcode": [
+    "; -- END GCODE --",
+    "M104 S0                 ;set extruder temperature to zero (turned off)",
+    "M140 S0  ;set temp of bed to Zero  ",
+    "G91                     ;set to relative positioning",
+    "G1 E-10 F300            ;retract the filament a bit to release some of the pressure",
+    "G1 F2000 X0 Y300                 ;move X to min and Y to max ",
+    "G90                     ;set to absolute positioning",
+    "M84                     ;turn off steppers",
+    "; -- end of END GCODE --"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

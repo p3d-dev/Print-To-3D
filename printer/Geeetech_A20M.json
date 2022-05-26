@@ -20,8 +20,30 @@
     250,
     250
   ],
-  "pre_gcode": ";GeeeTech A20M start script\nG28 ;home\nG90 ;absolute positioning\nG1 X0 Y0 Z15 E0 F300 ;go to wait position\nM140 S{material_bed_temperature_layer_0} ;set bed temp\nM109 S{material_print_temperature_layer_0} ;set extruder temp and wait\nG1 Z0.8 F200 ;set extruder height\nG1 X220 Y0 E80 F1000 ;purge line\n;end of start script",
-  "post_gcode": "G91\nG1 E-1\nG0 X0 Y200\nM104 S0\nG90\nG92 E0\nM140 S0\nM84\nM104 S0\nM140 S0\nM84",
+  "pre_gcode": [
+    ";GeeeTech A20M start script",
+    "G28 ;home",
+    "G90 ;absolute positioning",
+    "G1 X0 Y0 Z15 E0 F300 ;go to wait position",
+    "M140 S{material_bed_temperature_layer_0} ;set bed temp",
+    "M109 S{material_print_temperature_layer_0} ;set extruder temp and wait",
+    "G1 Z0.8 F200 ;set extruder height",
+    "G1 X220 Y0 E80 F1000 ;purge line",
+    ";end of start script"
+  ],
+  "post_gcode": [
+    "G91",
+    "G1 E-1",
+    "G0 X0 Y200",
+    "M104 S0",
+    "G90",
+    "G92 E0",
+    "M140 S0",
+    "M84",
+    "M104 S0",
+    "M140 S0",
+    "M84"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

@@ -20,8 +20,36 @@
     200,
     270
   ],
-  "pre_gcode": ";---- Starting Script Start ----\nG90                     ;absolute positioning\nM82                     ;set extruder to absolute mode\nM107                   ;start with the fan off\nG28 Z0                ;move Z to min endstops\nG28 X0 Y0           ;move X/Y to min endstops\nG92 E0                ;zero the extruded length\nG1  F5000           ;set speed\nG1 Y40                ;move to start position Y\nM117 Printing...\n;---- Starting Script End ----\n",
-  "post_gcode": ";---- Ending Script Start ----\nM104 S0                                        ;extruder heater off\nM140 S0                                        ;heated bed heater off (if you have it)\nG91                                               ;relative positioning\nG1 E-4 F300                                  ;retract the filament a bit before lifting the nozzle to release some of the pressure\nG1 Z+0.5 E-5 X-20 Y-20 F5000    ;move Z up a bit and retract filament even more\nG28 Z0                                          ;move bed down\nG28 X0 Y0                                     ;move X/Y to min endstops so the head is out of the way\nM84                                              ;steppers off\nG90                                              ;absolute positioning\nM107                                            ;switch off cooling fan\nM355 S0 P0                                  ;switch off case light\n;---- Ending Script End ----\n",
+  "pre_gcode": [
+    ";---- Starting Script Start ----",
+    "G90                     ;absolute positioning",
+    "M82                     ;set extruder to absolute mode",
+    "M107                   ;start with the fan off",
+    "G28 Z0                ;move Z to min endstops",
+    "G28 X0 Y0           ;move X/Y to min endstops",
+    "G92 E0                ;zero the extruded length",
+    "G1  F5000           ;set speed",
+    "G1 Y40                ;move to start position Y",
+    "M117 Printing...",
+    ";---- Starting Script End ----",
+    ""
+  ],
+  "post_gcode": [
+    ";---- Ending Script Start ----",
+    "M104 S0                                        ;extruder heater off",
+    "M140 S0                                        ;heated bed heater off (if you have it)",
+    "G91                                               ;relative positioning",
+    "G1 E-4 F300                                  ;retract the filament a bit before lifting the nozzle to release some of the pressure",
+    "G1 Z+0.5 E-5 X-20 Y-20 F5000    ;move Z up a bit and retract filament even more",
+    "G28 Z0                                          ;move bed down",
+    "G28 X0 Y0                                     ;move X/Y to min endstops so the head is out of the way",
+    "M84                                              ;steppers off",
+    "G90                                              ;absolute positioning",
+    "M107                                            ;switch off cooling fan",
+    "M355 S0 P0                                  ;switch off case light",
+    ";---- Ending Script End ----",
+    ""
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

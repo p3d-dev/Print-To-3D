@@ -20,8 +20,35 @@
     250,
     190
   ],
-  "pre_gcode": "  ; -- START GCODE --\n  G21\n  G28 ; Home extruder\n  G29 ; Autolevel bed\n  M107 ; Turn off fan\n  G90 ; Absolute positioning\n  M82 ; Extruder in absolute mode\n  G92 E0 ; Reset extruder position\n  ; -- end of START GCODE --\n\n",
-  "post_gcode": "  ; -- END GCODE --\n  G1 X0 Y230 ; Get extruder out of way.\n  M107 ; Turn off fan\n  G91 ; Relative positioning\n  G0 Z20 ; Lift extruder up\n  T0\n  G1 E-1 ; Reduce filament pressure\n  M104 T0 S0 ; Turn ectruder heater off\n  G90 ; Absolute positioning\n  G92 E0 ; Reset extruder position\n  M140 S0 ; Disable heated bed\n  M84 ; Turn steppers off\n  ; -- end of END GCODE --\n",
+  "pre_gcode": [
+    "  ; -- START GCODE --",
+    "  G21",
+    "  G28 ; Home extruder",
+    "  G29 ; Autolevel bed",
+    "  M107 ; Turn off fan",
+    "  G90 ; Absolute positioning",
+    "  M82 ; Extruder in absolute mode",
+    "  G92 E0 ; Reset extruder position",
+    "  ; -- end of START GCODE --",
+    "",
+    ""
+  ],
+  "post_gcode": [
+    "  ; -- END GCODE --",
+    "  G1 X0 Y230 ; Get extruder out of way.",
+    "  M107 ; Turn off fan",
+    "  G91 ; Relative positioning",
+    "  G0 Z20 ; Lift extruder up",
+    "  T0",
+    "  G1 E-1 ; Reduce filament pressure",
+    "  M104 T0 S0 ; Turn ectruder heater off",
+    "  G90 ; Absolute positioning",
+    "  G92 E0 ; Reset extruder position",
+    "  M140 S0 ; Disable heated bed",
+    "  M84 ; Turn steppers off",
+    "  ; -- end of END GCODE --",
+    ""
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

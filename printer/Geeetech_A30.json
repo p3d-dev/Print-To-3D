@@ -20,8 +20,23 @@
     320,
     420
   ],
-  "pre_gcode": "G28 ;Home\nM190 S{material_bed_temperature}\nM109 S{material_print_temperature} T0\nG1 Z15.0 F6000 ;Move the platform down 15mm\nG92 E0\nG1 F200 E3\nG92 E0",
-  "post_gcode": "M104 S0;Cooling the heat end\nM140 S0;Cooling the heat bed\nG92 E1\nG1 E-1 F300\nG28 X0 Y0;Home X axis and Y axis\nM84",
+  "pre_gcode": [
+    "G28 ;Home",
+    "M190 S{material_bed_temperature}",
+    "M109 S{material_print_temperature} T0",
+    "G1 Z15.0 F6000 ;Move the platform down 15mm",
+    "G92 E0",
+    "G1 F200 E3",
+    "G92 E0"
+  ],
+  "post_gcode": [
+    "M104 S0;Cooling the heat end",
+    "M140 S0;Cooling the heat bed",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G28 X0 Y0;Home X axis and Y axis",
+    "M84"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

@@ -20,8 +20,23 @@
     220,
     230
   ],
-  "pre_gcode": "M53; enable feed-hold\nG0 Z2.0; always start from the same height to compensate backlash\nG28; move extruder to 0\nM420 R0.0 E0.0 D0.0 P0.1 ; turn the lights on\nM107; turn off fan\nG64 P0.05 Q0.05; path blending settings\nG23; unretract",
-  "post_gcode": "M104 P0 ; turn off hotend\nG0 X-80 Y100; move the extruder out of the way\nM420 R0.0 E0.1 D0.0 P0.6 ; signalize end of print\nM140 P0 ; turn off heatbed\nM65 P16 ; turn off external fan\nM65 P15 ; turn off power",
+  "pre_gcode": [
+    "M53; enable feed-hold",
+    "G0 Z2.0; always start from the same height to compensate backlash",
+    "G28; move extruder to 0",
+    "M420 R0.0 E0.0 D0.0 P0.1 ; turn the lights on",
+    "M107; turn off fan",
+    "G64 P0.05 Q0.05; path blending settings",
+    "G23; unretract"
+  ],
+  "post_gcode": [
+    "M104 P0 ; turn off hotend",
+    "G0 X-80 Y100; move the extruder out of the way",
+    "M420 R0.0 E0.1 D0.0 P0.6 ; signalize end of print",
+    "M140 P0 ; turn off heatbed",
+    "M65 P16 ; turn off external fan",
+    "M65 P15 ; turn off power"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

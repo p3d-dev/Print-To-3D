@@ -20,8 +20,35 @@
     110,
     120
   ],
-  "pre_gcode": ";(**** start.gcode for MP Mini Delta V2****)\nG21\nG90\nM82\nM107\nM104 S170\nG28 X0 Y0\nG28 Z0\nG29 Z0.4\nG1 Z15 F300\nM109 S{material_print_temperature_layer_0}\nG92 E0\nG1 F200 E3\nG92 E0\nG1 F2000\n",
-  "post_gcode": ";(**** end.gcode for MP Mini Delta V2****)\nG28;(Stick out the part)\nM190 S0;(Turn off heat bed, don't wait.)\nG92 E10;(Set extruder to 10)\nG1 E7 F200;(retract 3mm)\nM104 S0;(Turn off nozzle, don't wait)\nG4 S300;(Delay 5 minutes)\nM107;(Turn off part fan)\nM84;(Turn off stepper motors.)",
+  "pre_gcode": [
+    ";(**** start.gcode for MP Mini Delta V2****)",
+    "G21",
+    "G90",
+    "M82",
+    "M107",
+    "M104 S170",
+    "G28 X0 Y0",
+    "G28 Z0",
+    "G29 Z0.4",
+    "G1 Z15 F300",
+    "M109 S{material_print_temperature_layer_0}",
+    "G92 E0",
+    "G1 F200 E3",
+    "G92 E0",
+    "G1 F2000",
+    ""
+  ],
+  "post_gcode": [
+    ";(**** end.gcode for MP Mini Delta V2****)",
+    "G28;(Stick out the part)",
+    "M190 S0;(Turn off heat bed, don't wait.)",
+    "G92 E10;(Set extruder to 10)",
+    "G1 E7 F200;(retract 3mm)",
+    "M104 S0;(Turn off nozzle, don't wait)",
+    "G4 S300;(Delay 5 minutes)",
+    "M107;(Turn off part fan)",
+    "M84;(Turn off stepper motors.)"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

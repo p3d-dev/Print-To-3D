@@ -20,8 +20,34 @@
     210,
     210
   ],
-  "pre_gcode": "M107               ; disable cooling fan\nM104 S160          ; set extruder temp\nM140 S{bed_temp}   ; set bed temp\nM190 S{bed_temp}   ; wait for bed temp\nG28 W              ; home all without mesh bed level\nG80                ; mesh bed leveling\nG90                ; set absolute positioning mode\nM83                ; set relative positioning for extruder\nG1 F1000           ; set feedrate\nG1 Y-3.0 Z0.5      ; park outside print area\nM104 S{temp}       ; set extruder actual required temp\nM109 S{temp}       ; wait for extruder actual required temp\nG1 X60.0 E9.0      ; purge line\nG1 X100.0 E12.5    ; purge line\nM117 Printing",
-  "post_gcode": "G0 E-1 F900  ; retract slightly\nM104 S0      ; turn off nozzle heat\nM140 S0      ; turn off bed heat\nM107         ; turn off fan\nG0 F3000     ; set feedrate\nG0 Y210 Z210 ; serve up print\nG4           ; wait\nM84          ; disable steppers\nM117 Print Done",
+  "pre_gcode": [
+    "M107               ; disable cooling fan",
+    "M104 S160          ; set extruder temp",
+    "M140 S{bed_temp}   ; set bed temp",
+    "M190 S{bed_temp}   ; wait for bed temp",
+    "G28 W              ; home all without mesh bed level",
+    "G80                ; mesh bed leveling",
+    "G90                ; set absolute positioning mode",
+    "M83                ; set relative positioning for extruder",
+    "G1 F1000           ; set feedrate",
+    "G1 Y-3.0 Z0.5      ; park outside print area",
+    "M104 S{temp}       ; set extruder actual required temp",
+    "M109 S{temp}       ; wait for extruder actual required temp",
+    "G1 X60.0 E9.0      ; purge line",
+    "G1 X100.0 E12.5    ; purge line",
+    "M117 Printing"
+  ],
+  "post_gcode": [
+    "G0 E-1 F900  ; retract slightly",
+    "M104 S0      ; turn off nozzle heat",
+    "M140 S0      ; turn off bed heat",
+    "M107         ; turn off fan",
+    "G0 F3000     ; set feedrate",
+    "G0 Y210 Z210 ; serve up print",
+    "G4           ; wait",
+    "M84          ; disable steppers",
+    "M117 Print Done"
+  ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "M73 P{progress}",
   "layer_gcode": ";; LAYER {layer} of {layers}\nM117 Layer {layer} of {layers}"

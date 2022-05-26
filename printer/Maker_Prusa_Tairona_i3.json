@@ -20,8 +20,17 @@
     200,
     200
   ],
-  "pre_gcode": "G1 Z15;\nG28;Home\nG29;Auto Level\nG1 Z5 F5000;Move the platform down 15mm",
-  "post_gcode": "M104 S0;Turn off temperature\nG28 X0; Home X\nM84; Disable Motors",
+  "pre_gcode": [
+    "G1 Z15;",
+    "G28;Home",
+    "G29;Auto Level",
+    "G1 Z5 F5000;Move the platform down 15mm"
+  ],
+  "post_gcode": [
+    "M104 S0;Turn off temperature",
+    "G28 X0; Home X",
+    "M84; Disable Motors"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

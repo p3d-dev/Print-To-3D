@@ -20,8 +20,28 @@
     300,
     290
   ],
-  "pre_gcode": "G28 ; Home extruder\nM107 ; Turn off fan\nG90 ; Absolute positioning\nM82 ; Extruder in absolute mode\nM190 S{material_bed_temperature}\nM104 T0 S{material_print_temperature}\nM109 T0 S{material_print_temperature}\nM104 T1 S{material_print_temperature}\nM109 T1 S{material_print_temperature}\n;G32 S3 ; auto level\nG92 E0 ; Reset extruder position",
-  "post_gcode": "M104 S0 ; turn off extruders\nM140 S0 ; heated bed heater off\nG91 ; relative positioning\nG1 E-2 F5000; retract 2mm\nG28 Z; move bed down\nG90 ; absolute positioning\nM84   ; disable motors",
+  "pre_gcode": [
+    "G28 ; Home extruder",
+    "M107 ; Turn off fan",
+    "G90 ; Absolute positioning",
+    "M82 ; Extruder in absolute mode",
+    "M190 S{material_bed_temperature}",
+    "M104 T0 S{material_print_temperature}",
+    "M109 T0 S{material_print_temperature}",
+    "M104 T1 S{material_print_temperature}",
+    "M109 T1 S{material_print_temperature}",
+    ";G32 S3 ; auto level",
+    "G92 E0 ; Reset extruder position"
+  ],
+  "post_gcode": [
+    "M104 S0 ; turn off extruders",
+    "M140 S0 ; heated bed heater off",
+    "G91 ; relative positioning",
+    "G1 E-2 F5000; retract 2mm",
+    "G28 Z; move bed down",
+    "G90 ; absolute positioning",
+    "M84   ; disable motors"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

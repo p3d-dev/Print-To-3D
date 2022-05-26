@@ -20,8 +20,23 @@
     140,
     140
   ],
-  "pre_gcode": "M118 X15.00 Y15.00 Z10.00 T{tool}\nM104 S{temp} T{tool}\nM107\nG90\nM132 X Y Z A B\nM907 X100 Y100 Z40 A80 B20\n; pre-extrude\nG1 X-75 Y-75 Z0.35 F400\nG1 Y75 E30 F1800",
-  "post_gcode": "M107\nM104 S0 T{tool}\nG162 Z\nM18",
+  "pre_gcode": [
+    "M118 X15.00 Y15.00 Z10.00 T{tool}",
+    "M104 S{temp} T{tool}",
+    "M107",
+    "G90",
+    "M132 X Y Z A B",
+    "M907 X100 Y100 Z40 A80 B20",
+    "; pre-extrude",
+    "G1 X-75 Y-75 Z0.35 F400",
+    "G1 Y75 E30 F1800"
+  ],
+  "post_gcode": [
+    "M107",
+    "M104 S0 T{tool}",
+    "G162 Z",
+    "M18"
+  ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": ""

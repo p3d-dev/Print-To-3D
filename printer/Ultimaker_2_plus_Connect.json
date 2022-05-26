@@ -20,8 +20,12 @@
     220,
     205
   ],
-  "pre_gcode": "''",
-  "post_gcode": "''",
+  "pre_gcode": [
+    "''"
+  ],
+  "post_gcode": [
+    "''"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

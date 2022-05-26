@@ -20,8 +20,22 @@
     199,
     213
   ],
-  "pre_gcode": "G28\nG29 S0\nG92 E0\nG1 X0 Y0 F4000 Z0.1\nG1 Y0 X190 F1000 E50 Z0.3\nG1 Z0",
-  "post_gcode": "M104 S0\nM140 S0\nG92 E1\nG1 E-1 F300\nG28\nM84",
+  "pre_gcode": [
+    "G28",
+    "G29 S0",
+    "G92 E0",
+    "G1 X0 Y0 F4000 Z0.1",
+    "G1 Y0 X190 F1000 E50 Z0.3",
+    "G1 Z0"
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G28",
+    "M84"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

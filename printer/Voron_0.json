@@ -20,8 +20,12 @@
     120,
     120
   ],
-  "pre_gcode": "print_start",
-  "post_gcode": "print_end",
+  "pre_gcode": [
+    "print_start"
+  ],
+  "post_gcode": [
+    "print_end"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

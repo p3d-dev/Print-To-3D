@@ -20,8 +20,29 @@
     222,
     222
   ],
-  "pre_gcode": "M107                         ; turn off filament cooling fan\nM104 S{temp} T0              ; set extruder temperature\nM140 S{bed_temp} T0          ; set bed temperature\nG90                          ; set absolute positioning mode\nM83                          ; set relative positioning for extruder\nG28                          ; home axes\nG1 F3000                     ; set default move speed\nG1 Z1 F6000                  ; pause above the bed\nM190 S{bed_temp} T0          ; wait for bed to reach target temp\nM109 S{temp} T0              ; wait for extruder to reach target temp\nG92 E0                       ; set extruder position to 0",
-  "post_gcode": "M107                ; turn off filament cooling fan\nM104 S0 T0          ; turn off extruder\nM140 S0 T0          ; turn off bed\nG91                 ; relative movement\nG1 Z10 F1200        ; drop bed 10mm\nG90                 ; absolute positioning\nG28 X0 Y0           ; home XY axes\nM84                 ; disable stepper motors",
+  "pre_gcode": [
+    "M107                         ; turn off filament cooling fan",
+    "M104 S{temp} T0              ; set extruder temperature",
+    "M140 S{bed_temp} T0          ; set bed temperature",
+    "G90                          ; set absolute positioning mode",
+    "M83                          ; set relative positioning for extruder",
+    "G28                          ; home axes",
+    "G1 F3000                     ; set default move speed",
+    "G1 Z1 F6000                  ; pause above the bed",
+    "M190 S{bed_temp} T0          ; wait for bed to reach target temp",
+    "M109 S{temp} T0              ; wait for extruder to reach target temp",
+    "G92 E0                       ; set extruder position to 0"
+  ],
+  "post_gcode": [
+    "M107                ; turn off filament cooling fan",
+    "M104 S0 T0          ; turn off extruder",
+    "M140 S0 T0          ; turn off bed",
+    "G91                 ; relative movement",
+    "G1 Z10 F1200        ; drop bed 10mm",
+    "G90                 ; absolute positioning",
+    "G28 X0 Y0           ; home XY axes",
+    "M84                 ; disable stepper motors"
+  ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "M117 {progress}% layer {layer} / {layers}",
   "layer_gcode": ""

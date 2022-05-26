@@ -20,8 +20,23 @@
     297,
     220
   ],
-  "pre_gcode": "; -- START GCODE --\nM104 S{material_print_temperature}\nG28 ; Zero-ing position\nG29 ; Auto bed-leveling\nG0 X4 Y297 Z15 F4000 ; Fast move to BQ's start position\nG90 ; Set to Absolute Positioning\nG92 E0 ; Reset extruder 0\nG1 F1800 ; Set default feedrate\nM109 S{material_print_temperature} ; Makes sure the temperature is correct before printing\n; -- end of START GCODE --",
-  "post_gcode": "; -- END GCODE --\nM801        ; Marlin G-CODE to fire end print procedure\n; -- end of END GCODE --",
+  "pre_gcode": [
+    "; -- START GCODE --",
+    "M104 S{material_print_temperature}",
+    "G28 ; Zero-ing position",
+    "G29 ; Auto bed-leveling",
+    "G0 X4 Y297 Z15 F4000 ; Fast move to BQ's start position",
+    "G90 ; Set to Absolute Positioning",
+    "G92 E0 ; Reset extruder 0",
+    "G1 F1800 ; Set default feedrate",
+    "M109 S{material_print_temperature} ; Makes sure the temperature is correct before printing",
+    "; -- end of START GCODE --"
+  ],
+  "post_gcode": [
+    "; -- END GCODE --",
+    "M801        ; Marlin G-CODE to fire end print procedure",
+    "; -- end of END GCODE --"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

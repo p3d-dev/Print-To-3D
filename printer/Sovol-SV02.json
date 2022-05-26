@@ -20,8 +20,30 @@
     250,
     300
   ],
-  "pre_gcode": "G21 ;metric values\nG28 ;home all\nG90 ;absolute positioning\nM107 ;start with the fan off\nG1 F2400 Z15.0 ;raise the nozzle 15mm\nM109 S{material_print_temperature} ;Set Extruder Temperature and Wait\nM190 S{material_bed_temperature}; Wait for bed temperature to reach target temp\nT0 ;Switch to Extruder 1\nG1 F3000 X5 Y10 Z0.2 ;move to prime start position\nG92 E0 ;reset extrusion distance\nG1 F600 X160 E5 ;prime nozzle in a line\nG1 F5000 X180 ;quick wipe\nG92 E0 ;reset extrusion distance",
-  "post_gcode": "M104 S0  ;hotend off\nM140 S0  ;bed off\nG92 E0\nG1 F2000 E-100  ;retract filament 100mm\nG92 E0\nG1 F3000 X0 Y240  ;move bed for easy part removal\nM84  ;disable steppers",
+  "pre_gcode": [
+    "G21 ;metric values",
+    "G28 ;home all",
+    "G90 ;absolute positioning",
+    "M107 ;start with the fan off",
+    "G1 F2400 Z15.0 ;raise the nozzle 15mm",
+    "M109 S{material_print_temperature} ;Set Extruder Temperature and Wait",
+    "M190 S{material_bed_temperature}; Wait for bed temperature to reach target temp",
+    "T0 ;Switch to Extruder 1",
+    "G1 F3000 X5 Y10 Z0.2 ;move to prime start position",
+    "G92 E0 ;reset extrusion distance",
+    "G1 F600 X160 E5 ;prime nozzle in a line",
+    "G1 F5000 X180 ;quick wipe",
+    "G92 E0 ;reset extrusion distance"
+  ],
+  "post_gcode": [
+    "M104 S0  ;hotend off",
+    "M140 S0  ;bed off",
+    "G92 E0",
+    "G1 F2000 E-100  ;retract filament 100mm",
+    "G92 E0",
+    "G1 F3000 X0 Y240  ;move bed for easy part removal",
+    "M84  ;disable steppers"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

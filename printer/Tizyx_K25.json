@@ -20,8 +20,30 @@
     255,
     255
   ],
-  "pre_gcode": "M82\nG90\nG28 X\nG28 Y\nG28 Z\nG29\nG91\nG1 Z0\nG90\nM82\nG92 E0\nG1 X125 Y245 F3000\nG1 Z0",
-  "post_gcode": "M104 S0\nM140 S0\nG91\nG1 E-5 F300\nG1 Z+3 F3000\nG1 Y245 F3000\nM84",
+  "pre_gcode": [
+    "M82",
+    "G90",
+    "G28 X",
+    "G28 Y",
+    "G28 Z",
+    "G29",
+    "G91",
+    "G1 Z0",
+    "G90",
+    "M82",
+    "G92 E0",
+    "G1 X125 Y245 F3000",
+    "G1 Z0"
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    "G91",
+    "G1 E-5 F300",
+    "G1 Z+3 F3000",
+    "G1 Y245 F3000",
+    "M84"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""

@@ -20,8 +20,24 @@
     270,
     340
   ],
-  "pre_gcode": ";MACHINE START CODE\nG21 ;metric values\nG90 ;absolute positioning\nG28 ;home\nG1 Z5 F9000\n;MACHINE START CODE",
-  "post_gcode": ";MACHINE END CODE\nG91 ;relative positioning\nG1 E-1 F300  ;retract  filament release pressure\nG1 Z+1.0 E-5 F9000 ;move up a and retract more\nG90 ;absolute positioning\nG28; home\nM84 ;steppers off\n;MACHINE END CODE",
+  "pre_gcode": [
+    ";MACHINE START CODE",
+    "G21 ;metric values",
+    "G90 ;absolute positioning",
+    "G28 ;home",
+    "G1 Z5 F9000",
+    ";MACHINE START CODE"
+  ],
+  "post_gcode": [
+    ";MACHINE END CODE",
+    "G91 ;relative positioning",
+    "G1 E-1 F300  ;retract  filament release pressure",
+    "G1 Z+1.0 E-5 F9000 ;move up a and retract more",
+    "G90 ;absolute positioning",
+    "G28; home",
+    "M84 ;steppers off",
+    ";MACHINE END CODE"
+  ],
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": ""
