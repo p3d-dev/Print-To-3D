@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::env;
 use std::fs::File;
-use std::io::{Error, Read};
+use std::io::{Error, Read, BufWriter};
 use std::process::Command;
 
 mod cura;
@@ -15,37 +15,82 @@ use p3d::*;
 enum Source {
     Gridapps,
     Cura,
+    CuraExtruder,
+}
+
+fn generalized(name: &str) -> String {
+    name.replace("/","")
+        .replace("_","")
+        .replace(" ","")
+        .replace("(","")
+        .replace(")",")")
+        .replace("+","plus")
+        .replace(".","")
+        .to_lowercase()
+        .to_string()
 }
 
 fn main() -> Result<(), Error> {
     let mut entries: HashMap<String, P3dPrinter> = HashMap::new();
 
-    let (gridapps_entries, cura_entries) = load_and_parse()?;
+    let (gridapps_entries, cura_entries, cura_extruder_entries) = load_and_parse()?;
 
     for (name, ga) in gridapps_entries {
-        let p3d = P3dPrinter::from_gridapps(name, ga);
-        entries.insert(p3d.name.clone(), p3d);
-    }
-    for cura in cura_entries.values() {
-        if let Some(p3d) = P3dPrinter::from_cura(&cura_entries, &cura) {
-            entries.insert(p3d.name.clone(), p3d);
+        if let Some(p3d) = P3dPrinter::from_gridapps(name.clone(), ga) {
+            let key = generalized(&p3d.name);
+            entries.insert(key, p3d);
         }
         else {
-            println!("Incomplete definition: {}", cura.printer_name());
+            println!("Incomplete gridapps definition: {}", name);
+        }
+    }
+    let mut collision = 0;
+    for cura in cura_entries.values() {
+        if let Some(p3d) = P3dPrinter::from_cura(&cura_entries, &cura_extruder_entries, &cura) {
+            let p3d_name = p3d.name.clone();
+            let key = generalized(&p3d_name);
+            if let Some(ga) = entries.remove(&key) {
+                collision += 1;
+                if let Some(p3d_new) = P3dPrinter::resolve_conflict(ga, p3d) {
+                    println!("{}: resolved collision {}", collision, &p3d_name);
+                }
+                else {
+                    println!("{}: UNRESOLVED collision {}", collision, &p3d_name);
+                }
+            }
+            else {
+                entries.insert(key, p3d);
+            }
+        }
+        else {
+            println!("Incomplete cura definition: {}", cura.printer_name());
         }
     }
 
-    for (name, e) in entries {
+    for (_name, e) in entries {
+        let mut fname = env::current_dir()?;
+        fname.pop();
+        fname.pop();
+        fname.push("printer");
+        fname.push("x");
+        let printer_name = &e.name;
+        let xname = printer_name.replace("/","_").replace(" ","_").replace("(","_").replace(")",")").replace("+","_plus");
+        fname.set_file_name(format!("{}.json",xname));
+//        println!("{:?}",fname);
+        let mut file = File::create(fname)?;
+        let writer = BufWriter::new(file);
+        serde_json::to_writer_pretty(writer, &e);
 //        println!("{}: {:#?}", name, e);
     }
 
     Ok(())
 }
 
-fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<String, CuraV2>), Error>
+fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<String, CuraV2>, HashMap<String, CuraExtruderV2>), Error>
 {
     let mut gridapps_entries: HashMap<String, Box<dyn GridApps>> = HashMap::new();
     let mut cura_entries: HashMap<String, CuraV2> = HashMap::new();
+    let mut cura_extruder_entries: HashMap<String, CuraExtruderV2> = HashMap::new();
 
     let repos: Vec<(&'static str, &'static str, &'static str, Source)> = vec![
         (
@@ -59,6 +104,12 @@ fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<Strin
             "Cura",
             "Cura/resources/definitions",
             Source::Cura,
+        ),
+        (
+            "https://github.com/p3d-dev/Cura.git",
+            "Cura",
+            "Cura/resources/extruders",
+            Source::CuraExtruder,
         ),
     ];
 
@@ -84,8 +135,9 @@ fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<Strin
                 println!("skip sub directory {:?}", entry.path());
             } else {
                 match (&source, entry.path().extension().and_then(|x| x.to_str())) {
-                    (Source::Gridapps, Some(_)) => (),
+                    (Source::Gridapps, _) => (),
                     (Source::Cura, Some(_)) => (),
+                    (Source::CuraExtruder, Some(_)) => (),
                     (_, _) => {
                         println!("skip file due to extension {:?}", entry.path().file_name());
                         continue;
@@ -123,10 +175,19 @@ fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<Strin
                                 println!("{:?}: {:?}", entry.file_name(), e1)
                             }
                         },
+                        Source::CuraExtruder => match serde_json::from_str::<CuraExtruderV2>(&contents) {
+                            Ok(cfg) => {
+                                let key = name.replace(".def.json","");
+                                cura_extruder_entries.insert(key, cfg);
+                            }
+                            Err(e1) => {
+                                println!("{:?}: {:?}", entry.file_name(), e1)
+                            }
+                        },
                     }
                 }
             }
         }
     }
-    Ok((gridapps_entries, cura_entries))
+    Ok((gridapps_entries, cura_entries, cura_extruder_entries))
 }
