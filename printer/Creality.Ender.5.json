@@ -1,0 +1,45 @@
+{
+  "name": "Creality.Ender.5",
+  "machine_name": "Creality.Ender.5",
+  "source": "GridApps01",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "T0",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    300
+  ],
+  "pre_gcode": [
+    "M107                     ; turn off filament cooling fan",
+    "G90                      ; set absolute positioning mode",
+    "M82                      ; set absolute positioning for extruder",
+    "M104 S{temp} T{tool}     ; set extruder temperature",
+    "M140 S{bed_temp} T{tool} ; set bed temperature",
+    "G28                      ; home axes",
+    "G92 E0                   ; reset extruder position",
+    "M109 S{temp} T{tool}     ; wait for extruder to reach target temp",
+    "M190 S{bed_temp} T{tool} ; wait for bed to reach target temp"
+  ],
+  "post_gcode": [
+    "M107                     ; turn off filament cooling fan",
+    "M104 S0 T{tool}          ; turn off right extruder",
+    "M140 S0 T{tool}          ; turn off bed",
+    "G28 XY                   ; home XY",
+    "M84                      ; disable stepper motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true
+}
