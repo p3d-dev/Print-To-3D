@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
 use lazy_static::*;
-use serde::Serialize;
 use regex::Regex;
+use serde::Serialize;
 
 use crate::cura::*;
 use crate::gridapps::*;
@@ -89,6 +89,7 @@ pub struct P3dPrinter {
     progress_gcode: String,
     layer_gcode: String,
     heated_bed: bool,
+    speed_travel: Option<f32>,
 }
 
 impl P3dPrinter {
@@ -135,6 +136,7 @@ impl P3dPrinter {
             bed_belt,
             extruders,
             heated_bed: true,
+            speed_travel: None,
         };
         p3d.checked()
     }
@@ -153,6 +155,7 @@ impl P3dPrinter {
         let build_height = cfg.get_build_height(all)?;
         let build_size = (bed_width, bed_depth, build_height);
         let heated_bed = cfg.get_heated_bed(all)?;
+        let opt_speed_travel = cfg.get_speed_travel(all);
         let pre_gcode = cfg
             .get_pre_gcode(all)?
             .split("\n")
@@ -192,6 +195,7 @@ impl P3dPrinter {
             bed_belt: false,
             extruders,
             heated_bed,
+            speed_travel: opt_speed_travel,
         };
         p3d.checked()
     }
@@ -243,23 +247,23 @@ lazy_static! {
         ("infill_sparse_density", None),
         ("initial_extruder_nr", None),
         ("jobname", None),
-        ("layer_height", Some("height")),
-        ("layer_height_0", Some("height")),
+        ("layer_height", Some("{height}")),
+        ("layer_height_0", Some("{height}")),
         ("machine_depth", None),
-        ("machine_height", Some("z_max")),
+        ("machine_height", Some("{z_max}")),
         ("machine_name", None),
         ("machine_width", None),
-        ("material_bed_temperature", Some("bed_temp")),
-        ("material_bed_temperature_layer_0", Some("bed_temp")),
+        ("material_bed_temperature", Some("{bed_temp}")),
+        ("material_bed_temperature_layer_0", Some("{bed_temp}")),
         ("material_brand", None),
         ("material_flow", None),
         ("material_guid", None),
         ("material_id", None),
         ("material_name", None),
-        ("material_print_temperature", Some("temp")),
-        ("material_print_temperature, 0", Some("temp")),
-        ("material_print_temperature, 1", Some("temp")),
-        ("material_print_temperature_layer_0", Some("temp")),
+        ("material_print_temperature", Some("{temp}")),
+        ("material_print_temperature, 0", Some("{temp}")),
+        ("material_print_temperature, 1", Some("{temp}")),
+        ("material_print_temperature_layer_0", Some("{temp}")),
         (
             "material_print_temperature_layer_0, initial_extruder_nr",
             None
@@ -268,9 +272,9 @@ lazy_static! {
         ("material_standby_temperature", None),
         ("material_standby_temperature, 0", None),
         ("material_standby_temperature, 1", None),
-        ("print_bed_temperature", Some("bed_temp")),
+        ("print_bed_temperature", Some("{bed_temp}")),
         ("print_speed", None),
-        ("print_temperature", Some("temp")),
+        ("print_temperature", Some("{temp}")),
         ("profile_string", None),
         ("retraction_amount", None),
         ("retraction_retract_speed", None),
@@ -292,7 +296,7 @@ lazy_static! {
 }
 
 impl P3dPrinter {
-    fn prune(gcode: &mut Vec<String>) {
+    fn prune(gcode: &mut Vec<String>, xref: &HashMap<&'static str, Option<String>>) {
         let re = Regex::new(r"^[^;]*\{(.*)\}").unwrap();
         for i in 0..gcode.len() {
             if gcode[i].starts_with(";") {
@@ -302,7 +306,7 @@ impl P3dPrinter {
             let mut replace: Option<String> = None;
             for cap in re.captures_iter(&gcode[i]) {
                 let m = &cap[1];
-                match XREF.get(m) {
+                match xref.get(m) {
                     None => {
                         // keep the variable
                     }
@@ -310,9 +314,13 @@ impl P3dPrinter {
                         delete = true;
                     }
                     Some(Some(replacement)) => {
-                        let modified = gcode[i].replace(m, replacement);
+                        let mut pattern = String::new();
+                        pattern.push_str("{");
+                        pattern.push_str(m);
+                        pattern.push_str("}");
+                        let modified = gcode[i].replace(&pattern, replacement);
                         replace = Some(modified);
-                    } 
+                    }
                 }
             }
             if delete {
@@ -323,7 +331,7 @@ impl P3dPrinter {
             }
         }
     }
-    fn does_not_contain(&self, pattern: &str) -> bool{
+    fn does_not_contain(&self, pattern: &str) -> bool {
         let re = Regex::new(&format!("^[^;]*{}", pattern)).unwrap();
         for l in self.pre_gcode.iter() {
             if re.is_match(l) {
@@ -343,21 +351,33 @@ impl P3dPrinter {
     // M192 wait for probe temperature
     // M901 ???
     fn checked(mut self) -> Option<Self> {
+        let mut xref = XREF
+            .iter()
+            .map(|(v, k)| (*v, k.map(|x| x.to_string())))
+            .collect::<HashMap<&'static str, Option<String>>>();
+
+        if let Some(ts) = self.speed_travel {
+            xref.insert("speed_travel", Some(format!("{}",ts)));
+            xref.insert("speed_travel_layer_0", Some(format!("{}",ts)));
+            xref.insert("travel_speed", Some(format!("{}",ts)));
+            xref.insert("travel_xy_speed", Some(format!("{}",ts)));
+        }
+
         // check for variables
-        P3dPrinter::prune(&mut self.pre_gcode);
-        P3dPrinter::prune(&mut self.post_gcode);
+        P3dPrinter::prune(&mut self.pre_gcode, &xref);
+        P3dPrinter::prune(&mut self.post_gcode, &xref);
 
         let need_hotend_temp = self.does_not_contain("M104");
         let need_bed_temp = self.heated_bed && self.does_not_contain("M140");
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {
-            self.pre_gcode.insert(0,"M109".to_string());
-            self.pre_gcode.insert(0,"M104 {temp}".to_string());
+            self.pre_gcode.insert(0, "M109".to_string());
+            self.pre_gcode.insert(0, "M104 {temp}".to_string());
         }
         if need_bed_temp {
-            self.pre_gcode.insert(0,"M190".to_string());
-            self.pre_gcode.insert(0,"M140 {bed_temp}".to_string());
+            self.pre_gcode.insert(0, "M190".to_string());
+            self.pre_gcode.insert(0, "M140 {bed_temp}".to_string());
         }
 
         Some(self)

@@ -33,7 +33,7 @@
     "G92 E0                  ;zero the extruded length        ",
     "G1 F2000 E3              ;extrude 3mm of feed stock",
     "G92 E0                  ;zero the extruded length again",
-    "; PLEASE CHECK: G1 F{speed_travel}",
+    "G1 F120",
     "M117 Printing...",
     "; -- end of START GCODE --"
   ],
@@ -51,5 +51,6 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": false
+  "heated_bed": false,
+  "speed_travel": 120.0
 }

@@ -59,5 +59,6 @@
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "M73 P{progress}",
   "layer_gcode": ";; LAYER {layer} of {layers}\nM117 Layer {layer} of {layers}",
-  "heated_bed": true
+  "heated_bed": true,
+  "speed_travel": null
 }

@@ -113,7 +113,10 @@ impl GridAppsExtruder for Extruder01 {
         self.select.join("\n")
     }
     fn get_deselect_gcode(&self) -> String {
-        self.deselect.as_ref().map(|x| x.join("\n")).unwrap_or_else(|| "".to_string())
+        self.deselect
+            .as_ref()
+            .map(|x| x.join("\n"))
+            .unwrap_or_else(|| "".to_string())
     }
 }
 impl GridAppsExtruder for Extruder02 {

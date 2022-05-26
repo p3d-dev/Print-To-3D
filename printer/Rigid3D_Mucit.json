@@ -51,5 +51,6 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": false
+  "heated_bed": false,
+  "speed_travel": 120.0
 }

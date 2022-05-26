@@ -3,6 +3,11 @@ use std::collections::HashMap;
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
+struct OnlyDefault<T> {
+    default_value: Option<T>,
+}
+
+#[derive(Deserialize, Debug)]
 struct Default<T> {
     default_value: Option<T>,
     value: Option<T>,
@@ -226,6 +231,7 @@ struct OverridesV2 {
     machine_start_gcode: Option<Default<String>>,
     machine_end_gcode: Option<Default<String>>,
     machine_shape: Option<Default<String>>,
+    speed_travel: Option<OnlyDefault<f32>>,
     //material_diameter: Option<Default<f32>>,
 }
 
@@ -245,13 +251,24 @@ struct DetailedSettingsV2 {
 }
 
 #[derive(Deserialize, Debug)]
+struct DetailedSpeedSettingsV2 {
+    speed_travel: Option<LongSetting<f32>>,
+}
+
+#[derive(Deserialize, Debug)]
 struct MachineSettingsV2 {
     children: DetailedSettingsV2,
 }
 
 #[derive(Deserialize, Debug)]
+struct SpeedSettingsV2 {
+    children: DetailedSpeedSettingsV2,
+}
+
+#[derive(Deserialize, Debug)]
 struct SettingsV2 {
     machine_settings: MachineSettingsV2,
+    speed: SpeedSettingsV2,
 }
 
 #[derive(Deserialize, Debug)]
@@ -451,6 +468,27 @@ impl CuraV2 {
         if let Some(inherits) = self.inherits.as_ref() {
             if let Some(parent) = all.get(inherits) {
                 return parent.get_build_height(all);
+            }
+            println!("parent not found: {}", inherits);
+        }
+        None
+    }
+    pub fn get_speed_travel(&self, all: &HashMap<String, CuraV2>) -> Option<f32> {
+        if let Some(overrides) = self.overrides.as_ref() {
+            if let Some(def) = overrides.speed_travel.as_ref() {
+                if let Some(v) = def.default_value {
+                    return Some(v);
+                }
+            }
+        }
+        if let Some(settings) = self.settings.as_ref().map(|x| &x.speed.children) {
+            if let Some(or) = settings.speed_travel.as_ref().and_then(|x| x.default_value) {
+                return Some(or);
+            }
+        }
+        if let Some(inherits) = self.inherits.as_ref() {
+            if let Some(parent) = all.get(inherits) {
+                return parent.get_speed_travel(all);
             }
             println!("parent not found: {}", inherits);
         }

@@ -33,7 +33,7 @@
     "G28 X0 Y0 ;move X/Y to min endstops",
     "M117 Homing Z ...",
     "G28 Z0 ;move Z to min endstops",
-    "; PLEASE CHECK: G1 Z15.0 F{speed_travel} ;move the platform down 15mm",
+    "G1 Z15.0 F120 ;move the platform down 15mm",
     "M117 Heating ...",
     "M109 S{temp}",
     "M117 Start cleaning ...",
@@ -49,8 +49,8 @@
     "G92 E0 ; Reset Extruder",
     "G1 E-1 F500 ; Retract filiment by 1 mm",
     "G1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed",
-    "; PLEASE CHECK: G1 X5 Y20 Z0.3 F{speed_travel} ; Move over to prevent blob squish",
-    "; PLEASE CHECK: G1 F{speed_travel}",
+    "G1 X5 Y20 Z0.3 F120 ; Move over to prevent blob squish",
+    "G1 F120",
     "G92 E0 ; Reset Extruder",
     "M117 Printing...",
     ""
@@ -74,5 +74,6 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": false
+  "heated_bed": false,
+  "speed_travel": 120.0
 }

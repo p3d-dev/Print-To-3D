@@ -35,7 +35,7 @@
     "G1 E-5 ;retract 5 mm",
     "G28 SC ;Do homeing, clean nozzles and let printer to know that printing started",
     "G92 X-6 ;Sets Curas checker board to match printers heated bed coordinates",
-    "; PLEASE CHECK: G1 F{speed_travel}",
+    "G1 F120",
     "M117 Printing..."
   ],
   "post_gcode": [
@@ -54,5 +54,6 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true
+  "heated_bed": true,
+  "speed_travel": 120.0
 }
