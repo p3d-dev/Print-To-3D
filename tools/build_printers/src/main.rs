@@ -19,23 +19,22 @@ enum Source {
 }
 
 fn generalized(name: &str) -> String {
-    name.replace("/", "")
-        .replace("_", "")
-        .replace(" ", "")
-        .replace("(", "")
-        .replace(")", ")")
-        .replace("+", "plus")
-        .replace(".", "")
+    name.replace('/', "")
+        .replace('_', "")
+        .replace(' ', "")
+        .replace('(', "")
+        .replace(')', ")")
+        .replace('+', "plus")
+        .replace('.', "")
         .to_lowercase()
-        .to_string()
 }
 
 fn main() -> Result<(), Error> {
     let mut entries: HashMap<String, P3dPrinter> = HashMap::new();
 
-    let (gridapps_entries, cura_entries, cura_extruder_entries) = load_and_parse()?;
+    let lapr = load_and_parse()?;
 
-    for (name, ga) in gridapps_entries {
+    for (name, ga) in lapr.gridapps_entries {
         if let Some(p3d) = P3dPrinter::from_gridapps(name.clone(), ga) {
             let key = generalized(&p3d.name);
             entries.insert(key, p3d);
@@ -44,8 +43,10 @@ fn main() -> Result<(), Error> {
         }
     }
     let mut collision = 0;
-    for cura in cura_entries.values() {
-        if let Some(p3d) = P3dPrinter::from_cura(&cura_entries, &cura_extruder_entries, &cura) {
+    for cura in lapr.cura_entries.values() {
+        if let Some(p3d) =
+            P3dPrinter::from_cura(&lapr.cura_entries, &lapr.cura_extruder_entries, cura)
+        {
             let p3d_name = p3d.name.clone();
             let key = generalized(&p3d_name);
             if let Some(ga) = entries.remove(&key) {
@@ -75,30 +76,29 @@ fn main() -> Result<(), Error> {
         fname.push("x");
         let printer_name = &e.name;
         let xname = printer_name
-            .replace("/", "_")
-            .replace(" ", "_")
-            .replace("(", "_")
-            .replace(")", ")")
-            .replace("+", "_plus");
+            .replace('/', "_")
+            .replace(' ', "_")
+            .replace('(', "_")
+            .replace(')', ")")
+            .replace('+', "_plus");
         fname.set_file_name(format!("{}.json", xname));
         //        println!("{:?}",fname);
-        let mut file = File::create(fname)?;
+        let file = File::create(fname)?;
         let writer = BufWriter::new(file);
-        serde_json::to_writer_pretty(writer, &e);
+        serde_json::to_writer_pretty(writer, &e)?;
         //        println!("{}: {:#?}", name, e);
     }
 
     Ok(())
 }
 
-fn load_and_parse() -> Result<
-    (
-        HashMap<String, Box<dyn GridApps>>,
-        HashMap<String, CuraV2>,
-        HashMap<String, CuraExtruderV2>,
-    ),
-    Error,
-> {
+struct LoadAndParseResult {
+    gridapps_entries: HashMap<String, Box<dyn GridApps>>,
+    cura_entries: HashMap<String, CuraV2>,
+    cura_extruder_entries: HashMap<String, CuraExtruderV2>,
+}
+
+fn load_and_parse() -> Result<LoadAndParseResult, Error> {
     let mut gridapps_entries: HashMap<String, Box<dyn GridApps>> = HashMap::new();
     let mut cura_entries: HashMap<String, CuraV2> = HashMap::new();
     let mut cura_extruder_entries: HashMap<String, CuraExtruderV2> = HashMap::new();
@@ -140,23 +140,20 @@ fn load_and_parse() -> Result<
 
         let cfg_dir = temp_dir.join(dir);
 
-        match source {
-            Source::CuraExtruder => {
-                // the file fdmextruder is at a weird place
-                let fname = temp_dir.join("Cura/resources/definitions/fdmextruder.def.json");
-                let mut file = File::open(fname)?;
-                let mut contents = String::new();
-                file.read_to_string(&mut contents)?;
-                match serde_json::from_str::<CuraExtruderV2>(&contents) {
-                    Ok(cfg) => {
-                        cura_extruder_entries.insert("fdmextruder".to_string(), cfg);
-                    }
-                    Err(e1) => {
-                        println!("fdm_extruder: {:?}", e1)
-                    }
+        if let Source::CuraExtruder = source {
+            // the file fdmextruder is at a weird place
+            let fname = temp_dir.join("Cura/resources/definitions/fdmextruder.def.json");
+            let mut file = File::open(fname)?;
+            let mut contents = String::new();
+            file.read_to_string(&mut contents)?;
+            match serde_json::from_str::<CuraExtruderV2>(&contents) {
+                Ok(cfg) => {
+                    cura_extruder_entries.insert("fdmextruder".to_string(), cfg);
+                }
+                Err(e1) => {
+                    println!("fdm_extruder: {:?}", e1)
                 }
             }
-            _ => {}
         }
 
         for entry in std::fs::read_dir(cfg_dir)? {
@@ -221,5 +218,9 @@ fn load_and_parse() -> Result<
             }
         }
     }
-    Ok((gridapps_entries, cura_entries, cura_extruder_entries))
+    Ok(LoadAndParseResult {
+        gridapps_entries,
+        cura_entries,
+        cura_extruder_entries,
+    })
 }
