@@ -1,9 +1,14 @@
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use std::env;
 use std::fs::{DirEntry, File};
 use std::io::{Error, Read};
+use std::collections::HashMap;
 use std::process::Command;
+
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+
+trait GridApps {
+}
 
 #[derive(Deserialize, Debug)]
 struct Extruder01 {
@@ -142,6 +147,13 @@ enum Source {
 }
 
 fn main() -> Result<(), Error> {
+    loadAndParse()
+}
+
+fn loadAndParse() -> Result<(), Error> {
+    let mut gridapps_entries: HashMap<String,Box<dyn GridApps>> = HashMap::new(); 
+    let mut cura_entries: HashMap<String,CuraV2> = HashMap::new(); 
+
     let repos: Vec<(&'static str, &'static str, &'static str, Source)> = vec![
         (
             "https://github.com/GridSpace/grid-apps.git",
@@ -178,6 +190,15 @@ fn main() -> Result<(), Error> {
             if entry.file_type()?.is_dir() {
                 println!("skip sub directory {:?}", entry.path());
             } else {
+                match (&source, entry.path().extension().and_then(|x| x.to_str())) {
+                    (Source::Gridapps,Some(_)) => (),
+                    (Source::Cura,Some(_)) => (),
+                    (_,_) => {
+                        println!("skip file due to extension {:?}", entry.path().file_name());
+                        continue
+                    }
+                }
+
                 //println!("process {:?}",entry.path());
                 let mut file = File::open(entry.path())?;
                 let mut contents = String::new();
@@ -187,13 +208,13 @@ fn main() -> Result<(), Error> {
                         Ok(cfg) => (),
                         Err(e1) => match serde_json::from_str::<GridApps02>(&contents) {
                             Ok(cfg) => (),
-                            Err(e2) => println!("{:?}: {:?} {:?}", entry.path(), e1, e2),
+                            Err(e2) => println!("{:?}: {:?} {:?}", entry.file_name(), e1, e2),
                         },
                     },
                     Source::Cura => match serde_json::from_str::<CuraV2>(&contents) {
                         Ok(cfg) => (),
                         Err(e1) => {
-                            println!("{:?}: {:?}", entry.path(), e1)
+                            println!("{:?}: {:?}", entry.file_name(), e1)
                         }
                     },
                 }
