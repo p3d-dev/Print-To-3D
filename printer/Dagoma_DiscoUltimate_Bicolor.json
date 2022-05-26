@@ -1,0 +1,28 @@
+{
+  "name": "Dagoma DiscoUltimate Bicolor",
+  "machine_name": "Dagoma DiscoUltimate Bicolor",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": ";Start T0\nM83\nG1 E{retraction_amount} F3000\nG1 E60 F3000\nG1 E-{retraction_amount} F5000\nM82\nG92 E0",
+      "deselect": "M83\nG1 E-{retraction_amount} F10000\nG1 E1.5 F3000\nG1 E-60 F10000\nM82\nG92 E0\n;End T0"
+    }
+  ],
+  "build_size": [
+    205,
+    205,
+    205
+  ],
+  "pre_gcode": ";Begin Start Gcode for Dagoma DiscoUltimate Bicolor\n;Sliced: {date} {time}\n;Initial extruder: {initial_extruder_nr}\n\nG90 ;Absolute positioning\nM106 S255 ;Fan on full\nG28 X Y ;Home stop X Y\nG1 X100 ;Centre back during cooldown in case of oozing\nM109 R{material_standby_temperature} ;Cooldown in case too hot\nG28 ;Centre\nG29 ;Auto-level\nM104 S{material_print_temperature_layer_0} ;Pre-heat\nM107 ;Fan off\nG0 X100 Y5 Z0.5 ;Front centre for degunk\nM109 S{material_print_temperature_layer_0} ;Wait for initial temp\n;M83 ;E Relative\n;G1 E60 F3000 ;Reverse multi-extruder retract\n;G1 E10 F200 ;Degunk\n;G1 E-3 F5000 ;Retract\nG0 Z3 ;Withdraw\n;M82 ;E absolute\n;G92 E0 ;E reset\n;G1 F6000 ;Set feedrate\n\n;Finish Start Gcode for Dagoma DiscoUltimate Bicolor\n",
+  "post_gcode": ";Begin End Gcode for Dagoma DiscoUltimate Bicolor\n\nM106 S255 ;Fan on full\nM104 S0 ;Cool hotend\nM140 S0 ;Cool heated bed\nG91 ;Relative positioning\nG1 E-3 F5000 ;Retract filament to stop oozing\nG1 E-60 F5000 ;Retract filament multi-extruder\nG0 Z+3 ;Withdraw\nG90 ; Absolute positioning\nG28 X Y ;Home\nM109 R{material_standby_temperature} ;Wait until head has cooled to standby temp\nM107 ;Fan off\nM18 ;Stepper motors off\n\n;Finish End Gcode for Dagoma DiscoUltimate Bicolor\n",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

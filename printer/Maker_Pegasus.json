@@ -1,0 +1,28 @@
+{
+  "name": "Maker Pegasus",
+  "machine_name": "makeR Pegasus",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    400,
+    400,
+    400
+  ],
+  "pre_gcode": "G1 Z15;\nG28;Home\nG29;Auto Level\nG1 Z5 F5000;Move the platform down 15mm",
+  "post_gcode": "M104 S0;Turn off temperature\nG28 X0; Home X\nM84; Disable Motors",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

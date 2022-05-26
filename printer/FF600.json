@@ -1,0 +1,28 @@
+{
+  "name": "FF600",
+  "machine_name": "FF600",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    500,
+    500,
+    600
+  ],
+  "pre_gcode": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nM107 ;start with the fan off\nG28 X0 Y0 ;move X/Y to min endstops\nG28 Z0 ;move Z to min endstops\nG1 Z15.0 F9000 ;move the platform down 15mm\nG92 E0 ;zero the extruded length\nG1 F200 E6 ;extrude 6 mm of feed stock\nG92 E0 ;zero the extruded length again\n;Put printing message on LCD screen\nM117 Printing...",
+  "post_gcode": "'M104 S0 ;extruder heater off' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '\\nG91 ;relative positioning\\nG1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure\\nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way\\nM84 ;steppers off\\nG90 ;absolute positioning\\nM107 ; Fans off'",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

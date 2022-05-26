@@ -1,0 +1,28 @@
+{
+  "name": "XYZprinting da Vinci 1.0 Pro",
+  "machine_name": "XYZprinting da Vinci 1.0 Pro",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    200,
+    200,
+    200
+  ],
+  "pre_gcode": "G28 ; home all axes\nG1 Z15 F5000 ; lift nozzle\nG92 E0\nG1 F200 E3\n",
+  "post_gcode": "M104 S0 ; turn off temperature\nM105 S0;  \nG28 X0  ; home X axis\nM84     ; disable motors\n",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Peopoly Moai",
+  "machine_name": "Moai",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.067,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    130,
+    130,
+    180
+  ],
+  "pre_gcode": "G28 ;Home",
+  "post_gcode": "M104 S0\nM140 S0\nG28 X0 Y0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

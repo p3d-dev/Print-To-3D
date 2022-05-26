@@ -1,0 +1,28 @@
+{
+  "name": "Prusa.mini",
+  "machine_name": "Prusa.mini",
+  "source": "GridApps02",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "T0",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    180,
+    180,
+    180
+  ],
+  "pre_gcode": "G90                 ; use absolute coordinates\nM83                 ; extruder relative mode\nM104 S170           ; set extruder temp for bed leveling\nM140 S{bed_temp}    ; set bed temp\nM109 R170           ; wait for bed leveling temp\nM190 S{bed_temp}    ; wait for bed temp\nG28                 ; home all without mesh bed level\nG29                 ; mesh bed leveling \nM104 S{temp}        ; set extruder temp\nG92 E0.0\nG1 Y-2.0 X179 F2400\nG1 Z3 F720\nM109 S{temp}        ; wait for extruder temp\n                    ; intro line\nG1 X170 F1000       ; purge line\nG1 Z0.2 F720        ; purge line\nG1 X110.0 E8.0 F900 ; purge line\nG1 X40.0 E10.0 F700 ; purge line\nG92 E0.0\nM221 S95            ; set flow",
+  "post_gcode": "G1 E-1 F2100              ; retract\nG1 Z178 Y178 F4200        ; park print head\nG4                        ; wait\nM104 S0                   ; turn off temperature\nM140 S0                   ; turn off heatbed\nM107                      ; turn off fan\nM221 S100                 ; reset flow\nM900 K0                   ; reset LA\nM84                       ; disable motors",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]"
+}

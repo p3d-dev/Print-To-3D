@@ -1,0 +1,28 @@
+{
+  "name": "Hellbot Magna 2 400 dual",
+  "machine_name": "Hellbot Magna 2 400 Dual",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "T0 \nG92 E0 \nG1 F1000 E100 \nG92 E0 \nM104 S{material_print_temperature}",
+      "deselect": "G92 E0 \nG1 F2500 E-5 \nG1 F2400 X395 Y350 \nG1 F3000 E-100 \nG92 E0 \nG90"
+    }
+  ],
+  "build_size": [
+    400,
+    400,
+    400
+  ],
+  "pre_gcode": "M104 T0 S{material_print_temperature}\nM104 T1 S{material_print_temperature}\nM109 T0 S{material_print_temperature}\nM109 T1 S{material_print_temperature}\nG21\nG90 \nG28 X0 Y0 \nG28 Z0 \nG1 Z15.0 F300 \nT0 \nG92 E0 \nG1 F700 E-80 \nT1 \nG92 E0 \nG1 F1000 X1 Y1 Z0.3 \nG1 F600 X200 E60 \nG1 F1000 Y3 \nG1 F600 X1 E120 \nT1 \nG92 E0 \nG28 X0 Y0 \nG1 F700 E-80 \nT0 \nG92 E0",
+  "post_gcode": "M104 T0 S0\nM104 T1 S0\nM140 S0\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

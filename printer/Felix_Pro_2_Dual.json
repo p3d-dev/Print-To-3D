@@ -1,0 +1,28 @@
+{
+  "name": "Felix Pro 2 Dual",
+  "machine_name": "FelixPro2Dual",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.35,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    240,
+    225,
+    245
+  ],
+  "pre_gcode": "G90 ;absolute positioning\r\nM82 ;set extruder to absolute mode\r\nM107 ;start with the fan off\r\nG28 X0 Y0 ;move X/Y to min endstops\r\nG28 Z0 ;move Z to min endstops\r\nG1 Z15.0 F9000 ;move the platform down 15mm\r\n\r\nT0 ;Switch to the 1st extruder\r\nG92 E0 ;zero the extruded length\r\nG1 F200 E6 ;extrude 6 mm of feed stock\r\nG92 E0 ;zero the extruded length again\r\n;G1 F9000\r\nM117 FPro2 printing...\r\n",
+  "post_gcode": "; Endcode FELIXprinters Pro series\r\n; =================================\t; Move extruder to park position\r\nG91   \t\t\t\t\t; Make coordinates relative\r\nG1 Z2 F5000   \t\t\t\t; Move z 2mm up\r\nG90   \t\t\t\t\t; Use absolute coordinates again\t\t\r\nG1 X220 Y243 F7800 \t\t\t; Move bed and printhead to ergonomic position\r\n\r\n; =================================\t; Turn off heaters\r\nT0\t\t\t\t\t; Select left extruder\r\nM104 T0 S0\t\t\t\t; Turn off heater and continue\t\t\t\t\r\nG92 E0\t\t\t\t\t; Reset extruder position\r\nG1 E-8\t\t\t\t\t; Retract filament 8mm\r\nG1 E-5\t\t\t\t\t; Push back filament 3mm\r\nG92 E0\t\t\t\t\t; Reset extruder position\r\n\r\nT1\t\t\t\t\t; Select right extruder\r\nM104 T1 S0\t\t\t\t; Turn off heater and continu\r\nG92 E0\t\t\t\t\t; Reset extruder position\r\nG1 E-8\t\t\t\t\t; Retract filament 8mm\r\nG1 E-5\t\t\t\t\t; Push back filament 3mm\r\nG92 E0\t\t\t\t\t; Reset extruder position\r\nT0\t\t\t\t\t; Select left extruder\r\nM140 S0\t\t\t\t\t; Turn off bed heater\r\n\r\n; =================================\t; Turn the rest off\r\nM107    \t\t\t\t; Turn off fan\r\nM84\t\t\t\t\t; Disable steppers\r\nM117 Print Complete",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

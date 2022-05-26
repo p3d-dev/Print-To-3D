@@ -1,0 +1,28 @@
+{
+  "name": "Ulio3D.Purge",
+  "machine_name": "Ulio3D.Purge",
+  "source": "GridApps01",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    103,
+    103,
+    78
+  ],
+  "pre_gcode": "G21                 ; set to mm\nG90                 ; set absolute positioning mode\nM82                 ; set absolute positioning for extruder\nM104 S{temp}        ; set extruder temperature\nM109 S{temp}        ; wait for extruder to reach target temp\nG28 X0 Y0           ; move X/Y to min endstops\nG28 Z0              ; move Z to min endstops\nG92 X0 Y0 Z0        ; reset all axes positions\nG92 E0              ; reset extruder distance position (zero the extruder)\nM83                 ; set extruder in relative mode\nG1 X100.0 E12 F1000 ; start perimiter leveling line\nG1 Y102.0 E12 F1000 ;\nG1 X2.0 E12 F1000   ;\nG1 Y2.0 E12 F1000   ;\nG1 X98.0 E12 F1000  ;\nG1 Y100.0 E12 F1000 ;\nG1 X4.0 E12 F1000   ;\nG1 Y4.0 E12 F1000   ;\nG1 X96.0 E12 F1000  ;\nG1 Y98.0 E12 F1000  ;\nG1 X6.0 E12 F1000   ;\nG1 Y6.0 E12 F1000   ; finish perimiter leveling line\nG28 X0 Y0           ; move X/Y to min endstops\nM82                 ; set absolute positioning for extruder\nG92 E0              ; reset extruder distance position (zero the extruder)\nG1 F{travel_speed}  ; set feed speed\nM117 ULIO Printing  ; text for screen",
+  "post_gcode": "M104 S0                        ; turn off right extruder\nM107                           ; turn off filament cooling fan\nG1 Z{z_max} F300               ; drop bed\nG28 X0 Y0                      ; home XY axes\nM84                            ; disable stepper motors",
+  "fan_gcode": "M106 S200",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

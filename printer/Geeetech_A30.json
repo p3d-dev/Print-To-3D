@@ -1,0 +1,28 @@
+{
+  "name": "Geeetech A30",
+  "machine_name": "Geeetech A30",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    320,
+    320,
+    420
+  ],
+  "pre_gcode": "G28 ;Home\nM190 S{material_bed_temperature}\nM109 S{material_print_temperature} T0\nG1 Z15.0 F6000 ;Move the platform down 15mm\nG92 E0\nG1 F200 E3\nG92 E0",
+  "post_gcode": "M104 S0;Cooling the heat end\nM140 S0;Cooling the heat bed\nG92 E1\nG1 E-1 F300\nG28 X0 Y0;Home X axis and Y axis\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

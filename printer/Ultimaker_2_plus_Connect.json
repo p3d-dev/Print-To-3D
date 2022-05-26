@@ -1,0 +1,28 @@
+{
+  "name": "Ultimaker 2+ Connect",
+  "machine_name": "Ultimaker 2+ Connect",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 2.85,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    223,
+    220,
+    205
+  ],
+  "pre_gcode": "''",
+  "post_gcode": "''",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

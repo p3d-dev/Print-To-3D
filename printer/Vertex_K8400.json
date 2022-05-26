@@ -1,0 +1,28 @@
+{
+  "name": "Vertex K8400",
+  "machine_name": "Vertex K8400",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.35,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    200,
+    200,
+    190
+  ],
+  "pre_gcode": "M104 T0 S{material_print_temperature_layer_0}\nG28 ;Home extruder\nG90 ;Absolute positioning\nM82 ;Extruder in absolute mode\nG1 Z1 F100\nG92 E0 ;Reset extruder position\nM109 T0 S{material_print_temperature_layer_0}\nG1 E20 F100\nG92 E0 ;Reset extruder position",
+  "post_gcode": "G1 X0 Y0 Z130 ;Get extruder out of way\nM107 ;Turn off fan\n;Disable all extruders\nG91 ;Relative positioning\nT0\nG1 E-1 ;Reduce filament pressure\nM104 T0 S0\nG90 ;Absolute positioning\nG92 E0 ;Reset extruder position\nM140 S0 ;Disable heated bed\nM84 ;Turn steppers off",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

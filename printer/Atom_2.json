@@ -1,0 +1,28 @@
+{
+  "name": "Atom 2",
+  "machine_name": "Atom 2",
+  "source": "CuraV2",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    210,
+    210,
+    320
+  ],
+  "pre_gcode": "G21\nG90 \nM107\nG28\nG1 Y-110 Z15\nG0 Z{layer_height_0}\nG92 E0\nG1 F200 Y-100 E6\nG92 E0",
+  "post_gcode": "G28\nG91\nG1 E-6 F300\nM104 S0\nG1 E-1000 F5000\nM84\nG90",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

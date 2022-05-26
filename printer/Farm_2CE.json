@@ -1,0 +1,28 @@
+{
+  "name": "Farm 2CE",
+  "machine_name": "Farm 2CE",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    209,
+    199,
+    213
+  ],
+  "pre_gcode": "G28\nG29 S0\nG92 E0\nG1 X0 Y0 F4000 Z0.1\nG1 Y0 X190 F1000 E50 Z0.3\nG1 Z0",
+  "post_gcode": "M104 S0\nM140 S0\nG92 E1\nG1 E-1 F300\nG28\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

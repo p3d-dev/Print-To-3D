@@ -1,0 +1,28 @@
+{
+  "name": "3DTech Semi-Professional",
+  "machine_name": "3DTECH SP Control",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    250,
+    250,
+    300
+  ],
+  "pre_gcode": "G28 ; home all axes\nG29 ;\nG1 Z5 F3000 ; lift\nG1 X5 Y25 F5000 ; move to prime\nG1 Z0.2 F3000 ; get ready to prime\nG92 E0 ; reset extrusion distance\nG1 Y100 E20 F600 ; prime nozzle\nG1 Y140 F5000 ; quick wipe",
+  "post_gcode": "M104 S0\nM140 S0 ; Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

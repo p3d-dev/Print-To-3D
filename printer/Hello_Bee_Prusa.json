@@ -1,0 +1,28 @@
+{
+  "name": "Hello Bee Prusa",
+  "machine_name": "hello BEE prusa",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    185,
+    200,
+    190
+  ],
+  "pre_gcode": "; -- START GCODE --\nG21                     ;set units to millimetres\nG90                     ;set to absolute positioning\nM107                    ;set fan speed to zero (turned off)\nG28 X0 Y0               ;move to the X/Y origin (Home)\nG28 Z0                  ;move to the Z origin (Home)\nG92 E0                  ;zero the extruded length\nG1 F3600                ;set feedrate to 60 mm/sec\nM420 S1 \n; -- end of START GCODE --",
+  "post_gcode": "; -- END GCODE --\nM104 S0                 ;set extruder temperature to zero (turned off)\nM140 S0                 ;set bed temperature to zero (turned off)\nG28 X0 Y0               ;move to the X/Y origin (Home)\nM84                     ;turn off steppers\n; -- end of END GCODE --",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Cubicon.Style",
+  "machine_name": "Cubicon.Style",
+  "source": "GridApps01+CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    150,
+    150,
+    150
+  ],
+  "pre_gcode": "T{tool}                ; select extruder #0\nM104 S{temp}           ; set nozzle temp\nM140 S{bed_temp} T{tool} ; set bed temperature\nM109 S{temp}           ; wait for nozzle to heat\nS210 T{tool}           ; wait for heating?\nM82                    ; absolute extrusion mode\nG28                    ; home\nG1 Z15 F6000           ; lower platform 15mm\nG92 E0                 ; zero out extruder position\nG1 F200 E3             ; prime the extruder 3mm",
+  "post_gcode": "M107                   ; turn off filament cooling fan\nM104 S0 T{tool}        ; turn off right extruder\nM140 S0                ; turn off bed\nM904                   ; park extruder\nM84                    ; disable stepper motors",
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

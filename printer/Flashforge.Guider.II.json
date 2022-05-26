@@ -1,0 +1,28 @@
+{
+  "name": "Flashforge.Guider.II",
+  "machine_name": "Flashforge.Guider.II",
+  "source": "GridApps01",
+  "origin_center": true,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    280,
+    250,
+    300
+  ],
+  "pre_gcode": "; set bed and nozzle temps\nM104 S{temp} T{tool}\nM140 S{bed_temp}\n; absolute positioning and home\nG90\nG28\n; wait for nozzle and bed to reach target temps\nM190 S{bed_temp}\nM109 S{temp} T{tool}\nM7 T{tool}\nM6 T{tool}\n; select nozzle 0\nM108 T{tool}\nG92 E0\nG1 E0 F300\n; purge nozzle\nG1 X150 Y75 Z15 E-2 F500\nG1 Y125 Z0.5 F600\nG1 Y50 E40 F600",
+  "post_gcode": "; stop fan, cool nozzle and bed\nM107\nM104 S0 T{tool}\nM140 S0\n; slow descent of bed\nG0 F300\n; end print\nM18",
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

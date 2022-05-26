@@ -1,0 +1,28 @@
+{
+  "name": "Geeetech A20M",
+  "machine_name": "Geeetech A20M",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    250,
+    250,
+    250
+  ],
+  "pre_gcode": ";GeeeTech A20M start script\nG28 ;home\nG90 ;absolute positioning\nG1 X0 Y0 Z15 E0 F300 ;go to wait position\nM140 S{material_bed_temperature_layer_0} ;set bed temp\nM109 S{material_print_temperature_layer_0} ;set extruder temp and wait\nG1 Z0.8 F200 ;set extruder height\nG1 X220 Y0 E80 F1000 ;purge line\n;end of start script",
+  "post_gcode": "G91\nG1 E-1\nG0 X0 Y200\nM104 S0\nG90\nG92 E0\nM140 S0\nM84\nM104 S0\nM140 S0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

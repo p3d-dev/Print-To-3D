@@ -1,0 +1,28 @@
+{
+  "name": "HardPrint Hozo, Hozo",
+  "machine_name": "HardPrint Hozo, Hozo",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    180,
+    180,
+    180
+  ],
+  "pre_gcode": "M221 S100 ; reset flow\nG90 ; use absolute positioning\nM82 ; absolute extrusion mode\nM104 S170 ; set extruder temp for bed leveling\nM140 S{material_bed_temperature_layer_0} ; set bed temp\nM109 R170 ; wait for extruder temp\nM190 S{material_bed_temperature_layer_0} ; wait for bed temp\nG28 ; home all\nG29 ; mesh bed leveling\nM104 S{material_print_temperature_layer_0} ; set extruder temp\nG92 E0.0\nG1 Y-2 X179 F2400\nG1 Z3 F720\nM109 S{material_print_temperature_layer_0} ; wait for extruder temp\nG92 E0.0\nG1 Y0 F1000\nG1 Z0.2 F720\nG1 Y160 E8 F900\nG1 Y20 E18 F900\nG92 E0.0",
+  "post_gcode": "M104 S0 ; turn off extruder\nM140 S0 ; turn off heatbed\nM107 ; turn off fan\nG1 X178 Y180 F4200 ; park print head\nM84 ; disable motors",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

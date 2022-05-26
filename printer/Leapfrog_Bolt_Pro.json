@@ -1,0 +1,28 @@
+{
+  "name": "Leapfrog Bolt Pro",
+  "machine_name": "Leapfrog Bolt Pro",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "G1 Y-32 F12000\nG1 X296 F1000\nG1 X334 F4000\nG1 X296",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    302,
+    322,
+    205
+  ],
+  "pre_gcode": "G90\nG28 X0 Y0 Z0\nG1 Z5 F1000\nG92 E0\nG1 Y-32 F12000\nG1 E15 F1000\nG1 E45 F150\nG4 S5",
+  "post_gcode": "G92 E0\nG1 E-3 F300\nM104 S0 T0\nM104 S0 T1\nM140 S0\nG28 X0 Y0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

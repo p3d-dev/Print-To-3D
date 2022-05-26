@@ -1,0 +1,28 @@
+{
+  "name": "Raise3D.N2",
+  "machine_name": "Raise3D.N2",
+  "source": "GridApps01",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    310,
+    310,
+    305
+  ],
+  "pre_gcode": "M140 S{bed_temp}\nM221 T{tool} S100.00\nM104 T{tool} S{temp}\nM109 T{tool} S{temp}\nM190 S{bed_temp}\nG21\nG90\nM82\nM107\nG28 X0 Y0\nG28 Z0\nT{tool}\nG1 Z0.05 F6000.00\nG92 E0\nG1 F140 E29\nG4 P500\nG1 X15 Y15 Z0.02 F2000\nG1 F6000.00\nM117 Printing...\nM1001",
+  "post_gcode": "G91\nG1 Z10\nG90\nM1002\nM104 T{tool} S0\nM104 S0\nM140 S0\nG1 X20 Y20 F6000\nG1 X0 Y0\nM84\n;Print Time: {time}\n;Material#1 Used: {material}\n;Material#2 Used: 0.0",
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": ";LAYER:{layer}\n;HEIGHT:{height}"
+}

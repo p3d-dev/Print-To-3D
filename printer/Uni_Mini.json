@@ -1,0 +1,28 @@
+{
+  "name": "Uni Mini",
+  "machine_name": "uni_mini",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": ";T0                             ;switch to extruder 1\n;G92 E0                      ;reset extruder distance\n;G1 F2000 E93           ;load filament\n;G92 E0                      ;reset extruder distance\n;M104 S{material_print_temperature}\n;\n",
+      "deselect": ";G92 E0                       ;reset extruder distance\n;G1 F800 E-5               ;short retract\n;G1 F2400 X5 Y5         ;move near prime tower\n;G1 F2000 E-93           ;long retract for filament removal\n;G92 E0                       ;reset extruder distance\n;G90                            ;absolute coordinate\n;\n"
+    }
+  ],
+  "build_size": [
+    160,
+    160,
+    175
+  ],
+  "pre_gcode": ";Sliced at: {day} {date} {time}\nG21\nG90\nM82\nM220 S100\nM221 S100\nG28\nM190 S{material_bed_temperature_layer_0}\nM109 S{material_print_temperature_layer_0}\nG1 F600 Z15\nG92 E0\nG1 F300 E10\nM117 Printing...\n;\n",
+  "post_gcode": "G91\nG1 E-1 F600\nG1 Z+1 E-3 X-20 Y-20 F4800\nM104 S0\nM106 S0\nM140 S0\nM220 S100\nM221 S100\nG28\nG90\nM84\n;\n",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

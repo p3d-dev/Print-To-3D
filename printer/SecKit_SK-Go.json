@@ -1,0 +1,28 @@
+{
+  "name": "SecKit SK-Go",
+  "machine_name": "SecKit SK-Go",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    310,
+    310,
+    350
+  ],
+  "pre_gcode": "M569 S1 X Y ; enable StealthChop for Sensorless Homing\nG28 ; Home\nM569 S0 X Y ; disable StealthChop for normal print\nM900 K0.07 ; K factor of linear advance\nG1 Z15.0 F6000 ;Move the platform down 15mm\n;Prime the extruder\nG92 E0\nG1 F200 E3\nG92 E0\nG90 ; abs position",
+  "post_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

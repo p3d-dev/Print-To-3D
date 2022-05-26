@@ -1,0 +1,28 @@
+{
+  "name": "DeltaMaker.Original",
+  "machine_name": "DeltaMaker.Original",
+  "source": "GridApps01",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    240,
+    240,
+    260
+  ],
+  "pre_gcode": "M104 S{temp} T{tool} ; set extruder temperature\nG21             ; Make sure we're in metric mode\nG90             ; set absolute positioning mode\nM83             ; set relative positioning for extruder\nG28             ; home axes\nG92 E0          ; zero the extruded\nM109 S{temp} T{tool} ; wait for extruder to reach target temp\nG1 F200 E3.5    ; set feed speed, prime nozzle\nG92 E0          ; zero the extruded\nG1 Z30          ; position near the bed before first position",
+  "post_gcode": "G28             ; home axes\nM104 S0 T{tool} ; turn off right extruder\nM140 S0 T{tool} ; turn off bed\nM84             ; disable stepper motors",
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

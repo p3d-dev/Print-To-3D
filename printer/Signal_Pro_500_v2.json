@@ -1,0 +1,28 @@
+{
+  "name": "Signal Pro 500 v2",
+  "machine_name": "Signal Pro 500 v2",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    500
+  ],
+  "pre_gcode": "G21 ; set units to millimeters\nG90 ; use absolute positioning\nM82 ; absolute extrusion mode\nG28 ; home all without mesh bed level\nM420 S1\nG92 E0.0 ; reset extruder distance position\nG1 Z0.25\nG1 X60.0 E9.0 F1000.0 ; intro line\nG1 X100.0 E21.5 F1000.0 ; intro line\nG92 E0.0 ; reset extruder distance position",
+  "post_gcode": "M104 T0 S0                     ;extruder heater off\nM104 T1 S0                     ;extruder heater off\nM140 S0                     ;heated bed heater off\nG91\nG1 Z1 F420                                        ;relative positioning\nG1 E-1 F300                            ;retract the filament a bit before lifting the nozzle, to release some of the pressure\nG1 Z+1 E-1 F300 ;move Z up a bit and retract filament even more\nG90                         ;absolute positioning\nG1 X0 Y300 F6000                              ;move the head out of the way\nM84                         ;steppers off",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

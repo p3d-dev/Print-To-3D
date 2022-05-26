@@ -1,0 +1,28 @@
+{
+  "name": "Innovo Inventor",
+  "machine_name": "Innovo INVENTOR",
+  "source": "CuraV2",
+  "origin_center": true,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    340,
+    300,
+    290
+  ],
+  "pre_gcode": "G28 ; Home extruder\nM107 ; Turn off fan\nG90 ; Absolute positioning\nM82 ; Extruder in absolute mode\nM190 S{material_bed_temperature}\nM104 T0 S{material_print_temperature}\nM109 T0 S{material_print_temperature}\nM104 T1 S{material_print_temperature}\nM109 T1 S{material_print_temperature}\n;G32 S3 ; auto level\nG92 E0 ; Reset extruder position",
+  "post_gcode": "M104 S0 ; turn off extruders\nM140 S0 ; heated bed heater off\nG91 ; relative positioning\nG1 E-2 F5000; retract 2mm\nG28 Z; move bed down\nG90 ; absolute positioning\nM84   ; disable motors",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

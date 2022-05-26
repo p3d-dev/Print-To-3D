@@ -1,0 +1,28 @@
+{
+  "name": "Kosher Duplication",
+  "machine_name": "Kosher_Duplication",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    100,
+    220,
+    300
+  ],
+  "pre_gcode": "M605 S0\nT0\nM605 S2 R0 X266\nG28 X\nG28 Y\nG1 X-30 F9000\nG1 Y20 F9000\nG21\nG90\nM82\nM107\nM104 S{material_print_temperature};\nM105\nM109 S{material_print_temperature};\nG92 E0\nG1 E16 F210\nG92 E0\nM605 S2 X100\nG28 X\nG28 Z\n",
+  "post_gcode": "G91\nG1 Z+0.5 E-16 Y+10 F9000\nG90\nM107\nM104 S0\nM140 S0\nM117\nM605 S0\nG28 X0 Y0\nM605 S1\nG28 X\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

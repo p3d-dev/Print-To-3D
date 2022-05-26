@@ -1,0 +1,28 @@
+{
+  "name": "Creatable D3",
+  "machine_name": "Creatable D3",
+  "source": "CuraV2",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    250,
+    250,
+    200
+  ],
+  "pre_gcode": "G21\nG90\nM82\nM106 S255\nG28\nG92 E0\nG1 Z100 F5000\nM190 S50\nM109 S200\nG1 X-135\nG1 Z0.3\nG92 E-32\nG1 E0 F1000\nG1 E50 F200\nG1 F1000\nG1 X-125\nG92 E0",
+  "post_gcode": "M400\nG28\nM104 S0\nM140 S0\nM107\nG92 E0\nG1 E-32 F300\nM84\nG90",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

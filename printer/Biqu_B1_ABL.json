@@ -1,0 +1,28 @@
+{
+  "name": "Biqu B1 ABL",
+  "machine_name": "BIQU B1 ABL",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    235,
+    235,
+    270
+  ],
+  "pre_gcode": "; BIQU B1 Start G-code\nM117 Getting the bed up to temp!\nM140 S{material_bed_temperature_layer_0}      ; Set Heat Bed temperature\nM190 S{material_bed_temperature_layer_0}      ; Wait for Heat Bed temperature\nM117 Pre-heating the extruder\nM104 S160                                     ; Set Extruder temperature\nM117 Homing axes\nG28                              ; Home all axes\nM117 ABL Probing\nG29\nM117 Getting the extruder up to temp\nM104 S{material_print_temperature_layer_0}    ; Set Extruder temperature\nM109 S{material_print_temperature_layer_0}    ; Wait for Extruder temperature\nG92 E0                                        ; Reset Extruder\nG1 Z2.0 F3000                    ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X4.1 Y20 Z0.3 F5000.0         ; Move to start position\nM117 Purging\nG1 X4.1 Y200.0 Z0.3 F1500.0 E15  ; Draw the first line\nG1 X4.4 Y200.0 Z0.3 F5000.0      ; Move to side a little\nG1 X4.4 Y20 Z0.3 F1500.0 E30     ; Draw the second line\nG92 E0                           ; Reset Extruder\nM117 Lets make\nG1 Z2.0 F3000                    ; Move Z Axis up little to prevent scratching of Heat Bed\nG1 X5 Y20 Z0.3 F5000.0           ; Move over to prevent blob squish",
+  "post_gcode": "                               ;BIQU Default End Gcode\nG91                            ;Relative positioning\nG1 E-2 F2700                   ;Retract a bit\nG1 E-2 Z0.2 F2400              ;Retract a bit more and raise Z\nG1 X5 Y5 F3000                 ;Wipe out\nG1 Z10                         ;Raise Z by 10mm\nG90                            ;Return to absolute positioning\n\nG1 X0 Y{machine_depth}         ;TaDaaaa\nM106 S0                        ;Turn-off fan\nM104 S0                        ;Turn-off hotend\nM140 S0                        ;Turn-off bed\n\nM84 X Y E                      ;Disable all steppers but Z\n",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}

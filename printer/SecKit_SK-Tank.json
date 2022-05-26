@@ -1,0 +1,28 @@
+{
+  "name": "SecKit SK-Tank",
+  "machine_name": "SecKit SK-Tank",
+  "source": "CuraV2",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    350,
+    350,
+    400
+  ],
+  "pre_gcode": "G32 ;auto bed tramming and find a correct Z datum\nG29 S1 ;load default mesh\nM572 D0 S0.08 ; Pressure advance\nG1 Z15.0 F6000 ;Move the platform down 15mm\n;Prime the extruder\nG92 E0\nG1 F200 E3\nG92 E0",
+  "post_gcode": "M104 S0\nM140 S0\n;Retract the filament\nG92 E1\nG1 E-1 F300\nG28 X0 Y0\nM84",
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": ""
+}
