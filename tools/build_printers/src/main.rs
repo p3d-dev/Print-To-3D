@@ -52,10 +52,11 @@ fn main() -> Result<(), Error> {
             if let Some(ga) = entries.remove(&key) {
                 collision += 1;
                 if let Some(p3d_new) = P3dPrinter::resolve_conflict(ga, p3d) {
-                    println!("{}: resolved collision {}", collision, &p3d_name);
+                    println!("{}: resolved collision {} into {}", collision, key, p3d_new.name);
+                    entries.insert(key, p3d_new);
                 }
                 else {
-                    println!("{}: UNRESOLVED collision {}", collision, &p3d_name);
+                    println!("{}: UNRESOLVED collision {}", collision, key);
                 }
             }
             else {
@@ -128,6 +129,25 @@ fn load_and_parse() -> Result<(HashMap<String, Box<dyn GridApps>>, HashMap<Strin
         println!("{:?}", output);
 
         let cfg_dir = temp_dir.join(dir);
+
+        match source {
+            Source::CuraExtruder => {
+                // the file fdmextruder is at a weird place
+                let fname = temp_dir.join("Cura/resources/definitions/fdmextruder.def.json");
+                let mut file = File::open(fname)?;
+                let mut contents = String::new();
+                file.read_to_string(&mut contents)?;
+                        match serde_json::from_str::<CuraExtruderV2>(&contents) {
+                            Ok(cfg) => {
+                                cura_extruder_entries.insert("fdmextruder".to_string(), cfg);
+                            },
+                            Err(e1) => {
+                                println!("fdm_extruder: {:?}", e1)
+                            }
+                        }
+            },
+            _ => {}
+        }
 
         for entry in std::fs::read_dir(cfg_dir)? {
             let entry = entry?;
