@@ -28,11 +28,11 @@
     " M82; set extruder to absolute mode",
     " M107; Apagar FAN",
     " G28; Home",
-    " M190 S{material_bed_temperature_layer_0}",
+    " M190 S{bed_temp}",
     " G29; Senso la cama",
     " M500",
     " G1 F5000 X0.5 Y0.5",
-    " M109 S{material_print_temperature}",
+    " M109 S{temp}",
     " M900 K0.04",
     " G1 F200 Z10",
     " G92 E0; Defino cero en la posición del actual del extrusor",
@@ -54,5 +54,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

@@ -21,13 +21,13 @@
     190
   ],
   "pre_gcode": [
-    "M104 T0 S{material_print_temperature_layer_0}",
+    "M104 T0 S{temp}",
     "G28 ;Home extruder",
     "G90 ;Absolute positioning",
     "M82 ;Extruder in absolute mode",
     "G1 Z1 F100",
     "G92 E0 ;Reset extruder position",
-    "M109 T0 S{material_print_temperature_layer_0}",
+    "M109 T0 S{temp}",
     "G1 E20 F100",
     "G92 E0 ;Reset extruder position"
   ],
@@ -46,5 +46,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

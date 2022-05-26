@@ -35,9 +35,9 @@
     "M107 ; Stop fan",
     "G90 ; Absolute positioning",
     "M82 ; Extruder in absolute mode",
-    "M104 T0 S{material_print_temperature}",
+    "M104 T0 S{temp}",
     "G92 E0 ; Reset extruder position",
-    "M109 T0 S{material_print_temperature}",
+    "M109 T0 S{temp}",
     "M117 Priming nozzle...",
     "M83",
     "G1 E20 F100 ; purge/prime nozzle",
@@ -64,5 +64,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": false,
+  "need_hotend_temp": false,
+  "need_bed_temp": false
 }

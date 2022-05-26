@@ -32,11 +32,11 @@
     "G28 X0 Y0 ;move X/Y to min endstops",
     "G28 Z0 ;move Z to min endstops",
     "M205 X8 ;X/Y Jerk settings",
-    "G1 Z15.0 F{speed_travel} ;move the platform down 15mm",
+    "; PLEASE CHECK: G1 Z15.0 F{speed_travel} ;move the platform down 15mm",
     "G92 E0 ;zero the extruded length",
     "G1 F200 E7 ;extrude 3mm of feed stock",
     "G92 E0 ;zero the extruded length again",
-    "G1 F{speed_travel}",
+    "; PLEASE CHECK: G1 F{speed_travel}",
     ";Put printing message on LCD screen",
     "M117 Rigibot Printing..."
   ],
@@ -46,7 +46,7 @@
     "M140 S0 ;heated bed heater off (if you have it)",
     "G91 ;relative positioning",
     "G1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure",
-    "G1 Z+10 E-1 X-20 Y-20 F{speed_travel} ;move Z up a bit and retract filament even more",
+    "; PLEASE CHECK: G1 Z+10 E-1 X-20 Y-20 F{speed_travel} ;move Z up a bit and retract filament even more",
     "G28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way",
     "G1 Y230 F3000 ;move Y so the head is out of the way and Plate is moved forward",
     "M84 ;steppers off",
@@ -54,5 +54,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": true
 }

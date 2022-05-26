@@ -25,11 +25,11 @@
     "M107 ; Turn off fan",
     "G90 ; Absolute positioning",
     "M82 ; Extruder in absolute mode",
-    "M190 S{material_bed_temperature}",
-    "M104 T0 S{material_print_temperature}",
-    "M109 T0 S{material_print_temperature}",
-    "M104 T1 S{material_print_temperature}",
-    "M109 T1 S{material_print_temperature}",
+    "M190 S{bed_temp}",
+    "M104 T0 S{temp}",
+    "M109 T0 S{temp}",
+    "M104 T1 S{temp}",
+    "M109 T1 S{temp}",
     ";G32 S3 ; auto level",
     "G92 E0 ; Reset extruder position"
   ],
@@ -44,5 +44,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

@@ -26,10 +26,10 @@
     "M82 ;set extruder to absolute mode",
     "M107 ;start with the fan off",
     "G28 ;Home X/Y/Z",
-    "M104 S{material_print_temperature} T0 ; Preheat Left Extruder",
-    "M104 S{material_print_temperature} T1 ; Preheat Right Extruder",
-    "M109 S{material_print_temperature} T0 ; Preheat Left Extruder",
-    "M109 S{material_print_temperature} T1 ; Preheat Right Extruder",
+    "M104 S{temp} T0 ; Preheat Left Extruder",
+    "M104 S{temp} T1 ; Preheat Right Extruder",
+    "M109 S{temp} T0 ; Preheat Left Extruder",
+    "M109 S{temp} T1 ; Preheat Right Extruder",
     "G91 ;relative positioning",
     "G90 ;absolute positioning",
     "M218 T1 X34.3 Y0; Set 2nd extruder offset. This can be changed later if needed",
@@ -52,5 +52,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": false,
+  "need_hotend_temp": false,
+  "need_bed_temp": false
 }

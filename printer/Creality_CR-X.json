@@ -26,8 +26,8 @@
     "G90 ;absolute positioning",
     "M107 ;start with the fan off",
     "G1 F2400 Z15.0 ;raise the nozzle 15mm",
-    "M109 S{material_print_temperature} ;Set Extruder Temperature and Wait",
-    "M190 S{material_bed_temperature}; Wait for bed temperature to reach target temp",
+    "M109 S{temp} ;Set Extruder Temperature and Wait",
+    "M190 S{bed_temp}; Wait for bed temperature to reach target temp",
     "T0 ;Switch to Extruder 1",
     "G1 F3000 X5 Y10 Z0.2 ;move to prime start position",
     "G92 E0 ;reset extrusion distance",
@@ -46,5 +46,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": true
 }

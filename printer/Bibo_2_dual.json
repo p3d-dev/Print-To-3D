@@ -23,7 +23,7 @@
   "pre_gcode": [
     "M104 T0 165",
     "M104 T1 165",
-    "M109 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr}",
+    "; PLEASE CHECK: M109 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr}",
     "G21 ;metric values",
     "G90 ;absolute positioning",
     "M107 ;start with the fan off",
@@ -35,7 +35,7 @@
     "G28",
     "G1 Y0 F1200 E0",
     "G92 E0",
-    "T{initial_extruder_nr}",
+    "; PLEASE CHECK: T{initial_extruder_nr}",
     "M117 BIBO Printing..."
   ],
   "post_gcode": [
@@ -53,5 +53,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

@@ -28,8 +28,8 @@
     "M220 S100",
     "M221 S100",
     "G28",
-    "M190 S{material_bed_temperature_layer_0}",
-    "M109 S{material_print_temperature_layer_0}",
+    "M190 S{bed_temp}",
+    "M109 S{temp}",
     "G1 F600 Z15",
     "G92 E0",
     "G1 F300 E10",
@@ -54,5 +54,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": true
 }

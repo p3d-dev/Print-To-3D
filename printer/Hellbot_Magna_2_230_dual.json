@@ -21,10 +21,10 @@
     250
   ],
   "pre_gcode": [
-    "M104 T0 S{material_print_temperature}",
-    "M104 T1 S{material_print_temperature}",
-    "M109 T0 S{material_print_temperature}",
-    "M109 T1 S{material_print_temperature}",
+    "M104 T0 S{temp}",
+    "M104 T1 S{temp}",
+    "M109 T0 S{temp}",
+    "M109 T1 S{temp}",
     "G21",
     "G90 ",
     "G28 X0 Y0 ",
@@ -57,5 +57,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

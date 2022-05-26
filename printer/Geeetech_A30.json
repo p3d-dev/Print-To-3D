@@ -22,8 +22,8 @@
   ],
   "pre_gcode": [
     "G28 ;Home",
-    "M190 S{material_bed_temperature}",
-    "M109 S{material_print_temperature} T0",
+    "M190 S{bed_temp}",
+    "M109 S{temp} T0",
     "G1 Z15.0 F6000 ;Move the platform down 15mm",
     "G92 E0",
     "G1 F200 E3",
@@ -39,5 +39,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": true
 }

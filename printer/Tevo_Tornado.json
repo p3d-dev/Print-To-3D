@@ -24,9 +24,9 @@
     "; start_gcode",
     "M117 Start Clean        ; Indicate nozzle clean in progress on LCD",
     ";",
-    "M104 S{material_print_temperature_layer_0} ",
-    "M109 S{material_print_temperature_layer_0} ",
-    "M109 R{material_print_temperature_layer_0} ",
+    "M104 S{temp} ",
+    "M109 S{temp} ",
+    "M109 R{temp} ",
     ";",
     "M107                    ; Turn layer fan off",
     "G21                     ; Set to metric [change to G20 if you want Imperial]",
@@ -65,5 +65,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

@@ -35,7 +35,7 @@
     "",
     ";Put printing message on LCD screen",
     "M117 In stampa...",
-    "M140 S{print_bed_temperature} ;set the target bed temperature",
+    "M140 S{bed_temp} ;set the target bed temperature",
     ";---------------------------------------"
   ],
   "post_gcode": [
@@ -51,5 +51,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": false
 }

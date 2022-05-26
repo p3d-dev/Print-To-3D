@@ -22,14 +22,14 @@
   ],
   "pre_gcode": [
     "; -- START GCODE --",
-    "M104 S{material_print_temperature}",
+    "M104 S{temp}",
     "G28 ; Zero-ing position",
     "G29 ; Auto bed-leveling",
     "G0 X4 Y297 Z15 F4000 ; Fast move to BQ's start position",
     "G90 ; Set to Absolute Positioning",
     "G92 E0 ; Reset extruder 0",
     "G1 F1800 ; Set default feedrate",
-    "M109 S{material_print_temperature} ; Makes sure the temperature is correct before printing",
+    "M109 S{temp} ; Makes sure the temperature is correct before printing",
     "; -- end of START GCODE --"
   ],
   "post_gcode": [
@@ -39,5 +39,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": false,
+  "need_hotend_temp": false,
+  "need_bed_temp": false
 }

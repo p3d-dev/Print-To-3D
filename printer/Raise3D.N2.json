@@ -59,5 +59,8 @@
   ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
-  "layer_gcode": ";LAYER:{layer}\n;HEIGHT:{height}"
+  "layer_gcode": ";LAYER:{layer}\n;HEIGHT:{height}",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": false
 }

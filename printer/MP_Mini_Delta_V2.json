@@ -31,7 +31,7 @@
     "G28 Z0",
     "G29 Z0.4",
     "G1 Z15 F300",
-    "M109 S{material_print_temperature_layer_0}",
+    "M109 S{temp}",
     "G92 E0",
     "G1 F200 E3",
     "G92 E0",
@@ -51,5 +51,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

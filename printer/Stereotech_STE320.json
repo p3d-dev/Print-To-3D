@@ -31,7 +31,7 @@
     "G92 E0 ;zero the extruded length",
     "G1 F200 E6 ;extrude 6 mm of feed stock",
     "G92 E0 ;zero the extruded length again",
-    "G1 F200 E-{switch_extruder_retraction_amount}",
+    "; PLEASE CHECK: G1 F200 E-{switch_extruder_retraction_amount}",
     "T0 ;Switch to the 1st extruder",
     "G92 E0 ;zero the extruded length",
     "G1 F200 E6 ;extrude 6 mm of feed stock",
@@ -53,5 +53,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": true
 }

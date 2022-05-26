@@ -46,7 +46,7 @@
     "G28 X0 Y0           ; move X/Y to min endstops",
     "M82                 ; set absolute positioning for extruder",
     "G92 E0              ; reset extruder distance position (zero the extruder)",
-    "G1 F{travel_speed}  ; set feed speed",
+    "; PLEASE CHECK: G1 F{travel_speed}  ; set feed speed",
     "M117 ULIO Printing  ; text for screen"
   ],
   "post_gcode": [
@@ -58,5 +58,8 @@
   ],
   "fan_gcode": "M106 S200",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": false,
+  "need_bed_temp": true
 }

@@ -26,11 +26,11 @@
     "G90 ; Set all axis to Absolute",
     "M82 ; Set extrusion to Absolute",
     "M107 ; Disable all fans",
-    "M190 S{material_bed_temperature_layer_0} ; Set bed temperature and wait",
+    "M190 S{bed_temp} ; Set bed temperature and wait",
     "G28 ; Home all axis",
     "G1 Z5.0 ; Raise nozzle to prevent scratching of heat bed",
     "G1 X0 Y0 ; Move nozzle to Home before heating",
-    "M109 S{material_print_temperature_layer_0} T0 ; Set nozzle temp and wait",
+    "M109 S{temp} T0 ; Set nozzle temp and wait",
     "G92 E0 ; Set Extruder position to zero",
     "; Uncomment the following lines to enable nozzle purge line along left edge of bed",
     ";G1 Z2.0 F3000 ; Raise Z axis",
@@ -48,7 +48,7 @@
     "M83 ; Set extrder to Relative",
     "G1 E-5 F3000 ; Retract 5mm of filament at 50mm/s",
     "G90 ; Set all axis to Absolute ",
-    "G1 X0 Y{machine_depth} ; Park print head",
+    "; PLEASE CHECK: G1 X0 Y{machine_depth} ; Park print head",
     "G1 Z10 ; Move up 10mm",
     "M106 S0 ; Set fan speed to 0",
     "M104 S0 ; Set bed temp to 0",
@@ -58,5 +58,8 @@
   ],
   "fan_gcode": "",
   "progress_gcode": "",
-  "layer_gcode": ""
+  "layer_gcode": "",
+  "heated_bed": true,
+  "need_hotend_temp": true,
+  "need_bed_temp": true
 }
