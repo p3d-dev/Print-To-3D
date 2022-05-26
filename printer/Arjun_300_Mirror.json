@@ -21,6 +21,8 @@
     290
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     "M605 S2 R0 X155",
     "M605 S3 X155",
     "G21",
@@ -62,7 +64,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

@@ -70,7 +70,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": false,
-  "need_hotend_temp": false,
-  "need_bed_temp": false
+  "heated_bed": false
 }

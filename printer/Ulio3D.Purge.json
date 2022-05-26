@@ -21,6 +21,8 @@
     78
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     "G21                 ; set to mm",
     "G90                 ; set absolute positioning mode",
     "M82                 ; set absolute positioning for extruder",
@@ -59,7 +61,5 @@
   "fan_gcode": "M106 S200",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

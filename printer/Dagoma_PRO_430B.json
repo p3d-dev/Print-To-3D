@@ -21,6 +21,8 @@
     360
   ],
   "pre_gcode": [
+    "M104 {temp}",
+    "M109",
     "",
     ";Start Gcode for {machine_name}",
     ";Author: Dagoma",
@@ -81,7 +83,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": true,
-  "need_bed_temp": false
+  "heated_bed": true
 }

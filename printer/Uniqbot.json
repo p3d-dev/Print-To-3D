@@ -21,6 +21,8 @@
     120
   ],
   "pre_gcode": [
+    "M104 {temp}",
+    "M109",
     "G21 ;metric values",
     "G90 ;absolute positioning",
     "M82 ;set extruder to absolute mode",
@@ -48,7 +50,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": false,
-  "need_hotend_temp": true,
-  "need_bed_temp": false
+  "heated_bed": false
 }

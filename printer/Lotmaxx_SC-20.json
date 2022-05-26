@@ -21,6 +21,10 @@
     320
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
+    "M104 {temp}",
+    "M109",
     "; SC-20 Custom Start G-code",
     "G28 ; Home all axes",
     "G92 E0 ; Reset Extruder",
@@ -49,7 +53,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": true,
-  "need_bed_temp": true
+  "heated_bed": true
 }

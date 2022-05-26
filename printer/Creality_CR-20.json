@@ -21,6 +21,10 @@
     250
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
+    "M104 {temp}",
+    "M109",
     "M201 X500.00 Y500.00 Z100.00 E5000.00 ;Setup machine max acceleration",
     "M203 X500.00 Y500.00 Z10.00 E50.00 ;Setup machine max feedrate",
     "M204 P500.00 R1000.00 T500.00 ;Setup Print/Retract/Travel acceleration",
@@ -59,7 +63,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": true,
-  "need_bed_temp": true
+  "heated_bed": true
 }

@@ -21,6 +21,8 @@
     140
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     "M118 X15.00 Y15.00 Z10.00 T{tool}",
     "M104 S{temp} T{tool}",
     "M107",
@@ -40,7 +42,5 @@
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

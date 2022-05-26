@@ -21,6 +21,8 @@
     200
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     ";Start GCode - Cosmos II - 3.x.x_SEGcTK_1.1",
     " M104 S120; Comienzo a calentar extrusor",
     " G21; Unidades en mm",
@@ -55,7 +57,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

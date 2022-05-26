@@ -21,6 +21,8 @@
     305
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     "G1 Z15.0 F12000         ; move the platform down 15mm",
     "G1 X150 Y5 F12000       ; center extruder on X",
     "M107                    ; turn off filament cooling fan",
@@ -49,7 +51,5 @@
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

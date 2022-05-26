@@ -21,6 +21,8 @@
     260
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     ";Trimaker Nebula Start Code",
     " G21; Unidades en mm",
     " G90; Posicion absoluta",
@@ -60,7 +62,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

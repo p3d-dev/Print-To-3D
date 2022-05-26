@@ -21,6 +21,8 @@
     225
   ],
   "pre_gcode": [
+    "M140 {bed_temp}",
+    "M190",
     "; FELIXprinters | www.FELIXprinters.com | Zeemanlaan 15 3401 MV IJsselstein The Netherlands",
     "; FELIX Tec 4 | Start Code Dual Extruders v1.0",
     "; Modified by kerog777@gmail.com",
@@ -77,7 +79,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": false,
-  "need_bed_temp": true
+  "heated_bed": true
 }

@@ -21,6 +21,8 @@
     400
   ],
   "pre_gcode": [
+    "M104 {temp}",
+    "M109",
     "",
     ";Neither Hybrid AM Systems nor any of Hybrid AM Systems representatives has any liabilities or gives any warranties on this .gcode file, or on any or all objects made with this .gcode file.",
     "",
@@ -50,7 +52,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": true,
-  "need_bed_temp": false
+  "heated_bed": true
 }

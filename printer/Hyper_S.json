@@ -21,6 +21,8 @@
     400
   ],
   "pre_gcode": [
+    "M104 {temp}",
+    "M109",
     "M140 S{bed_temp} ; Heat bed",
     "M109 S{temp} ; Heat nozzle",
     "M190 S{bed_temp} ; Wait for bed heating",
@@ -49,7 +51,5 @@
   "fan_gcode": "",
   "progress_gcode": "",
   "layer_gcode": "",
-  "heated_bed": true,
-  "need_hotend_temp": true,
-  "need_bed_temp": false
+  "heated_bed": true
 }
