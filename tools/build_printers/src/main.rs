@@ -4,6 +4,8 @@ use std::fs::File;
 use std::io::{BufWriter, Error, Read};
 use std::process::Command;
 
+use serde::Serialize;
+
 mod cura;
 mod gridapps;
 mod p3d;
@@ -16,6 +18,11 @@ enum Source {
     Gridapps,
     Cura,
     CuraExtruder,
+}
+
+#[derive(Serialize, Debug)]
+pub struct Printers {
+    printers: HashMap<String,String>
 }
 
 fn generalized(name: &str) -> String {
@@ -68,12 +75,13 @@ fn main() -> Result<(), Error> {
         }
     }
 
+    let mut printers = Printers { printers: HashMap::new() };
+
     for (_name, e) in entries {
         let mut fname = env::current_dir()?;
         fname.pop();
         fname.pop();
         fname.push("printer");
-        fname.push("x");
         let printer_name = &e.name;
         let xname = printer_name
             .replace('/', "_")
@@ -81,13 +89,25 @@ fn main() -> Result<(), Error> {
             .replace('(', "_")
             .replace(')', ")")
             .replace('+', "_plus");
-        fname.set_file_name(format!("{}.json", xname));
+        fname.push(format!("{}.json", xname));
         //        println!("{:?}",fname);
         let file = File::create(fname)?;
         let writer = BufWriter::new(file);
         serde_json::to_writer_pretty(writer, &e)?;
         //        println!("{}: {:#?}", name, e);
+
+        printers.printers.insert(e.name, xname);
     }
+
+    // Create a printers.json file
+    let mut fname = env::current_dir()?;
+    fname.pop();
+    fname.pop();
+    fname.push("printer");
+    fname.push("printer.json");
+    let file = File::create(fname)?;
+    let writer = BufWriter::new(file);
+    serde_json::to_writer_pretty(writer, &printers)?;
 
     Ok(())
 }
