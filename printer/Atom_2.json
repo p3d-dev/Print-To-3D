@@ -2,6 +2,7 @@
   "name": "Atom 2",
   "machine_name": "Atom 2",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

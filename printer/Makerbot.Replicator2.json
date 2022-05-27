@@ -2,6 +2,7 @@
   "name": "Makerbot.Replicator2",
   "machine_name": "Makerbot.Replicator2",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": true,
   "bed_elliptic": false,
   "bed_belt": false,

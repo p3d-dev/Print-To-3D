@@ -2,6 +2,7 @@
   "name": "Creality.CR-30",
   "machine_name": "Creality.CR-30",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

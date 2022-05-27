@@ -2,6 +2,7 @@
   "name": "101Hero",
   "machine_name": "101Hero",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

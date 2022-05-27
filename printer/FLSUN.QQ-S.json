@@ -2,6 +2,7 @@
   "name": "FLSUN.QQ-S",
   "machine_name": "FLSUN.QQ-S",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

@@ -2,6 +2,7 @@
   "name": "Neptune 2D",
   "machine_name": "ELEGOO Neptune 2D",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

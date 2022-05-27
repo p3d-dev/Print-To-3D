@@ -2,6 +2,7 @@
   "name": "Arjun Pro 300 Mirror",
   "machine_name": "Arjunpro 300 Mirror",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

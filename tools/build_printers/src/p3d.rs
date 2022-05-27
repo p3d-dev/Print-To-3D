@@ -78,6 +78,7 @@ pub struct P3dPrinter {
     pub name: String,
     machine_name: String,
     source: String,
+    license: String,
     origin_center: bool,
     bed_elliptic: bool,
     bed_belt: bool,
@@ -95,6 +96,7 @@ pub struct P3dPrinter {
 impl P3dPrinter {
     pub fn from_gridapps(name: String, cfg: Box<dyn GridApps>) -> Option<Self> {
         let source = cfg.get_source();
+        let license = cfg.get_license();
         let origin_center = cfg.get_origin_center();
         let bed_elliptic = cfg.get_bed_circle();
         let bed_width = cfg.get_bed_width();
@@ -123,6 +125,7 @@ impl P3dPrinter {
         let machine_name = name.clone();
         let p3d = P3dPrinter {
             source,
+            license,
             name,
             machine_name,
             origin_center,
@@ -146,6 +149,7 @@ impl P3dPrinter {
         cfg: &CuraV2,
     ) -> Option<Self> {
         let source = cfg.get_source();
+        let license = cfg.get_license();
         let name = cfg.printer_name();
         let machine_name = cfg.get_machine_name(all).unwrap_or_else(|| name.clone());
         let origin_center = cfg.get_origin_center(all)?;
@@ -182,6 +186,7 @@ impl P3dPrinter {
         }
         let p3d = P3dPrinter {
             source,
+            license,
             name,
             machine_name,
             origin_center,
@@ -200,6 +205,14 @@ impl P3dPrinter {
         p3d.checked()
     }
     pub fn resolve_conflict(mut this: Self, other: Self) -> Option<Self> {
+        if this.license == "MIT" {
+            println!("=> MIT version");
+            return Some(this);
+        }
+        if other.license == "MIT" {
+            println!("=> MIT version");
+            return Some(other);
+        }
         if this.machine_name == *"Unknown" {
             if other.machine_name == *"Unknown" {
                 return None;

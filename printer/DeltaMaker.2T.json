@@ -2,6 +2,7 @@
   "name": "DeltaMaker.2T",
   "machine_name": "DeltaMaker.2T",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

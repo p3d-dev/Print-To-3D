@@ -2,6 +2,7 @@
   "name": "gMax 1.5 Plus",
   "machine_name": "gMax 1.5 Plus",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

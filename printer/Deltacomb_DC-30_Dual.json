@@ -2,6 +2,7 @@
   "name": "Deltacomb DC-30 Dual",
   "machine_name": "Deltacomb DC-30 DUAL",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

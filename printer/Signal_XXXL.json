@@ -2,6 +2,7 @@
   "name": "Signal XXXL",
   "machine_name": "Signal XXXL",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

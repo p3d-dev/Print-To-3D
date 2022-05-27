@@ -2,6 +2,7 @@
   "name": "XYZ.daVinci.Mini.w",
   "machine_name": "XYZ.daVinci.Mini.w",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

@@ -1,7 +1,8 @@
 {
   "name": "IMADE3D.JellyBOX2",
   "machine_name": "IMADE3D.JellyBOX2",
-  "source": "GridApps02+CuraV2",
+  "source": "GridApps02",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

@@ -2,6 +2,7 @@
   "name": "Maker Prusa Tairona i3",
   "machine_name": "makeR Prusa Tairona I3",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

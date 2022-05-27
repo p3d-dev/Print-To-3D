@@ -2,6 +2,7 @@
   "name": "XYZprinting da Vinci Jr. 1.0A Pro",
   "machine_name": "XYZprinting da Vinci Jr. 1.0A Pro",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

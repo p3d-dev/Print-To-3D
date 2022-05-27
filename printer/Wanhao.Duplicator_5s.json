@@ -1,7 +1,8 @@
 {
   "name": "Wanhao.Duplicator_5s",
   "machine_name": "Wanhao.Duplicator_5s",
-  "source": "GridApps01+CuraV2",
+  "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,
@@ -16,8 +17,8 @@
     }
   ],
   "build_size": [
-    300,
-    200,
+    305,
+    205,
     575
   ],
   "pre_gcode": [

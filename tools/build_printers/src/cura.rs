@@ -312,6 +312,9 @@ impl CuraV2 {
     pub fn get_source(&self) -> String {
         "CuraV2".to_string()
     }
+    pub fn get_license(&self) -> String {
+        return "LGPL-3.0".to_string();
+    }
     pub fn get_origin_center(&self, all: &HashMap<String, CuraV2>) -> Option<bool> {
         if let Some(overrides) = self.overrides.as_ref() {
             if let Some(def) = overrides.machine_center_is_zero.as_ref() {

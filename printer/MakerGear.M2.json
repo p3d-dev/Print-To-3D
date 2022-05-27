@@ -1,7 +1,8 @@
 {
   "name": "MakerGear.M2",
   "machine_name": "MakerGear.M2",
-  "source": "GridApps01+CuraV2",
+  "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,
@@ -18,7 +19,7 @@
   "build_size": [
     200,
     250,
-    190
+    200
   ],
   "pre_gcode": [
     "M108 S255            ; set extruder speed",

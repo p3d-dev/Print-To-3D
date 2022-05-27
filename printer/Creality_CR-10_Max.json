@@ -2,6 +2,7 @@
   "name": "Creality CR-10 Max",
   "machine_name": "Creality CR-10 Max",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

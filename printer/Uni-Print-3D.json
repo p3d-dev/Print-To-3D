@@ -2,6 +2,7 @@
   "name": "Uni-Print-3D",
   "machine_name": "UNI-PRINT-3D",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": false,
   "bed_belt": false,

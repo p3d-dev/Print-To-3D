@@ -2,6 +2,7 @@
   "name": "Two Trees Base Printer",
   "machine_name": "Two Trees Base Printer",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

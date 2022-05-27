@@ -2,6 +2,7 @@
   "name": "Geeetech A10M",
   "machine_name": "Geeetech A10M",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

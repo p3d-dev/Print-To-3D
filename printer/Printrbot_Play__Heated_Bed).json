@@ -2,6 +2,7 @@
   "name": "Printrbot Play (Heated Bed)",
   "machine_name": "Printrbot Play (Heated Bed)",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

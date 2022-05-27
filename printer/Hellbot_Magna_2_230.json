@@ -2,6 +2,7 @@
   "name": "Hellbot Magna 2 230",
   "machine_name": "Hellbot Magna 2 230",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

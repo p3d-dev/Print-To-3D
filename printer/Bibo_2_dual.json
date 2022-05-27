@@ -2,6 +2,7 @@
   "name": "Bibo 2 dual",
   "machine_name": "BIBO2 dual",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": false,
   "bed_belt": false,

@@ -2,6 +2,7 @@
   "name": "TypeA.Series1",
   "machine_name": "TypeA.Series1",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

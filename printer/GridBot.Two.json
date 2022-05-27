@@ -2,6 +2,7 @@
   "name": "GridBot.Two",
   "machine_name": "GridBot.Two",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

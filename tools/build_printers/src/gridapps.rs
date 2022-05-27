@@ -10,6 +10,9 @@ pub trait GridAppsExtruder {
 }
 
 pub trait GridApps {
+    fn get_license(&self) -> String {
+        return "MIT".to_string();
+    }
     fn get_source(&self) -> String;
     fn get_origin_center(&self) -> bool;
     fn get_bed_circle(&self) -> bool;

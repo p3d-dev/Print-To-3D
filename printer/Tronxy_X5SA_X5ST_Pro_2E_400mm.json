@@ -2,6 +2,7 @@
   "name": "Tronxy X5SA/X5ST/Pro/2E 400mm",
   "machine_name": "Tronxy X5SA 400",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

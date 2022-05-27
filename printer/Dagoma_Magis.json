@@ -2,6 +2,7 @@
   "name": "Dagoma Magis",
   "machine_name": "Dagoma Magis",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

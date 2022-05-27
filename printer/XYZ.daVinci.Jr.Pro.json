@@ -2,6 +2,7 @@
   "name": "XYZ.daVinci.Jr.Pro",
   "machine_name": "XYZ.daVinci.Jr.Pro",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

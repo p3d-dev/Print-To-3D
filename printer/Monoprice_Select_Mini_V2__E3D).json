@@ -2,6 +2,7 @@
   "name": "Monoprice Select Mini V2 (E3D)",
   "machine_name": "Monoprice Select Mini V2",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

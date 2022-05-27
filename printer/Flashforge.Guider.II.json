@@ -2,6 +2,7 @@
   "name": "Flashforge.Guider.II",
   "machine_name": "Flashforge.Guider.II",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": true,
   "bed_elliptic": false,
   "bed_belt": false,

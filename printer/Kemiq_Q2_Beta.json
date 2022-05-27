@@ -2,6 +2,7 @@
   "name": "Kemiq Q2 Beta",
   "machine_name": "Kemiq Q2 Beta",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

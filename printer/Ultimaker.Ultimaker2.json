@@ -2,6 +2,7 @@
   "name": "Ultimaker.Ultimaker2",
   "machine_name": "Ultimaker.Ultimaker2",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

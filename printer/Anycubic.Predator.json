@@ -2,6 +2,7 @@
   "name": "Anycubic.Predator",
   "machine_name": "Anycubic.Predator",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,

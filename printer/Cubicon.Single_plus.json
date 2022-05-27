@@ -1,7 +1,8 @@
 {
   "name": "Cubicon.Single+",
   "machine_name": "Cubicon.Single+",
-  "source": "GridApps01+CuraV2",
+  "source": "GridApps01",
+  "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
   "bed_belt": false,

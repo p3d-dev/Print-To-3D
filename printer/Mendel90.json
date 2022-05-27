@@ -2,6 +2,7 @@
   "name": "Mendel90",
   "machine_name": "Mendel90",
   "source": "CuraV2",
+  "license": "LGPL-3.0",
   "origin_center": true,
   "bed_elliptic": false,
   "bed_belt": false,

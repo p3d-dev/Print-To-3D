@@ -2,6 +2,7 @@
   "name": "Atom.v2",
   "machine_name": "Atom.v2",
   "source": "GridApps01",
+  "license": "MIT",
   "origin_center": true,
   "bed_elliptic": true,
   "bed_belt": false,
