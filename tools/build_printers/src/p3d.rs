@@ -380,17 +380,21 @@ impl P3dPrinter {
         P3dPrinter::prune(&mut self.pre_gcode, &xref);
         P3dPrinter::prune(&mut self.post_gcode, &xref);
 
+        let need_absolute_positioning = self.does_not_contain("G90");
         let need_hotend_temp = self.does_not_contain("M104");
         let need_bed_temp = self.heated_bed && self.does_not_contain("M140");
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {
-            self.pre_gcode.insert(0, "M109".to_string());
-            self.pre_gcode.insert(0, "M104 {temp}".to_string());
+            self.pre_gcode.insert(0, "M109               ; wait for nozzle temperature".to_string());
+            self.pre_gcode.insert(0, "M104 S{temp}       ; need to heat the nozzle".to_string());
         }
         if need_bed_temp {
-            self.pre_gcode.insert(0, "M190".to_string());
-            self.pre_gcode.insert(0, "M140 {bed_temp}".to_string());
+            self.pre_gcode.insert(0, "M190               ; wait for bed temperature".to_string());
+            self.pre_gcode.insert(0, "M104 S{temp}       ; need to heat the nozzle".to_string());
+        }
+        if need_absolute_positioning {
+            self.pre_gcode.push("G90                ; absolute position required".to_string());
         }
 
         Some(self)
