@@ -22,8 +22,8 @@
     400
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     "; start_gcode",
     "M117 Start Clean        ; Indicate nozzle clean in progress on LCD",
     ";",

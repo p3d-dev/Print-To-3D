@@ -22,10 +22,10 @@
     150
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "M911 Style Plus-A15",
     "M201 X400 Y400",
     "M202 X400 Y400",
@@ -33,7 +33,8 @@
     ";Prime the extruder",
     "G92 E0",
     "G1 F200 E3",
-    "G92 E0"
+    "G92 E0",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

@@ -22,8 +22,8 @@
     225
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     "; FELIXprinters | www.FELIXprinters.com | Zeemanlaan 15 3401 MV IJsselstein The Netherlands",
     "; FELIX Tec 4 | Start Code Dual Extruders v1.0",
     "; Modified by kerog777@gmail.com",
@@ -46,7 +46,8 @@
     "G92 E0    ; Reset extruder",
     "",
     ";================================ ; Initializing done",
-    "M117 FELIXprinting"
+    "M117 FELIXprinting",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "; FELIXprinters End Code Tec Series v1.0",

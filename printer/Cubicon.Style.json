@@ -31,7 +31,8 @@
     "G28                    ; home",
     "G1 Z15 F6000           ; lower platform 15mm",
     "G92 E0                 ; zero out extruder position",
-    "G1 F200 E3             ; prime the extruder 3mm"
+    "G1 F200 E3             ; prime the extruder 3mm",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M107                   ; turn off filament cooling fan",

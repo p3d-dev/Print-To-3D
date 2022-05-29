@@ -30,7 +30,8 @@
     "G92 E0                   ; reset extruder position",
     "G0 Z2                    ; park Z at 2mm over bed for heating",
     "M109 S{temp} T{tool}     ; wait for extruder to reach target temp",
-    "M190 S{bed_temp} T{tool} ; wait for bed to reach target temp"
+    "M190 S{bed_temp} T{tool} ; wait for bed to reach target temp",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M107                     ; turn off filament cooling fan",

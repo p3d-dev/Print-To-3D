@@ -22,8 +22,8 @@
     165
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "M136",
     "M73 P0",
     "M103",

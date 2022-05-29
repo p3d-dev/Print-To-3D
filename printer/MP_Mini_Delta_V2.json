@@ -22,8 +22,8 @@
     120
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     ";(**** start.gcode for MP Mini Delta V2****)",
     "G21",
     "G90",

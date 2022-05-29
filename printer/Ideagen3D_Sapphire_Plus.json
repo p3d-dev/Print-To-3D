@@ -38,7 +38,8 @@
     "G92 E0",
     "G1 X1 Y280 Z0.2 ;Prepare to Purge",
     "G1 Y20 Z0.2 F1500.0 E15 ;Purge line",
-    "G92 E0"
+    "G92 E0",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     ";End GCode by ideagen3D",

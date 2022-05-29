@@ -22,9 +22,10 @@
     75
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
-    "; Vertex Nano Start G-code M0 is my nozzle clean M400 G28 ; Home extruder G90 ; Absolute positioning M82 ; Extruder in absolute mode M104 T0 S{material_print_temperature} G92 E0 ; Reset extruder position G1 Z1 F800 M109 T0 S{material_print_temperature} M117 Priming nozzle... M83 G1 E20 F100 ; purge/prime nozzle M82 G92 E0 ; Reset extruder position G4 S3 ; Wait 3 seconds G1 Z5 F2000 M117 Vertex Nano is printing"
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
+    "; Vertex Nano Start G-code M0 is my nozzle clean M400 G28 ; Home extruder G90 ; Absolute positioning M82 ; Extruder in absolute mode M104 T0 S{material_print_temperature} G92 E0 ; Reset extruder position G1 Z1 F800 M109 T0 S{material_print_temperature} M117 Priming nozzle... M83 G1 E20 F100 ; purge/prime nozzle M82 G92 E0 ; Reset extruder position G4 S3 ; Wait 3 seconds G1 Z5 F2000 M117 Vertex Nano is printing",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "; Vertex Nano end G-Code G91 ; Relative positioning T0 G1 E-1 F1500; Reduce filament pressure M104 T0 S0 G90 ; Absolute positioning G92 E0 ; Reset extruder position G28 M84 ; Turn steppers off"

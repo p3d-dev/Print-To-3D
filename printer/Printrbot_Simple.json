@@ -22,8 +22,8 @@
     150
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "G21       ;metric values",
     "G90       ;absolute positioning",
     "M82       ;set extruder to absolute mode",

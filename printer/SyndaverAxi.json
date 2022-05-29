@@ -68,7 +68,8 @@
     "M117 AXI Starting Print",
     "G1 Z2                                        ; move nozzle back up to not run into things on print start",
     "M400                                         ; wait for moves to finish",
-    "M117 AXI Printing"
+    "M117 AXI Printing",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M400                                               ; wait for moves to finish",

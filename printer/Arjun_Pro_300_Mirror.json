@@ -22,8 +22,8 @@
     293
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     "M605 S2 R0 X125",
     "M605 S3 X125",
     "G21",

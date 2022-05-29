@@ -29,7 +29,8 @@
     "G0 X0 Y-100 Z50  ; parking",
     "G0 Z20           ; parking",
     "G92 E0           ; zero the extruded length",
-    "G1 F200 E3       ; extrude 3mm of feed stock"
+    "G1 F200 E3       ; extrude 3mm of feed stock",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M107             ; turn off filament cooling fan",

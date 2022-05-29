@@ -22,14 +22,15 @@
     273
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "G28 ;Home",
     "G1 Z15.0 F6000 ;Move the platform down 15mm",
     "G92 E0",
     "G1 F200 E3",
     "G92 E0",
-    "M80 ;Lights On"
+    "M80 ;Lights On",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

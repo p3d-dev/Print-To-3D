@@ -22,8 +22,8 @@
     260
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     ";Trimaker Nebula Start Code",
     " G21; Unidades en mm",
     " G90; Posicion absoluta",

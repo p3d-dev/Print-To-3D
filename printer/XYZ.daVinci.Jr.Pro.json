@@ -22,8 +22,8 @@
     150
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     "T{tool}                ; select extruder #0",
     "M104 S{temp}           ; set nozzle temp",
     "M109 S{temp}           ; wait for nozzle to heat",
@@ -31,7 +31,8 @@
     "G28                    ; home",
     "G1 Z15 F6000           ; lower platform 15mm",
     "G92 E0                 ; zero out extruder position",
-    "G1 F200 E3             ; prime the extruder 3mm"
+    "G1 F200 E3             ; prime the extruder 3mm",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M107                   ; fan off",

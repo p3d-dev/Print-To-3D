@@ -22,13 +22,14 @@
     175
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "G28 ; home all axes",
     "G1 Z15 F5000 ; lift nozzle",
     "G92 E0",
     "G1 F200 E3",
-    ""
+    "",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M104 S0 ; turn off temperature",

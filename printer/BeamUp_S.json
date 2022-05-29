@@ -22,8 +22,8 @@
     130
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "G28 ; home",
     "G29 ; level",
     "M80 ; led",
@@ -35,7 +35,8 @@
     "M300 S3000 P300",
     "G1 E1.0000 F1800",
     "G92 E0.0000",
-    "G1 X180 Y0 E15 F662"
+    "G1 X180 Y0 E15 F662",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "G28 ; home",

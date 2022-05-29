@@ -22,10 +22,10 @@
     495
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     ";M104 T0 S{material_standby_temperature, 0} ",
     ";M104 T1 S{material_standby_temperature, 1} ",
     ";M140 S{material_bed_temperature_layer_0} ",

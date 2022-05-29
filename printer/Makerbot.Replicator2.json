@@ -22,8 +22,8 @@
     150
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     "M73 P0          ; set progress to 0%",
     "G90             ; set absolute positioning mode",
     "M83             ; set relative positioning for extruder",

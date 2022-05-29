@@ -44,7 +44,8 @@
     "",
     "; Set the extruder to the requested print temperature",
     "M104 S{temp}",
-    ""
+    "",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M104 S0 ; turn off temperature",

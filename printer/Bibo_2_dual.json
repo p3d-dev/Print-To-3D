@@ -22,8 +22,8 @@
     160
   ],
   "pre_gcode": [
-    "M140 {bed_temp}",
-    "M190",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M190               ; wait for bed temperature",
     "M104 T0 165",
     "M104 T1 165",
     "; PLEASE CHECK: M109 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr}",

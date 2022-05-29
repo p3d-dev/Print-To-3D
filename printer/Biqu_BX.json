@@ -69,7 +69,8 @@
     "G1 X4.4 Y20 Z0.3 F1500.0 E30                  ; Draw the second line\r",
     "G92 E0                                        ; Reset Extruder\r",
     "M117 Lets make\r",
-    "G1 X8 Y20 Z0.3 F5000.0                        ; Move over to prevent blob squish"
+    "G1 X8 Y20 Z0.3 F5000.0                        ; Move over to prevent blob squish",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "                               ;BIQU Default End Gcode",

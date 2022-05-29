@@ -45,7 +45,8 @@
     "G92 E0                           ; Reset Extruder",
     "M117 Lets make",
     "G1 Z2.0 F3000                    ; Move Z Axis up little to prevent scratching of Heat Bed",
-    "G1 X5 Y20 Z0.3 F5000.0           ; Move over to prevent blob squish"
+    "G1 X5 Y20 Z0.3 F5000.0           ; Move over to prevent blob squish",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "                               ;BIQU Default End Gcode",

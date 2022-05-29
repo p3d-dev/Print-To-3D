@@ -22,9 +22,10 @@
     180
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
-    "G28 ;Home"
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
+    "G28 ;Home",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

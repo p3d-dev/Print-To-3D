@@ -22,8 +22,8 @@
     195
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "; ZYYX 3D Printer start gcode",
     "M73 P0; enable build progress",
     "G21; set units to mm",

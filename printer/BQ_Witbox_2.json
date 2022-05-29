@@ -22,11 +22,12 @@
     200
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "; -- START GCODE --",
     "M800        ; Custom GCODE to fire start print procedure",
-    "; -- end of START GCODE --"
+    "; -- end of START GCODE --",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "; -- END GCODE --",

@@ -22,8 +22,8 @@
     400
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "M140 S{bed_temp} ; Heat bed",
     "M109 S{temp} ; Heat nozzle",
     "M190 S{bed_temp} ; Wait for bed heating",
@@ -36,7 +36,8 @@
     "G1 X0.4 Y100.0 Z0.3 F5000.0 ; move to side a little",
     "G1 X0.4 Y20 Z0.3 F1500.0 E30 ; draw 2nd line",
     "G92 E0 ; reset extruder",
-    "G1 Z5.0 F1000 ; move z up little to prevent scratching of surface"
+    "G1 Z5.0 F1000 ; move z up little to prevent scratching of surface",
+    "G90                ; absolute position required"
   ],
   "post_gcode": [
     "G91; relative positioning",

@@ -22,8 +22,8 @@
     180
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "; -- START GCODE --",
     "G21                     ;set units to millimetres",
     "G90                     ;set to absolute positioning",

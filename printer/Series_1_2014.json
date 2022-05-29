@@ -22,8 +22,8 @@
     305
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     ";-- START GCODE --",
     ";Sliced for Type A Machines Series 1",
     ";Sliced at: {day} {date} {time}",

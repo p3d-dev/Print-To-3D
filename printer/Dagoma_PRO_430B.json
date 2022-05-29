@@ -22,8 +22,8 @@
     360
   ],
   "pre_gcode": [
-    "M104 {temp}",
-    "M109",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109               ; wait for nozzle temperature",
     "",
     ";Start Gcode for {machine_name}",
     ";Author: Dagoma",
