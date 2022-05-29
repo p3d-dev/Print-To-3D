@@ -23,9 +23,9 @@
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
-    "M190               ; wait for bed temperature",
+    "M190 S{bed_temp}   ; wait for bed temperature",
     "M104 S{temp}       ; need to heat the nozzle",
-    "M109               ; wait for nozzle temperature",
+    "M109 S{temp}       ; wait for nozzle temperature",
     ";Basic settings: Layer height: {layer_height} Walls: {wall_thickness} Fill: {infill_sparse_density}",
     ";Print time: {print_time}",
     ";M190 S{material_bed_temperature} ;Uncomment to add your own bed temperature line",

@@ -386,11 +386,11 @@ impl P3dPrinter {
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {
-            self.pre_gcode.insert(0, "M109               ; wait for nozzle temperature".to_string());
+            self.pre_gcode.insert(0, "M109 S{temp}       ; wait for nozzle temperature".to_string());
             self.pre_gcode.insert(0, "M104 S{temp}       ; need to heat the nozzle".to_string());
         }
         if need_bed_temp {
-            self.pre_gcode.insert(0, "M190               ; wait for bed temperature".to_string());
+            self.pre_gcode.insert(0, "M190 S{bed_temp}   ; wait for bed temperature".to_string());
             self.pre_gcode.insert(0, "M140 S{bed_temp}   ; need to heat the bed".to_string());
         }
         if need_absolute_positioning {

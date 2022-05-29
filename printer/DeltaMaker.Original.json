@@ -23,7 +23,7 @@
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
-    "M190               ; wait for bed temperature",
+    "M190 S{bed_temp}   ; wait for bed temperature",
     "M104 S{temp} T{tool} ; set extruder temperature",
     "G21             ; Make sure we're in metric mode",
     "G90             ; set absolute positioning mode",

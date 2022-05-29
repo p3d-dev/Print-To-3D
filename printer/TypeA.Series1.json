@@ -23,7 +23,7 @@
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
-    "M190               ; wait for bed temperature",
+    "M190 S{bed_temp}   ; wait for bed temperature",
     "G1 Z15.0 F12000         ; move the platform down 15mm",
     "G1 X150 Y5 F12000       ; center extruder on X",
     "M107                    ; turn off filament cooling fan",

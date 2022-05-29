@@ -23,7 +23,7 @@
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
-    "M190               ; wait for bed temperature",
+    "M190 S{bed_temp}   ; wait for bed temperature",
     "M605 S2 R0 X125",
     "M605 S3 X125",
     "G21",
