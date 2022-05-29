@@ -22,7 +22,7 @@
     200
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
+    "M140 S{bed_temp}   ; need to heat the bed",
     "M190               ; wait for bed temperature",
     ";Start GCode - Cosmos II - 3.x.x_SEGcTK_1.1",
     " M104 S120; Comienzo a calentar extrusor",

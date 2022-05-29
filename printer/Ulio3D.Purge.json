@@ -22,7 +22,7 @@
     78
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
+    "M140 S{bed_temp}   ; need to heat the bed",
     "M190               ; wait for bed temperature",
     "G21                 ; set to mm",
     "G90                 ; set absolute positioning mode",

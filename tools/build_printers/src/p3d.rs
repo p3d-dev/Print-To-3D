@@ -391,7 +391,7 @@ impl P3dPrinter {
         }
         if need_bed_temp {
             self.pre_gcode.insert(0, "M190               ; wait for bed temperature".to_string());
-            self.pre_gcode.insert(0, "M104 S{temp}       ; need to heat the nozzle".to_string());
+            self.pre_gcode.insert(0, "M140 S{bed_temp}   ; need to heat the bed".to_string());
         }
         if need_absolute_positioning {
             self.pre_gcode.push("G90                ; absolute position required".to_string());

@@ -22,7 +22,7 @@
     225
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
+    "M140 S{bed_temp}   ; need to heat the bed",
     "M190               ; wait for bed temperature",
     "; FELIXprinters | www.FELIXprinters.com | Zeemanlaan 15 3401 MV IJsselstein The Netherlands",
     "; FELIX Tec 4 | Start Code Dual Extruders v1.0",
