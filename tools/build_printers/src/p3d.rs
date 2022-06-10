@@ -397,6 +397,11 @@ impl P3dPrinter {
             self.pre_gcode.push("G90                ; absolute position required".to_string());
         }
 
+        if self.build_size.2 > 1310 {
+            println!("Too high print {} > 131000", self.build_size.2);
+            return None;
+        }
+
         Some(self)
     }
 }
