@@ -402,6 +402,11 @@ impl P3dPrinter {
             return None;
         }
 
+        if self.bed_belt {
+            println!("Print with belt are not supported");
+            return None;
+        }
+
         Some(self)
     }
 }
