@@ -53,6 +53,7 @@ struct Settings01 {
     bed_depth: u16,
     build_height: u16,
     bed_circle: Option<bool>,
+    bed_belt: Option<bool>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -185,7 +186,7 @@ impl GridApps for GridApps01 {
             .unwrap_or_else(|| "".to_string())
     }
     fn get_bed_belt(&self) -> bool {
-        false
+        self.settings.bed_belt.unwrap_or(false)
     }
     fn get_extruders(&self) -> Vec<&dyn GridAppsExtruder> {
         if let Some(extruders) = self.extruders.as_ref() {

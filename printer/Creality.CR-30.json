@@ -5,7 +5,7 @@
   "license": "MIT",
   "origin_center": false,
   "bed_elliptic": false,
-  "bed_belt": false,
+  "bed_belt": true,
   "extruders": [
     {
       "nozzle": 0.4,
