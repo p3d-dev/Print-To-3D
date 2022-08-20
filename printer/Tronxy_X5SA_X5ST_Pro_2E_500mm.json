@@ -67,7 +67,7 @@
     "M84 X Y Z E ; Disable X Y Z and E steppers",
     ""
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

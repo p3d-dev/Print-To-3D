@@ -38,7 +38,7 @@
     "M801        ; Marlin G-CODE to fire end print procedure",
     "; -- end of END GCODE --"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": false,

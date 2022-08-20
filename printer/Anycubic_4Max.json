@@ -54,7 +54,7 @@
     "G90",
     "M300 P300 S4000"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

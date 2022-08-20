@@ -50,7 +50,7 @@
     "G1 X178 Y180 F4200 ; park print head",
     "M84 ; disable motors"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

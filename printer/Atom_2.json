@@ -43,7 +43,7 @@
     "M84",
     "G90"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": false,

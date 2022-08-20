@@ -194,7 +194,7 @@ impl P3dPrinter {
             build_size,
             pre_gcode,
             post_gcode,
-            fan_gcode: "".to_string(),
+            fan_gcode: "M106 S{fan_speed}".to_string(),
             progress_gcode: "".to_string(),
             layer_gcode: "".to_string(),
             bed_belt: false,

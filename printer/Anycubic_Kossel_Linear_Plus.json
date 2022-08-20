@@ -50,7 +50,7 @@
     "G28      ;move to endstop",
     "M84      ;steppers off"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

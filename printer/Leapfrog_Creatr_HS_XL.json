@@ -49,7 +49,7 @@
     "G1 Y270 F12000 ; Move Y axis to the backside",
     "M84 ; disable motors"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

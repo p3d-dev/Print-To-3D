@@ -71,7 +71,7 @@
     "M82; Extruder in absolute mode",
     "M73 P100 ; Set print progress to 100%"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

@@ -88,7 +88,7 @@
     "M18 X Y E                                          ; turn off x y and e axis",
     "M117 Print Complete."
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,

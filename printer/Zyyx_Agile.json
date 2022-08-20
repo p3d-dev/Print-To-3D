@@ -74,7 +74,7 @@
     "M72 P1 ; play Ta-Da song",
     ""
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": false,

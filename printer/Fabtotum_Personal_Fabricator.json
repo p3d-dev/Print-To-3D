@@ -51,7 +51,7 @@
     "G90 ;absolute positioning",
     "M300 S2 ;FAB bep bep (end print)"
   ],
-  "fan_gcode": "",
+  "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
   "layer_gcode": "",
   "heated_bed": true,
