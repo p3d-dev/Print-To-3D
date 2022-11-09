@@ -1,5 +1,5 @@
 # Print To 3D - Slice your design to gcode
-[![Print-To-3D](./images/P3D_appicon.png)](https://apps.apple.com/us/app/print-to-3d/id1614819811)
+[![Print-To-3D](https://vicinity-international.de/assets/img/P3D_appicon.png)](https://apps.apple.com/us/app/print-to-3d/id1614819811)
 <a href="https://apps.apple.com/us/app/print-to-3d/id1614819811?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1647993600&h=f6f86a5cca7e99bd123ee10ebc632a6e" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
 Finally, 3D printing comes to iPad !
@@ -26,7 +26,6 @@ Follow us on Twitter: [@PrintTo3D](https://www.twitter.com/PrintTo3D)
 
 License situation:
 - The MIT license applies only to the files in the subdirectory tools/
-- The png file in the subdirectory images/ is property of Vicinity International GmbH.
 - The json files in the subdirectory printer/ are generated files from the build tool.
   These have been added to the repository for convenience.
   Each of the json-files in the repository contain information about their applicable valid license.
