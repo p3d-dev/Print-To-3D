@@ -34,7 +34,9 @@ License situation:
 
 For LGPL-3.0/CuraV2:
 Cura is released under the terms of the LGPLv3 or higher. A copy of this license should be included with the software.
+License text in printer.LICENSE-GPL
 
 For GridApps01/MIT:
 Copyright 2014-2018 Stewart Allen <sa@grid.space>
+License text in printer.LICENSE-GridApps
 
