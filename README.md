@@ -24,3 +24,17 @@ Selection of features:
 
 Follow us on Twitter: [@PrintTo3D](https://www.twitter.com/PrintTo3D)
 
+License situation:
+- The MIT license applies only to the files in the subdirectory tools/
+- The png file in the subdirectory images/ is property of Vicinity International GmbH.
+- The json files in the subdirectory printer/ are generated files from the build tool.
+  These have been added to the repository for convenience.
+  Each of the json-files in the repository contain information about their applicable valid license.
+  The key "source"/"license" state either GridApps01/MIT or LGPL-3.0/CuraV2
+
+For LGPL-3.0/CuraV2:
+Cura is released under the terms of the LGPLv3 or higher. A copy of this license should be included with the software.
+
+For GridApps01/MIT:
+Copyright 2014-2018 Stewart Allen <sa@grid.space>
+
