@@ -1,6 +1,6 @@
 {
-  "name": "Mingda Magician Max",
-  "machine_name": "Mingda Magician Max",
+  "name": "Mingda 4H",
+  "machine_name": "Mingda 4H",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -17,9 +17,9 @@
     }
   ],
   "build_size": [
-    320,
-    320,
-    400
+    300,
+    200,
+    200
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
@@ -27,7 +27,6 @@
     "M104 S{temp}       ; need to heat the nozzle",
     "M109 S{temp}       ; wait for nozzle temperature",
     " G28 ; home all axes",
-    " M420 S1",
     " M117 ; Purge extruder",
     " G92 E0 ; reset extruder",
     " G1 Z1.0 F3000 ; move z up little to prevent scratching of surface",
@@ -47,7 +46,6 @@
     " M104 S0; turn off extruder",
     " M140 S0 ; turn off bed",
     " M84 ; disable motors",
-    " M420 S0",
     " M106 S0 ; turn off fan"
   ],
   "fan_gcode": "M106 S{fan_speed}",

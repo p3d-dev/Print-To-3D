@@ -1,0 +1,60 @@
+{
+  "name": "Biqu Hurakan",
+  "machine_name": "Biqu Hurakan",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    235,
+    235,
+    270
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";BIQU Hurakan start code. Much complex. Very wow. Klipper FTW.\r",
+    "\r",
+    "START_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={temp}\r",
+    "\r",
+    "; Note: This start/end code is designed to work\r",
+    "; with the stock cfg files provided  with the \r",
+    "; BIQU Hurakan. If you alter the macros in the \r",
+    "; cfg files then you may also need to alter this code.\r",
+    "\r",
+    "; Another note: This profile will get you \r",
+    "; part of the way to good prints.\r",
+    "; You still need to tweak settings for each \r",
+    "; different filament that you use.\r",
+    "; Settings such as retraction distance/speed, \r",
+    "; flow, pressure advance, bed/nozzle temperatures\r",
+    "; and others may need to be adjusted.\r",
+    "; Use https://teachingtechyt.github.io/calibration.html to calibrate.\r",
+    "; Also see https://www.youtube.com/watch?v=Ae2G7hl_pZc\r",
+    "; for some good tips.",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    ";BIQU Hurakan end code. More complex. Such wow. Klipper4Life.\r",
+    "\r",
+    "END_PRINT"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

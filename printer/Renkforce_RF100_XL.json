@@ -1,0 +1,63 @@
+{
+  "name": "Renkforce RF100 XL",
+  "machine_name": "Renkforce RF100 XL",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    200,
+    200,
+    200
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";Sliced at: {day} {date} {time}",
+    "G21 ;metric values",
+    "G90 ;absolute positioning",
+    "M82 ;set extruder to absolute mode",
+    "M107 ;start with the fan off",
+    "G1 Z5.0 F1800 ;move Z to 5mm",
+    "G28 X0 Y0 F1800 ;move X/Y to min endstops",
+    "G28 Z0 ;move Z to min endstop",
+    "G92 E0 ;zero the extruded length",
+    "G1 F200 E6.0 ;extrude 6.0mm of feed stock to build pressure",
+    "G1 Z5.0 F300 ;move the platform down 5mm",
+    "G92 E0 ;zero the extruded length again",
+    "G1 F1800",
+    ";Put printing message on LCD screen",
+    "M117 Printing..."
+  ],
+  "post_gcode": [
+    ";End GCode",
+    "G91 ;relative positioning",
+    "G1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure",
+    "G1 Z+0.5 E-4 F300 ;move Z up a bit and retract filament even more",
+    "M104 S0 ;extruder heater off",
+    "M140 S0 ;heated bed heater off (if you have it)",
+    "G0 Z{z_max} F1800 ;move the platform all the way down",
+    "G28 X0 Y0 F1800 ;move X/Y to min endstops, so the head is out of the way",
+    "M84 ;steppers off",
+    "G90 ;absolute positioning",
+    "M117 Done"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

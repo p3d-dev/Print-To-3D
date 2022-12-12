@@ -29,12 +29,14 @@
     ";Slicer info:material_id;{material_id}",
     ";Slicer info:material_brand;{material_brand}",
     ";Slicer info:material_name;{material_name}",
+    ";Slicer info:filament_cost;{filament_cost}",
     ";Slicer info:material_bed_temperature;{material_bed_temperature}",
     ";Slicer info:material_bed_temperature_layer_0;{material_bed_temperature_layer_0}",
     ";Slicer info:material_print_temperature;{material_print_temperature}",
     ";Slicer info:material_print_temperature_layer_0;{material_print_temperature_layer_0}",
     ";Slicer info:material_flow;{material_flow}",
     ";Slicer info:layer_height;{layer_height}",
+    ";Slicer info:machine_nozzle_size;{machine_nozzle_size}",
     ";Slicer info:wall_thickness;{wall_thickness}",
     ";Slicer info:speed_print;{speed_print}",
     ";Slicer info:speed_topbottom;{speed_topbottom}",
@@ -51,6 +53,7 @@
     "G21                                        ; metric values ",
     "G90                                        ; absolute positioning ",
     "M82                                        ; set extruder to absolute mode ",
+    "M900 K0                                    ; disable lin. adv. if not set in GCODE",
     "M107                                       ; start with the fan off ",
     "M140 S{bed_temp}   ; Start heating the bed ",
     "G4 S60                                     ; wait 1 minute ",
@@ -66,7 +69,8 @@
     "G1 X50 E20 F500                            ; Extrude 20mm of filament in a 5cm line. ",
     "G92 E0                                     ; zero the extruded length again ",
     "G1 E-2 F500                                ; Retract a little ",
-    "G1 X120 F4000                              ; Quickly wipe away from the filament line`"
+    "G1 X50 F500                                ; wipe away from the filament line",
+    "G1 X100 F9000                              ; Quickly wipe away from the filament line"
   ],
   "post_gcode": [
     "M104 S0                                    ; Extruder off ",

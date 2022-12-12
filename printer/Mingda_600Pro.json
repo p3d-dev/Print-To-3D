@@ -1,6 +1,6 @@
 {
-  "name": "Mingda Magician Max",
-  "machine_name": "Mingda Magician Max",
+  "name": "Mingda 600Pro",
+  "machine_name": "Mingda 600Pro",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -17,9 +17,9 @@
     }
   ],
   "build_size": [
-    320,
-    320,
-    400
+    600,
+    600,
+    600
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
@@ -30,13 +30,13 @@
     " M420 S1",
     " M117 ; Purge extruder",
     " G92 E0 ; reset extruder",
-    " G1 Z1.0 F3000 ; move z up little to prevent scratching of surface",
-    " G1 X2 Y20 Z0.3 F5000.0 ; move to start-line position",
-    " G1 X2 Y200.0 Z0.3 F1500.0 E15 ; draw 1st line",
-    " G1 X2 Y200.0 Z0.4 F5000.0 ; move to side a little",
-    " G1 X2 Y20 Z0.4 F1500.0 E30 ; draw 2nd line",
+    " G1 Z1.0 F1200 ; move z up little to prevent scratching of surface",
+    " G1 X4 Y20 Z0.3 F3000.0 ; move to start-line position",
+    " G1 X4 Y380.0 Z0.3 F1500.0 E30 ; draw 1st line",
+    " G1 X4 Y380.0 Z0.4 F3000.0 ; move to side a little",
+    " G1 X4 Y20 Z0.4 F1500.0 E60 ; draw 2nd line",
     " G92 E0 ; reset extruder",
-    " G1 Z1.0 F3000 ; move z up little to prevent scratching of surface",
+    " G1 Z1.0 F1500 ; move z up little to prevent scratching of surface",
     "G90                ; absolute position required"
   ],
   "post_gcode": [
@@ -47,7 +47,6 @@
     " M104 S0; turn off extruder",
     " M140 S0 ; turn off bed",
     " M84 ; disable motors",
-    " M420 S0",
     " M106 S0 ; turn off fan"
   ],
   "fan_gcode": "M106 S{fan_speed}",

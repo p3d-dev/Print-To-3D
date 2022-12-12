@@ -1,0 +1,67 @@
+{
+  "name": "Vivedino T-REX 3",
+  "machine_name": "Vivedino Base Printer",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "M106 P0 S[fan_speed_pwm]",
+      "deselect": "M106 P0 S0"
+    }
+  ],
+  "build_size": [
+    400,
+    400,
+    500
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "M605 S1 ; Set dual carriage mode S0 slicer full control | S1 AutoPark inactive head | S2 duplicate",
+    "T0",
+    "M106 P0 S[fan_speed_pwm]",
+    "M106 P1 S[fan_speed_pwm]",
+    "G28 ; home all axes",
+    "M420 S1 ; Enable bed leveling compensation using current grid/mesh",
+    "G1 X-42 F8000",
+    "G92 E0",
+    "G1 E5 F500",
+    "G1 X0 F5000",
+    "G1 X-40",
+    "G1 X0",
+    "G1 X-40",
+    "G1 X0",
+    "G1 X-40",
+    "G1 X200",
+    "G1 Y200 F5000",
+    "T1",
+    "G1 X440 F8000 ; park T0 head at X=440",
+    "G92 E0 ; Zero extruder count",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    "G28 X0 Y0",
+    "M104 S0 T1 ; turn off extruder",
+    "M104 S0 T0",
+    "M140 S0 ; turn off bed",
+    "G28 X0",
+    "M106 P0 S0",
+    "M106 P1 S0",
+    "M84 S0",
+    "M84 XYE; disable motors except Z"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

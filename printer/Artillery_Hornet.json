@@ -1,6 +1,6 @@
 {
-  "name": "Mingda Magician Max",
-  "machine_name": "Mingda Magician Max",
+  "name": "Artillery Hornet",
+  "machine_name": "Artillery Hornet",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -17,18 +17,17 @@
     }
   ],
   "build_size": [
-    320,
-    320,
-    400
+    220,
+    220,
+    250
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
     "M190 S{bed_temp}   ; wait for bed temperature",
     "M104 S{temp}       ; need to heat the nozzle",
     "M109 S{temp}       ; wait for nozzle temperature",
-    " G28 ; home all axes",
-    " M420 S1",
-    " M117 ; Purge extruder",
+    "G28 ; home all axes",
+    " M117 Purge extruder",
     " G92 E0 ; reset extruder",
     " G1 Z1.0 F3000 ; move z up little to prevent scratching of surface",
     " G1 X2 Y20 Z0.3 F5000.0 ; move to start-line position",
@@ -40,14 +39,14 @@
     "G90                ; absolute position required"
   ],
   "post_gcode": [
-    " G91; relative positioning",
+    "G91; relative positioning",
     " G1 Z1.0 F3000 ; move z up little to prevent scratching of print",
     " G90; absolute positioning",
-    " G1 X0 Y0 F1000 ; prepare for part removal",
+    " G1 X0 Y200 F1000 ; prepare for part removal",
     " M104 S0; turn off extruder",
     " M140 S0 ; turn off bed",
+    " G1 X0 Y300 F1000 ; prepare for part removal",
     " M84 ; disable motors",
-    " M420 S0",
     " M106 S0 ; turn off fan"
   ],
   "fan_gcode": "M106 S{fan_speed}",

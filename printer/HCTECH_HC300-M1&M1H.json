@@ -1,0 +1,64 @@
+{
+  "name": "HCTECH_HC300-M1&M1H",
+  "machine_name": "HCTECH HC300-M1&M1H",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    300
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G1 Z2 ;Raise Z",
+    "G28 X Y ;Home XY",
+    "G92 E0 ;Reset Extruder",
+    "G1 E-1 F2400 ;Retract",
+    "G92 E0 ;Reset Extruder",
+    "G28 Z ;home Z",
+    "G29 ; Measure the bed",
+    "M500 ; Store to EEPROM",
+    "G1 Z2.0 F3000 ; Move Z Axis up little to prevent scratching of Heat Bed",
+    "G1 X0.1 Y20 Z0.36 F5000.0 ; Move to start position",
+    "G1 X0.1 Y200.0 Z0.36 F1500.0 E15 ; Draw the first line",
+    "G1 X0.4 Y200.0 Z0.36 F5000.0 ; Move to side a little",
+    "G1 X0.4 Y20 Z0.36 F1500.0 E30 ; Draw the second line",
+    "G92 E0 ; Reset Extruder",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    "G91 ;Relative positioning",
+    "G1 E-1 F2700 ;Retract a bit",
+    "G1 Z1 E-1 F2400 ;Retract and raise Z",
+    "G1 Z2 ;Raise Z",
+    "G90 ;Absolute positioning",
+    "G12 P1;clean nozzle",
+    "G1 X5 Y300 ;Return to Start Point",
+    "M106 S0 ;Switch off part cooling fan",
+    "M104 S0 ;turn off temperature",
+    "M140 S0 ;turn off Heated Bed",
+    "M84 X Y E ;Disable all steppers but Z",
+    "M81 ;turn-off power"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Renkforce Cube One",
+  "machine_name": "Renkforce Cube One",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    80,
+    80,
+    80
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G28 ;Home",
+    "G1 Z15.0 F6000 ;Move the platform down 15mm",
+    ";Prime the extruder",
+    "G92 E0",
+    "G1 F200 E3",
+    "G92 E0",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    "G91 ;Relative positioning",
+    "G1 E-2 F2700 ;Retract the filament",
+    "G1 E-2 Z0.2 F2400 ;Retract and raise Z",
+    "G1 X5 Y5 F3000 ;Wipe out",
+    "G1 Z10 ;Raise Z more",
+    "G90 ;Absolute positioning",
+    "",
+    "G28 X0 Y0 ;Home X and Y",
+    "",
+    "M106 S0 ;Turn-off fan",
+    "M104 S0 ;Turn-off hotend",
+    "M140 S0 ;Turn-off bed",
+    "",
+    "M84 X Y E ;Disable all steppers but Z"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": false,
+  "speed_travel": 120.0
+}

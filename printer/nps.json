@@ -1,0 +1,62 @@
+{
+  "name": "nps",
+  "machine_name": "NAXE NP-S",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    300
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "G28 X Y",
+    "G1 Y10",
+    "M104 S{temp}",
+    "M190 S{bed_temp}",
+    "G28",
+    "G4 S5",
+    "G34",
+    "G29 E0",
+    "G21",
+    "G90",
+    "M83",
+    "G1 X6 Y20 F7200",
+    "G1 Z0.2",
+    "M109 S{temp}",
+    "G1 X10 Y20 Z0.2 F5000.0",
+    "G1 X10 Y200.0 Z0.2 F900.0 E10",
+    "G92 E0.0",
+    "M82",
+    "M117 Printing",
+    ""
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G28 X0 Y0",
+    "M84",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

@@ -1,0 +1,58 @@
+{
+  "name": "PastePrinter",
+  "machine_name": "Unknown",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 3.0,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    235,
+    235,
+    235
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";HEADER;",
+    "G21; Set to metric [change to G20 if you want Imperial]",
+    "G91;Force coordinates to be absolute relative to the origin ",
+    "G1 Z10 F1000;",
+    "G90; Force coordinates to be absolute relative to the origin",
+    "G28 X; Home X axis",
+    "G28 Y; Home Y axis",
+    "G28 Z; Home Z axis",
+    "M302 P1; Disable Cold Extrusion Checking",
+    "G92 E0; Reset extruder to [0] zero end of cleaning run",
+    "G91; Force coordinates to be absolute relative to the origin",
+    "G1 Z10 F1000;",
+    "G90;",
+    "T0;",
+    "M117 Printing...;ENDHEADER"
+  ],
+  "post_gcode": [
+    ";FOOTER",
+    "G91; relative positioning",
+    "M107; turn off layer fan",
+    "G1 Z50 F1000",
+    "M400;Wait finish move",
+    "G90; absolute positioning",
+    "G1 X235 Y235",
+    ";ENDFOOTER"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": false,
+  "speed_travel": 120.0
+}
