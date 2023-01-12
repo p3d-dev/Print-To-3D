@@ -46,7 +46,7 @@
     "M83 ; Set extrder to Relative",
     "G1 E-5 F3000 ; Retract 5mm of filament at 50mm/s",
     "G90 ; Set all axis to Absolute ",
-    "; PLEASE CHECK: G1 X0 Y{machine_depth} ; Park print head",
+    "G1 X0 Y{bottom} ; Park print head",
     "G1 Z10 ; Move up 10mm",
     "M106 S0 ; Set fan speed to 0",
     "M104 S0 ; Set bed temp to 0",

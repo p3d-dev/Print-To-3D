@@ -265,7 +265,8 @@ lazy_static! {
         ("machine_depth", None),
         ("machine_height", Some("{z_max}")),
         ("machine_name", None),
-        ("machine_width", None),
+        ("machine_width", Some("{right}")),
+        ("machine_depth", Some("{bottom}")),
         ("material_bed_temperature", Some("{bed_temp}")),
         ("material_bed_temperature_layer_0", Some("{bed_temp}")),
         ("material_brand", None),
@@ -273,6 +274,7 @@ lazy_static! {
         ("material_guid", None),
         ("material_id", None),
         ("material_name", None),
+        ("material_initial_print_temperature", Some("{temp}")),
         ("material_print_temperature", Some("{temp}")),
         ("material_print_temperature, 0", Some("{temp}")),
         ("material_print_temperature, 1", Some("{temp}")),
@@ -310,37 +312,41 @@ lazy_static! {
 
 impl P3dPrinter {
     fn prune(gcode: &mut Vec<String>, xref: &HashMap<&'static str, Option<String>>) {
-        let re = Regex::new(r"^[^;]*\{(.*)\}").unwrap();
+        let mut re_list: Vec<Regex> = vec![];
+        re_list.push(Regex::new(r"^[^;]*\{(.*)\}").unwrap());
+        re_list.push(Regex::new(r"^[^;]*\{(.*)\}[^;]*\{(.*)\}").unwrap());
         for i in 0..gcode.len() {
             if gcode[i].starts_with(";") {
                 continue;
             }
-            let mut delete = false;
-            let mut replace: Option<String> = None;
-            for cap in re.captures_iter(&gcode[i]) {
-                let m = &cap[1];
-                match xref.get(m) {
-                    None => {
-                        // keep the variable
-                    }
-                    Some(None) => {
-                        delete = true;
-                    }
-                    Some(Some(replacement)) => {
-                        let mut pattern = String::new();
-                        pattern.push_str("{");
-                        pattern.push_str(m);
-                        pattern.push_str("}");
-                        let modified = gcode[i].replace(&pattern, replacement);
-                        replace = Some(modified);
+            for re in re_list.iter() {
+                let mut delete = false;
+                let mut replace: Option<String> = None;
+                for cap in re.captures_iter(&gcode[i]) {
+                    let m = &cap[1];
+                    match xref.get(m) {
+                        None => {
+                            // keep the variable
+                        }
+                        Some(None) => {
+                            delete = true;
+                        }
+                        Some(Some(replacement)) => {
+                            let mut pattern = String::new();
+                            pattern.push_str("{");
+                            pattern.push_str(m);
+                            pattern.push_str("}");
+                            let modified = gcode[i].replace(&pattern, replacement);
+                            replace = Some(modified);
+                        }
                     }
                 }
-            }
-            if delete {
-                gcode[i] = format!("; PLEASE CHECK: {}", gcode[i]);
-            }
-            if let Some(replace) = replace {
-                gcode[i] = replace;
+                if delete {
+                    gcode[i] = format!("; PLEASE CHECK: {}", gcode[i]);
+                }
+                if let Some(replace) = replace {
+                    gcode[i] = replace;
+                }
             }
         }
     }
@@ -370,10 +376,10 @@ impl P3dPrinter {
             .collect::<HashMap<&'static str, Option<String>>>();
 
         if let Some(ts) = self.speed_travel {
-            xref.insert("speed_travel", Some(format!("{}",ts)));
-            xref.insert("speed_travel_layer_0", Some(format!("{}",ts)));
-            xref.insert("travel_speed", Some(format!("{}",ts)));
-            xref.insert("travel_xy_speed", Some(format!("{}",ts)));
+            xref.insert("speed_travel", Some(format!("{}", ts)));
+            xref.insert("speed_travel_layer_0", Some(format!("{}", ts)));
+            xref.insert("travel_speed", Some(format!("{}", ts)));
+            xref.insert("travel_xy_speed", Some(format!("{}", ts)));
         }
 
         // check for variables
@@ -386,15 +392,26 @@ impl P3dPrinter {
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {
-            self.pre_gcode.insert(0, "M109 S{temp}       ; wait for nozzle temperature".to_string());
-            self.pre_gcode.insert(0, "M104 S{temp}       ; need to heat the nozzle".to_string());
+            self.pre_gcode.insert(
+                0,
+                "M109 S{temp}       ; wait for nozzle temperature".to_string(),
+            );
+            self.pre_gcode.insert(
+                0,
+                "M104 S{temp}       ; need to heat the nozzle".to_string(),
+            );
         }
         if need_bed_temp {
-            self.pre_gcode.insert(0, "M190 S{bed_temp}   ; wait for bed temperature".to_string());
-            self.pre_gcode.insert(0, "M140 S{bed_temp}   ; need to heat the bed".to_string());
+            self.pre_gcode.insert(
+                0,
+                "M190 S{bed_temp}   ; wait for bed temperature".to_string(),
+            );
+            self.pre_gcode
+                .insert(0, "M140 S{bed_temp}   ; need to heat the bed".to_string());
         }
         if need_absolute_positioning {
-            self.pre_gcode.push("G90                ; absolute position required".to_string());
+            self.pre_gcode
+                .push("G90                ; absolute position required".to_string());
         }
 
         if self.build_size.2 > 1000 {
@@ -403,7 +420,7 @@ impl P3dPrinter {
         }
 
         if self.bed_belt {
-            println!("Print with belt are not supported");
+            println!("Print with belt is not supported");
             return None;
         }
 

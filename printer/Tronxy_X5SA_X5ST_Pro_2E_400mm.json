@@ -59,7 +59,7 @@
     "G1 E-4 F3000 ; Retract 4mm of filament",
     "G1 Z0.2 ; Raise nozzle .2mm",
     "G90 ; Set positioning to absolute",
-    "; PLEASE CHECK: G1 X{machine_width} Y{machine_depth} ; Park print head",
+    "G1 X{right} Y{bottom} ; Park print head",
     "G91 ; Set Positioning to RelativeG1 Z10 ; Raise nozzle 10mm",
     "M106 S0 ; Turn off part fan",
     "M104 S0 ; Set nozzle temp to zero",

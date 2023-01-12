@@ -42,7 +42,7 @@
     "G1 E-1 F300 ;retract the filament a bit before lifting the nozzle, to release some of the pressure",
     "G1 Z{z_max} E-1 F3000 ;move Z up a bit and retract filament even more",
     "G1 X0 F3000 ;move X to min endstops, so the head is out of the way",
-    "; PLEASE CHECK: G1 Y{machine_depth} F3000 ;so the head is out of the way and Plate is moved forward"
+    "G1 Y{bottom} F3000 ;so the head is out of the way and Plate is moved forward"
   ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",

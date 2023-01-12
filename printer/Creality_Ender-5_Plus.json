@@ -55,7 +55,7 @@
     "G1 Z10 ;Raise Z more",
     "G90 ;Absolute positioning",
     "",
-    "; PLEASE CHECK: G1 X{machine_width} Y{machine_depth} ;Present print",
+    "G1 X{right} Y{bottom} ;Present print",
     "M106 S0 ;Turn-off fan",
     "M104 S0 ;Turn-off hotend",
     "M140 S0 ;Turn-off bed",

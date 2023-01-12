@@ -1,4 +1,4 @@
-use std::collections::{HashMap,BTreeMap};
+use std::collections::{BTreeMap, HashMap};
 use std::env;
 use std::fs::File;
 use std::io::{BufWriter, Error, Read};
@@ -22,7 +22,7 @@ enum Source {
 
 #[derive(Serialize, Debug)]
 pub struct Printers {
-    printers: BTreeMap<String,String>
+    printers: BTreeMap<String, String>,
 }
 
 fn generalized(name: &str) -> String {
@@ -75,7 +75,9 @@ fn main() -> Result<(), Error> {
         }
     }
 
-    let mut printers = Printers { printers: BTreeMap::new() };
+    let mut printers = Printers {
+        printers: BTreeMap::new(),
+    };
 
     for (_name, e) in entries {
         let mut fname = env::current_dir()?;

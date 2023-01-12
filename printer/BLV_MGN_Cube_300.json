@@ -45,7 +45,7 @@
     "G91 ;relative positioning",
     "G1 Z5 F500; move nozzle relative to position",
     "G90 ;absolute positioning",
-    "; PLEASE CHECK: G1 X0 Y{machine_depth}",
+    "G1 X0 Y{bottom}",
     "G12 P1 T3",
     "M104 S0",
     "M140 S0",
