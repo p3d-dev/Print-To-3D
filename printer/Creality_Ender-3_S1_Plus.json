@@ -1,6 +1,6 @@
 {
-  "name": "Creality CR-10S Pro",
-  "machine_name": "Creality CR-10S Pro",
+  "name": "Creality Ender-3 S1 Plus",
+  "machine_name": "Creality Ender-3 S1 Plus",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -19,24 +19,15 @@
   "build_size": [
     300,
     300,
-    400
+    300
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
     "M190 S{bed_temp}   ; wait for bed temperature",
     "M104 S{temp}       ; need to heat the nozzle",
     "M109 S{temp}       ; wait for nozzle temperature",
-    "M201 X500.00 Y500.00 Z100.00 E5000.00 ;Setup machine max acceleration",
-    "M203 X500.00 Y500.00 Z10.00 E50.00 ;Setup machine max feedrate",
-    "M204 P500.00 R1000.00 T500.00 ;Setup Print/Retract/Travel acceleration",
-    "M205 X8.00 Y8.00 Z0.40 E5.00 ;Setup Jerk",
-    "M220 S100 ;Reset Feedrate",
-    "M221 S100 ;Reset Flowrate",
-    "",
+    "; Ender 3 S1 Plus Start G-code",
     "G28 ;Home",
-    "G29 ;Auto bed Level",
-    "M420 S1 ;Save and use mesh",
-    "",
     "G92 E0 ;Reset Extruder",
     "G1 Z2.0 F3000 ;Move Z Axis up",
     "G1 X10.1 Y20 Z0.28 F5000.0 ;Move to start position",

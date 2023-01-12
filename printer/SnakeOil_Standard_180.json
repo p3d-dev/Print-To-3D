@@ -1,0 +1,43 @@
+{
+  "name": "SnakeOil Standard 180",
+  "machine_name": "SNAKEOIL STANDARD 180",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    180,
+    180,
+    180
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";Simple",
+    "START_PRINT EXTRUDER_TEMP={material_print_temperature_layer_0} BED_TEMP={bed_temp}",
+    ";Or with custom bed mesh area",
+    ";START_PRINT EXTRUDER_TEMP={material_print_temperature_layer_0} BED_TEMP={material_bed_temperature_layer_0} AREA_START=%MINX%,%MINY% AREA_END=%MAXX%,%MAXY% FILAMENT_TYPE={material_type}",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    "END_PRINT"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

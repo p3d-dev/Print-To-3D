@@ -1,0 +1,56 @@
+{
+  "name": "ELEGOO NEPTUNE X",
+  "machine_name": "ELEGOO NEPTUNE X",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    235,
+    235,
+    310
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";ELEGOO NEPTUNE X",
+    "G90",
+    "G28 ;home",
+    "G1 Z0.6 F3000 ;Move Z Axis up",
+    "G92 E0 ;Reset Extruder",
+    "G1 X1.5 Y20 F5000.0 ;Move to start position",
+    "G1 Y120.0 F600.0 E20 ;Draw the first line",
+    "G1 X0.5 F1000.0 ;Move to side a little",
+    "G1 Y20 F600.0 E40 ;Draw the second line",
+    "G92 E0 ;Reset Extruder"
+  ],
+  "post_gcode": [
+    "G91 ;Relative positionning",
+    "G1 E-2 F2700 ;Retract a bit",
+    "G1 E-10 X5 Y5 Z3 F3000 ;Retract",
+    "G90 ;Absolute positionning",
+    "; PLEASE CHECK: G1 X0 Y{machine_depth} ;Present print",
+    "M106 S0 ;Turn-off fan",
+    "M104 S0 ;Turn-off hotend",
+    "M140 S0 ;Turn-off bed",
+    "M84 X Y E ;Disable all steppers but Z"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

@@ -1,6 +1,6 @@
 {
-  "name": "Creality CR-10S Pro",
-  "machine_name": "Creality CR-10S Pro",
+  "name": "Sovol SV01",
+  "machine_name": "SV01",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -17,9 +17,9 @@
     }
   ],
   "build_size": [
-    300,
-    300,
-    400
+    280,
+    240,
+    300
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
@@ -34,8 +34,6 @@
     "M221 S100 ;Reset Flowrate",
     "",
     "G28 ;Home",
-    "G29 ;Auto bed Level",
-    "M420 S1 ;Save and use mesh",
     "",
     "G92 E0 ;Reset Extruder",
     "G1 Z2.0 F3000 ;Move Z Axis up",
@@ -52,7 +50,7 @@
     "G91 ;Relative positioning",
     "G1 E-2 F2700 ;Retract a bit",
     "G1 E-2 Z0.2 F2400 ;Retract and raise Z",
-    "G1 X5 Y5 F3000 ;Wipe out",
+    "G1 X0 Y240 F3000 ;Wipe out",
     "G1 Z10 ;Raise Z more",
     "G90 ;Absolute positioning",
     "",

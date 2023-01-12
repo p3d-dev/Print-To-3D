@@ -1,0 +1,57 @@
+{
+  "name": "Sovol-SV02 (Legacy)",
+  "machine_name": "SV02",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "\nT0 ;switch to extruder 1\nG92 E0 ;reset extruder distance\nG1 F2000 E93 ;load filament\nG92 E0 ;reset extruder distance\nM104 S{material_print_temperature}",
+      "deselect": "\nG92 E0 ;reset extruder distance\nG1 F800 E-5 ;short retract\nG1 F2400 X250 Y220\nG1 F2000 E-93 ;long retract for filament removal\nG92 E0 ;reset extruder distance\nG90"
+    }
+  ],
+  "build_size": [
+    280,
+    240,
+    300
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G21 ;metric values",
+    "G28 ;home all",
+    "G90 ;absolute positioning",
+    "M107 ;start with the fan off",
+    "G1 F2400 Z15.0 ;raise the nozzle 15mm",
+    "M109 S{temp} ;Set Extruder Temperature and Wait",
+    "M190 S{bed_temp}; Wait for bed temperature to reach target temp",
+    "T0 ;Switch to Extruder 1",
+    "G1 F3000 X5 Y10 Z0.2 ;move to prime start position",
+    "G92 E0 ;reset extrusion distance",
+    "G1 F600 X160 E5 ;prime nozzle in a line",
+    "G1 F5000 X180 ;quick wipe",
+    "G92 E0 ;reset extrusion distance"
+  ],
+  "post_gcode": [
+    "M104 S0  ;hotend off",
+    "M140 S0  ;bed off",
+    "G92 E0",
+    "G1 F2000 E-100  ;retract filament 100mm",
+    "G92 E0",
+    "G1 F3000 X0 Y240  ;move bed for easy part removal",
+    "M84  ;disable steppers"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

@@ -1,6 +1,6 @@
 {
-  "name": "Geeetech A10T",
-  "machine_name": "Geeetech A10T",
+  "name": "Geeetech MizarS",
+  "machine_name": "Geeetech MizarS",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -17,14 +17,15 @@
     }
   ],
   "build_size": [
-    220,
-    220,
+    255,
+    255,
     260
   ],
   "pre_gcode": [
     "M140 S{bed_temp}   ; need to heat the bed",
     "M190 S{bed_temp}   ; wait for bed temperature",
-    ";Geeetech A10T Custom Start G-code",
+    ";Official open-source firmware for MizarS: https://github.com/Geeetech3D/Mizar-S ",
+    "",
     "M104 S{temp} ; Set Hotend Temperature",
     "M190 S{bed_temp} ; Wait for Bed Temperature",
     "M109 S{temp} ; Wait for Hotend Temperature",

@@ -1,0 +1,59 @@
+{
+  "name": "Flsun V400",
+  "machine_name": "Unknown",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    410
+  ],
+  "pre_gcode": [
+    "G21",
+    "G90",
+    "M82",
+    "M107 T0",
+    "M140 S{bed_temp}",
+    "M104 S{temp} T0",
+    "M190 S{bed_temp}",
+    "M109 S{temp} T0",
+    "G28",
+    "G1 F3000 Z1",
+    "G1 X-150 Y0 Z0.4",
+    "G92 E0",
+    "G3 X0 Y-130 I150 Z0.3 E30 F2000",
+    "G92 E0",
+    ""
+  ],
+  "post_gcode": [
+    "M107 T0",
+    "M104 S0",
+    "M104 S0 T1",
+    "M140 S0",
+    "G92 E0",
+    "G91",
+    "G1 E-1 F300",
+    "G1 Z+0.5  F6000",
+    "G28 ",
+    "G90 ;absolute positioning",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}
