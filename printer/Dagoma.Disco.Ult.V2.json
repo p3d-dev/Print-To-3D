@@ -1,0 +1,62 @@
+{
+  "name": "Dagoma.Disco.Ult.V2",
+  "machine_name": "Dagoma.Disco.Ult.V2",
+  "source": "GridApps02",
+  "license": "MIT",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "T0",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    205,
+    205,
+    205
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "G90",
+    "M106 S255",
+    "G28 X Y",
+    "G1 X50",
+    "M109 R90",
+    "G28",
+    "M104 S{temp}",
+    "G29",
+    "M107",
+    "G1 X100 Y20 F3000",
+    "G1 Z0.5",
+    "M109 S{temp}",
+    "M82",
+    "G92 E0",
+    "G1 F200 E10",
+    "G92 E0",
+    "G1 Z3",
+    "G1 F6000"
+  ],
+  "post_gcode": [
+    "M106 S255",
+    "M140 S0",
+    "G91",
+    "G1 E-1 F300",
+    "G1 Z+3 F3000",
+    "G90",
+    "G28 X Y",
+    "M107",
+    "M84"
+  ],
+  "fan_gcode": "",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

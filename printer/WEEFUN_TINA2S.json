@@ -1,0 +1,66 @@
+{
+  "name": "WEEFUN TINA2S",
+  "machine_name": "WEEFUN TINA2S",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    100,
+    110,
+    100
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    ";MachineType:{machine_name}",
+    ";FilamentType:{material_type}",
+    ";InfillDensity:{infill_sparse_density}",
+    ";Extruder0Temperature:{material_print_temperature}",
+    ";BedTemperature:{material_bed_temperature}",
+    "",
+    ";(**** start.gcode for tina2****)",
+    "M203 Z15",
+    "M104 S150",
+    "G28 Z",
+    "G28 X Y; Home extruder",
+    "G1 X55 Y55 F1000",
+    "G29",
+    "M107 ; Turn off fan",
+    "G90 ; Absolute positioning",
+    "M82 ; Extruder in absolute mode",
+    "M109 S{temp}",
+    "G92 E0 ; Reset extruder position",
+    "G1 X90 Y6 Z0.27 F2000",
+    "G1 X20 Y6 Z0.27 E15 F1000",
+    "G92 E0 ; Reset extruder position",
+    "M203 Z5"
+  ],
+  "post_gcode": [
+    ";(**** end.gcode for tina2****)",
+    "M203 Z15",
+    "M104 S0",
+    "M107",
+    "G92 E0 (Reset after prime)",
+    "G0 E-1 F300",
+    "G28 Z F300",
+    "G28 X0 Y0",
+    "G1 Y90 F1000"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

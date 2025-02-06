@@ -26,7 +26,13 @@
     "M190 S{bed_temp}   ; wait for bed temperature",
     "M104 S{temp}       ; need to heat the nozzle",
     "M109 S{temp}       ; wait for nozzle temperature",
-    "print_start",
+    ";Nozzle diameter = {machine_nozzle_size}",
+    ";Filament type = {material_type}",
+    ";Filament name = {material_name}",
+    ";Filament weight = {filament_weight}",
+    "; M190 S{material_bed_temperature_layer_0}",
+    "; M109 S{material_print_temperature_layer_0}",
+    "; PLEASE CHECK: print_start EXTRUDER={material_print_temperature_layer_0} BED={material_bed_temperature_layer_0} CHAMBER={build_volume_temperature}",
     "G90                ; absolute position required"
   ],
   "post_gcode": [

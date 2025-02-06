@@ -1,0 +1,62 @@
+{
+  "name": "Sovol SV04 Mirror Mode",
+  "machine_name": "SV04 Mirror Mode",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    115,
+    302,
+    402
+  ],
+  "pre_gcode": [
+    ";SV04 start",
+    "M140 S{bed_temp};",
+    "M104 S{temp};",
+    "M280 P0 S160;",
+    "G4 P100;",
+    "G28;",
+    "M420 S1;",
+    "M190 S{bed_temp};",
+    "M109 S{temp};",
+    "G92 E0;",
+    "G1 X10.1 Y20 Z0.28 F5000.0;",
+    "G1 X10.1 Y200.0 Z0.28 F1500.0 E15;",
+    "G1 X10.4 Y200.0 Z0.28 F5000.0;",
+    "G1 X10.4 Y20 Z0.28 F1500.0 E30;",
+    "G92 E0 ;Reset Extruder",
+    "G1 Z2.0 F3000;",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    ";SV04 end",
+    "G91 ;Relative positioning",
+    "G1 E-2 F2700 ;Retract a bit",
+    "G1 E-2 Z0.2 F2400 ;Retract and raise Z",
+    "G1 X0 Y240 F3000 ;Wipe out",
+    "G1 Z10 ;Raise Z more",
+    "G90 ;Absolute positioning",
+    "G1 X0 Y{bottom} ;Present print",
+    "M106 S0 ;Turn-off fan",
+    "M104 S0 ;Turn-off hotend",
+    "M140 S0 ;Turn-off bed",
+    "M84 X Y E ;Disable all steppers but Z"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

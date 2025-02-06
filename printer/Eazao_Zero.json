@@ -1,6 +1,6 @@
 {
   "name": "Eazao Zero",
-  "machine_name": "EAZAO Zero",
+  "machine_name": "Eazao Zero",
   "source": "CuraV2",
   "license": "LGPL-3.0",
   "origin_center": false,
@@ -8,7 +8,7 @@
   "bed_belt": false,
   "extruders": [
     {
-      "nozzle": 1.5,
+      "nozzle": 1.6,
       "filament": 1.75,
       "offset_x": 0.0,
       "offset_y": 0.0,
@@ -30,18 +30,19 @@
     "G28 ;Home ",
     "G1 Z15.0 F1500 ;move the platform down 15mm",
     "G92 E0 ",
-    "G1 F300 E10",
+    "G1 F1500 E2",
     "G92 E0",
     "M302",
-    "M163 S0 P0.9; Set Mix Factor",
-    "M163 S1 P0.1; Set Mix Factor",
+    "M163 S0 P0.8; Set Mix Factor",
+    "M163 S1 P0.2; Set Mix Factor",
     "M164 S0",
     ""
   ],
   "post_gcode": [
-    "G92 E10",
-    "G1 E-10 F300",
-    "G28 X0 Y0 ;move X Y to min endstops",
+    "G92 Z0 E0",
+    "G1 F1500 E-2",
+    "G1 F1500 Z10",
+    "G28 X0;move X Y to min endstops",
     "M82",
     "M84 ;steppers off",
     ""

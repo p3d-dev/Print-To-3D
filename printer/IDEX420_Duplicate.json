@@ -1,0 +1,46 @@
+{
+  "name": "IDEX420 Duplicate",
+  "machine_name": "IDEX420 Duplicate",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    209,
+    320,
+    400
+  ],
+  "pre_gcode": [
+    "G90 ; switch to absolute coordinate mode",
+    "T2 ; select the duplicate tool",
+    "M140 S{bed_temp} ;Start heating bed",
+    "M104 S{temp} ;Start heating extruder",
+    "M190 S{bed_temp} ;Wait for bed to reach temp before proceeding",
+    "M109 S{temp} ;Wait for extruder to reach temp before proceeding",
+    "G1 F18000 Y-160 Z15 ; move fast to the coordinates",
+    "G1 F18000 X0 Z0.3 ; move fast to the coordinates",
+    "G92 E0 ; set the extruders to 0",
+    "G1 F300 X60 E24 ; purge the hotends",
+    "G1 F600 X40 ; swipe the nozzles",
+    "G1 F600 Z3 ; perform Z hop"
+  ],
+  "post_gcode": [
+    "M0"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

@@ -1,0 +1,38 @@
+{
+  "name": "UltiMaker Method",
+  "machine_name": "UltiMaker Method",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "G0 X{prime_tower_position_x - prime_tower_size/2} Y{prime_tower_position_y + prime_tower_size/2} F6000\nG91\nG0 Z-0.4 F600\nG90",
+      "deselect": "M104 S{material_standby_temperature}\nG91\nG0 Z0.4 F600\nG90\nG0 X{prime_tower_position_x - prime_tower_size/2} Y{prime_tower_position_y + prime_tower_size/2} F6000"
+    }
+  ],
+  "build_size": [
+    283,
+    236,
+    196
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G0 Z20",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": false,
+  "speed_travel": 120.0
+}

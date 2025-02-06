@@ -1,0 +1,53 @@
+{
+  "name": "Eazao M600",
+  "machine_name": "Eazao M600",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 2.3,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    420,
+    420,
+    620
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G21 ;set units to millimeters",
+    "G90 ;absolute positioning",
+    "M82 ;set extruder to absolute mode",
+    "G28 ;Home",
+    "G1 Z25.0 F1500 ;move the platform down 15mm",
+    "G92 E0 ;extruder reset",
+    "G1 F300 E5",
+    "G92 E0 ;The extruder is forced to zero again",
+    "M302",
+    "M163 S0 P0.87; Set Mix Factor",
+    "M163 S1 P0.13; Set Mix Factor",
+    "M164 S0"
+  ],
+  "post_gcode": [
+    "G92 Z0",
+    "G1 F1500 Z10",
+    "G28 X0 Y400 ;move X Y to min endstops",
+    "M82",
+    "M84 ;steppers off",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": false,
+  "speed_travel": 120.0
+}

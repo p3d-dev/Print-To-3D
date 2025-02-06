@@ -29,6 +29,7 @@
     "; Ender 3 Custom Start G-code",
     "G92 E0 ; Reset Extruder",
     "G28 ; Home all axes",
+    "G1 Z5.0 F3000 ; Move Z Axis up a bit during heating to not damage bed",
     "; PLEASE CHECK: M104 S{material_standby_temperature} ; Start heating up the nozzle most of the way",
     "M190 S{bed_temp} ; Start heating the bed, wait until target temperature reached",
     "M109 S{temp} ; Finish heating the nozzle",

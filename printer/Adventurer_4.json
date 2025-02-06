@@ -1,0 +1,56 @@
+{
+  "name": "Adventurer 4",
+  "machine_name": "Adventurer 4",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    200,
+    250
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";Start Gcode",
+    "G28",
+    "M132 X Y Z A B",
+    "G1 Z50.000 F420",
+    "G161 X Y F3300",
+    "M7 T0",
+    "M6 T0",
+    "M651 S255",
+    ";End Start",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    ";End Gcode",
+    "M104 S0 T0",
+    "M140 S0 T0",
+    "G162 Z F1800",
+    "G28 X Y",
+    "M132 X Y A B",
+    "M652",
+    "G91",
+    "M18"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

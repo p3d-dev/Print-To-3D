@@ -1,0 +1,56 @@
+{
+  "name": "Wand",
+  "machine_name": "Wand",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    102,
+    102,
+    102
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G28 ;Home",
+    ";Prime the extruder",
+    "M117 Print",
+    "G92 E0",
+    "G1 F1500 X-2 Y0 Z0.28",
+    "G1 F2400 X-2 Y70 Z0.28 E8",
+    "G1 F1500 X-1.7 Y70 Z0.28",
+    "G1 F2400 X-1.7 Y0 Z0.28 E16",
+    "G92 E0",
+    "G92 E0",
+    "G1 Z0.18 F2400 ;Move Z Axis up",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    ";Retract the filament",
+    "G92 E1",
+    "G1 E3 F300",
+    "G1 F1500 Z100",
+    "G28 X0 Y0",
+    "M25",
+    "M84"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": false,
+  "speed_travel": 120.0
+}

@@ -1,0 +1,72 @@
+{
+  "name": "WEEDO X40 V3+",
+  "machine_name": "WEEDO X40",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "G91 ; Relative positioning\nG1 E14 F300\nG1 E-5 F1800\nG90\nG92 E-4.5",
+      "deselect": "M605 S0 ;Disable auto-park\nG91 ; Relative positioning\nG1 E-8 1680\nG90\nG0 X-49 F3000\n"
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    400
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    ";MachineType:{machine_name}",
+    ";FilamentType:{material_type}",
+    ";InfillDensity:{infill_sparse_density}",
+    ";BedTemperature:{material_bed_temperature}",
+    "",
+    ";(**** start.gcode for  X40 ****)",
+    "M203 Z15",
+    "M140 S{bed_temp}",
+    "; PLEASE CHECK: M104 S{material_print_temperature_layer_0} T{initial_extruder_nr}",
+    "G28 ;This command will use tool0 to get the x endstop and setup coordinate system",
+    "G29 ;Auto level",
+    "M107 P0 ;Turn off fan",
+    "M107 P1",
+    "G90 ; Absolute positioning",
+    "M82 ; Extruder in absolute mode",
+    "G1 X-47 F3000",
+    "G1 Z20 F600",
+    "; PLEASE CHECK: T{initial_extruder_nr} S ;Set start extruder nr after G28",
+    "; PLEASE CHECK: M109 S{material_print_temperature_layer_0} T{initial_extruder_nr}",
+    "G92 E0",
+    "G1 E22 F300",
+    "G92 E0",
+    "M203 Z2"
+  ],
+  "post_gcode": [
+    ";(*********end X40 End.gcode*******)",
+    "M203 Z15",
+    "M605 S1 ;Set to auto-park",
+    "G28 X F3000",
+    "G91 ; Relative positioning",
+    "G1 E-1 ; Reduce filament pressure",
+    "G90",
+    "G1 Y300 F3000",
+    "M104 S0 T0",
+    "M104 S0 T1",
+    "M140 S0",
+    "M107 P0",
+    "M107 P1",
+    "M82"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

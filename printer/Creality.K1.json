@@ -1,0 +1,45 @@
+{
+  "name": "Creality.K1",
+  "machine_name": "Creality.K1",
+  "source": "GridApps02",
+  "license": "MIT",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "T0",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    250
+  ],
+  "pre_gcode": [
+    "M140 S0",
+    "M104 S0 ",
+    "START_PRINT EXTRUDER_TEMP=220.000000 BED_TEMP=45.000000",
+    "G92 E0",
+    "G1 F2400 E-0.5",
+    "G90                ; absolute position required"
+  ],
+  "post_gcode": [
+    "M106 S0",
+    "M106 P2 S0",
+    "M106 P1 S0",
+    "END_PRINT",
+    "M82 ;absolute extrusion mode",
+    "M104 S0"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

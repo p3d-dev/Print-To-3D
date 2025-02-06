@@ -1,0 +1,52 @@
+{
+  "name": "Eazao Potter",
+  "machine_name": "Eazao Potter",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 1.6,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    167,
+    167,
+    280
+  ],
+  "pre_gcode": [
+    "M104 S{temp}       ; need to heat the nozzle",
+    "M109 S{temp}       ; wait for nozzle temperature",
+    "G21 ;set units to millimeters",
+    "G90 ;absolute positioning",
+    "M82 ;set extruder to absolute mode",
+    "G28 ;Home",
+    "G1 Z25.0 F1500 ;move the platform down 25mm",
+    "G92 E0 ;extruder reset",
+    "G1 F1500 E2",
+    "G92 E0 ;The extruder is forced to zero again",
+    "M302",
+    "M163 S0 P0.85; Set Mix Factor",
+    "M163 S1 P0.15; Set Mix Factor",
+    "M164 S0"
+  ],
+  "post_gcode": [
+    "G92 Z0 E0",
+    "G1 F1500 Z10 E-2",
+    "M82",
+    "M84 ;steppers off",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": false,
+  "speed_travel": 120.0
+}

@@ -1,0 +1,48 @@
+{
+  "name": "ULIO.3D.STEAM",
+  "machine_name": "ULIO.3D.STEAM",
+  "source": "GridApps02",
+  "license": "MIT",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "T0",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    100,
+    100,
+    55
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; need to heat the bed",
+    "M190 S{bed_temp}   ; wait for bed temperature",
+    "G90            ; use absolute coordinates",
+    "M83            ; extruder relative mode",
+    "M104 S{temp}   ; set extruder temp",
+    "M109 S{temp}   ; wait for extruder temp",
+    "G28 W          ; home all without mesh bed level",
+    "G92 E0.0",
+    "G1 F{600} ",
+    "M117 ULIO 3D STEAM Printing"
+  ],
+  "post_gcode": [
+    "M104 S0        ; turn off right extruder",
+    "M107           ; turn off filament cooling fan",
+    "G1 Z55 F{180}  ; drop bed G1 55 mm ",
+    "G28 X0 Y0      ; home XY axes",
+    "M84            ; disable stepper motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

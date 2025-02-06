@@ -41,10 +41,10 @@
     "G92 E0 ;Reset Extruder"
   ],
   "post_gcode": [
-    "G91 ;Relative positionning",
+    "G91 ;Relative positioning",
     "G1 E-2 F2700 ;Retract a bit",
     "G1 E-10 X5 Y5 Z3 F3000 ;Retract",
-    "G90 ;Absolute positionning",
+    "G90 ;Absolute positioning",
     "G1 X0 Y{bottom} ;Present print",
     "M106 S0 ;Turn-off fan",
     "M104 S0 ;Turn-off hotend",
