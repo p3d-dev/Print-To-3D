@@ -2,22 +2,29 @@ use std::collections::{BTreeMap, HashMap};
 use std::env;
 use std::fs::File;
 use std::io::{BufWriter, Error, Read};
+use std::path::PathBuf;
 use std::process::Command;
 
 use serde::Serialize;
+#[macro_use]
+extern crate log;
+extern crate mowl;
 
 mod cura;
 mod gridapps;
+mod orca;
 mod p3d;
 
 use cura::*;
 use gridapps::*;
+use orca::*;
 use p3d::*;
 
 enum Source {
     Gridapps,
     Cura,
     CuraExtruder,
+    Orca,
 }
 
 #[derive(Serialize, Debug)]
@@ -37,6 +44,8 @@ fn generalized(name: &str) -> String {
 }
 
 fn main() -> Result<(), Error> {
+    mowl::init().unwrap();
+
     let mut entries: HashMap<String, P3dPrinter> = HashMap::new();
 
     let lapr = load_and_parse()?;
@@ -72,6 +81,14 @@ fn main() -> Result<(), Error> {
             }
         } else {
             println!("Incomplete cura definition: {}", cura.printer_name());
+        }
+    }
+    for orca in lapr.orca_entries.values() {
+        if let Some(p3d) = P3dPrinter::from_orca(orca) {
+            let key = generalized(&p3d.name);
+            entries.insert(key, p3d);
+        } else {
+            println!("Incomplete orca definition: {}", orca.printer_name());
         }
     }
 
@@ -118,12 +135,14 @@ struct LoadAndParseResult {
     gridapps_entries: HashMap<String, Box<dyn GridApps>>,
     cura_entries: HashMap<String, CuraV2>,
     cura_extruder_entries: HashMap<String, CuraExtruderV2>,
+    orca_entries: HashMap<String, OrcaV1>,
 }
 
 fn load_and_parse() -> Result<LoadAndParseResult, Error> {
     let mut gridapps_entries: HashMap<String, Box<dyn GridApps>> = HashMap::new();
     let mut cura_entries: HashMap<String, CuraV2> = HashMap::new();
     let mut cura_extruder_entries: HashMap<String, CuraExtruderV2> = HashMap::new();
+    let mut orca_entries: HashMap<String, OrcaV1> = HashMap::new();
 
     let repos: Vec<(&'static str, &'static str, &'static str, Source)> = vec![
         (
@@ -144,21 +163,31 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
             "Cura/resources/extruders",
             Source::CuraExtruder,
         ),
+        (
+            "https://github.com/p3d-dev/OrcaSlicer.git",
+            "OrcaSlicer",
+            "OrcaSlicer/resources/profiles",
+            Source::Orca,
+        ),
     ];
 
-    let temp_dir = env::temp_dir();
+    // let temp_dir = env::temp_dir();
+    let temp_dir: PathBuf = PathBuf::from("tmp");
     println!("Temporary directory: {}", temp_dir.display());
 
     for (repo, repo_name, dir, source) in repos {
         println!("Process {}", repo);
-        let output = Command::new("git")
-            .arg("clone")
-            .arg("--depth")
-            .arg("1")
-            .arg(repo)
-            .arg(temp_dir.join(repo_name))
-            .status()?;
-        println!("{:?}", output);
+        let repo_dir = temp_dir.join(repo_name);
+        if !repo_dir.exists() {
+            let output = Command::new("git")
+                .arg("clone")
+                .arg("--depth")
+                .arg("1")
+                .arg(repo)
+                .arg(repo_dir)
+                .status()?;
+            println!("{:?}", output);
+        }
 
         let cfg_dir = temp_dir.join(dir);
 
@@ -187,6 +216,7 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                     (Source::Gridapps, _) => (),
                     (Source::Cura, Some(_)) => (),
                     (Source::CuraExtruder, Some(_)) => (),
+                    (Source::Orca, Some("json")) => (),
                     (_, _) => {
                         println!("skip file due to extension {:?}", entry.path().file_name());
                         continue;
@@ -235,6 +265,27 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                                 }
                             }
                         }
+                        Source::Orca => match serde_json::from_str::<OrcaV1Header>(&contents) {
+                            Ok(header) => {
+                                let key = name.replace(".json", "");
+                                let cfg_dir = temp_dir.join(dir).join(&key);
+                                match header.read(cfg_dir) {
+                                    Ok(printers) => {
+                                        for orca in printers.into_iter() {
+                                            println!("Orca {}", orca.printer_name());
+                                            let name = orca.printer_name();
+                                            orca_entries.insert(name, orca);
+                                        }
+                                    }
+                                    Err(e1) => {
+                                        println!("{:?}: {:?}", entry.file_name(), e1)
+                                    }
+                                }
+                            }
+                            Err(e1) => {
+                                println!("{:?}: {:?}", entry.file_name(), e1)
+                            }
+                        },
                     }
                 }
             }
@@ -244,5 +295,6 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
         gridapps_entries,
         cura_entries,
         cura_extruder_entries,
+        orca_entries,
     })
 }

@@ -6,6 +6,7 @@ use serde::Serialize;
 
 use crate::cura::*;
 use crate::gridapps::*;
+use crate::orca::*;
 
 #[derive(Serialize, Debug)]
 pub struct P3dExtruder {
@@ -203,6 +204,10 @@ impl P3dPrinter {
             speed_travel: opt_speed_travel,
         };
         p3d.checked()
+    }
+    pub fn from_orca(cfg: &OrcaV1) -> Option<Self> {
+        println!("{:?}", cfg);
+        None
     }
     pub fn resolve_conflict(mut this: Self, other: Self) -> Option<Self> {
         if this.license == "MIT" {
