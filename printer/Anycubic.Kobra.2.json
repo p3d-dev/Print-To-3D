@@ -22,8 +22,6 @@
     250
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; p3d: need to heat the bed",
-    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
     "M201 X2500 Y2500 Z800 E2500  ; sets maximum accelerations, mm/sec^2",
     "M203 X250 Y250 Z8 E80        ; sets maximum feedrates, mm / sec",
     "M204 P2500 R2500 T2500       ; sets acceleration (P, T) and retract acceleration (R), mm/sec^2",

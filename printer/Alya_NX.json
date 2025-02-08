@@ -22,8 +22,6 @@
     170
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; p3d: need to heat the nozzle",
-    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     ";Sliced at: {day} {date} {time} ",
     " ;Basic settings: Layer height: {layer_height} Walls: {wall_thickness} Fill: {fill_density} ",
     " ;Print time: {print_time} ",

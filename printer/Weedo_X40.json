@@ -22,8 +22,6 @@
     400
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; p3d: need to heat the nozzle",
-    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "; x40-community.org configuration Rev. 08",
     ";(**** start.gcode for WEEDO X40 DUAL****)",
     "; PLEASE CHECK: T{initial_extruder_nr} S ; Selected start extruder",

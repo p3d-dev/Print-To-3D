@@ -22,10 +22,6 @@
     400
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; p3d: need to heat the bed",
-    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
-    "M104 S{temp}       ; p3d: need to heat the nozzle",
-    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "G21 ;metric values",
     "G28 ;home all",
     "G90 ;absolute positioning",

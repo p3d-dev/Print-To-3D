@@ -22,8 +22,6 @@
     200
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; p3d: need to heat the bed",
-    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
     ";Start GCode - Cosmos II - 3.x.x_SEGcTK_1.1",
     " M104 S120; Comienzo a calentar extrusor",
     " G21; Unidades en mm",

@@ -22,8 +22,6 @@
     300
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; p3d: need to heat the bed",
-    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
     "G28 X Y",
     "G1 Y10",
     "M104 S{temp}",

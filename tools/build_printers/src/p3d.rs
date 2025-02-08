@@ -424,8 +424,8 @@ impl P3dPrinter {
         P3dPrinter::prune(&mut self.post_gcode, &xref);
 
         let need_absolute_positioning = self.does_not_contain("G90");
-        let need_hotend_temp = self.does_not_contain("M104");
-        let need_bed_temp = self.heated_bed && self.does_not_contain("M140");
+        let need_hotend_temp = self.does_not_contain("M104") && self.does_not_contain("M109");
+        let need_bed_temp = self.heated_bed && (self.does_not_contain("M140") && self.does_not_contain("M190") );
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {

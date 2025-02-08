@@ -340,29 +340,44 @@ impl OrcaV1 {
     pub fn process_variables(&self,line: &str) -> Option<String> {
         // find each {..} in line
         // Find all matches in the text
+        let mut replacement: HashMap<&str, &str> = HashMap::new();
+        //replacement.insert("[printer_model]".to_string(), self.name.clone());
+        replacement.insert("{first_layer_bed_temperature[0]}", "{bed_temp}");
+        replacement.insert("[first_layer_bed_temperature]", "{bed_temp}");
+        replacement.insert("[bed_temperature_initial_layer_single]", "{bed_temp}");
+        replacement.insert("[bed_temperature_initial_layer]", "{bed_temp}");
+        replacement.insert("[first_layer_temperature]", "{temp}");
+        replacement.insert("[nozzle_temperature_initial_layer]", "{temp}");
+        replacement.insert("{nozzle_temperature_initial_layer[initial_extruder]}", "{temp}");
+        replacement.insert("{+0.0}", "{+0.0}");
+        replacement.insert("{0.0}", "{0.0}");
+
+
         let mut known: HashSet<&str> = HashSet::new();
         known.insert("[printer_model]");
         known.insert("{filament_type[initial_no_support_extruder]}"); // Bambu
         known.insert("[initial_no_support_extruder]"); // Bambu
-        known.insert("{nozzle_temperature_initial_layer[initial_extruder]}"); // Bambu
-        known.insert("{first_layer_bed_temperature[0]}");
-        known.insert("[bed_temperature_initial_layer]");
-        known.insert("[first_layer_temperature]");
-        known.insert("[first_layer_bed_temperature]");
-        known.insert("[nozzle_temperature_initial_layer]");
-        known.insert("[bed_temperature_initial_layer_single]");
-        known.insert("{+0.0}");
-        known.insert("{0.0}");
+        //known.insert("{nozzle_temperature_initial_layer[initial_extruder]}"); // Bambu
+        //known.insert("{first_layer_bed_temperature[0]}");
+        //known.insert("[bed_temperature_initial_layer]");
+        //known.insert("[first_layer_temperature]");
+        //known.insert("[first_layer_bed_temperature]");
+        //known.insert("[nozzle_temperature_initial_layer]");
+        //known.insert("[bed_temperature_initial_layer_single]");
+        //known.insert("{+0.0}");
+        //known.insert("{0.0}");
         known.insert("{total_layer_count}");
 
         known.clear();
 
         // Create a regular expression to match "{..}"
+        let mut need_replace = false;
         let re = Regex::new(r"\{.*?\}").unwrap();
         for mat in re.captures_iter(line) {
             let m = mat.get(0)?.as_str();
-            if known.contains(m) {
+            if replacement.contains_key(m) {
                 warn!("{}: need to extend slicer processing for {}", self.name, m);
+                need_replace = true;
                 continue;
             }
             warn!("{}: {}", self.name, line);
@@ -373,26 +388,42 @@ impl OrcaV1 {
         let re = Regex::new(r"\[.*?\]").unwrap();
         for mat in re.captures_iter(line) {
             let m = mat.get(0)?.as_str();
-            if known.contains(m) {
+            if replacement.contains_key(m) {
                 warn!("{}: need to extend slicer processing for {}", self.name, m);
+                need_replace = true;
                 continue;
             }
             warn!("{}: {}", self.name, line);
             warn!("Found '{{..}}': {:?}", mat.get(0)?.as_str());
             return None;
         } 
+        if need_replace {
+            let mut ret = line.to_string();
+            for (k, v) in replacement.iter() {
+                ret = ret.replace(k, v);
+            }
+            return Some(ret);
+        }
         Some(line.to_string())
     }
     pub fn process_gcode(&self, gcode: &str) -> Option<Vec<String>> {
+        let mut err = false;
         let mut lines = vec![];
         for line in gcode.split("\n") {
             if line.trim().starts_with(";") {
                 lines.push(line.to_string());
             }
             else { 
-                let line = self.process_variables(line)?;
-                lines.push(line);
+                if let Some(line) = self.process_variables(line) {
+                    lines.push(line);
+                }
+                else {
+                    err = true;
+                }
             }
+        }
+        if err {
+            return None;
         }
         Some(lines)
     }
@@ -436,7 +467,7 @@ impl GenericPrinter for OrcaV1 {
         self.process_gcode(gcode)
     }
     fn get_fan_gcode(&self) -> Option<String> {
-        Some("M106 S{fan_speed}".to_string())
+        Some("M106 S{fan_speed}  ; p3d: add for orca slicer".to_string())
     }
     fn get_progress_gcode(&self) -> Option<String> {
         Some("".to_string())
