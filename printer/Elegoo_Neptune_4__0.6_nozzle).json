@@ -1,0 +1,61 @@
+{
+  "name": "Elegoo Neptune 4 (0.6 nozzle)",
+  "machine_name": "Elegoo Neptune 4 (0.6 nozzle)",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.6,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    225,
+    225,
+    265
+  ],
+  "pre_gcode": [
+    ";ELEGOO NEPTUNE 4",
+    "M220 S100 ;Set the feed speed to 100%",
+    "M221 S100 ;Set the flow rate to 100%",
+    "M104 S140",
+    "M190 S{bed_temp}",
+    "G90",
+    "G28 ;home",
+    "G1 Z10 F300",
+    "G1 X67.5 Y0 F6000",
+    "G1 Z0 F300",
+    "M109 S{temp}",
+    "G92 E0 ;Reset Extruder",
+    "G1 X67.5 Y0 Z0.4 F300 ;Move to start position",
+    "G1 X167.5 E30 F400 ;Draw the first line",
+    "G1 Z0.6 F120.0 ;Move to side a little",
+    "G1 X162.5 F3000",
+    "G92 E0 ;Reset Extruder",
+    ""
+  ],
+  "post_gcode": [
+    ";PRINT_END",
+    "G91 ;Relative positionning",
+    "G1 E-2 F2700 ;Retract a bit",
+    "G1 E-8 X5 Y5 Z3 F3000 ;Retract",
+    "G90 ;Absolute positionning",
+    "G1 X10 Y220 F6000;Finish print",
+    "M106 S0 ;Turn-off fan",
+    "M104 S0 ;Turn-off hotend",
+    "M140 S0 ;Turn-off bed",
+    "M84 X Y E ;Disable all steppers but Z"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Anycubic Kobra 2 Neo 0.4 nozzle",
+  "machine_name": "Anycubic Kobra 2 Neo 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    250
+  ],
+  "pre_gcode": [
+    "G90 ; use absolute coordinates",
+    "M83 ; extruder relative mode",
+    "M104 S{temp} ; set extruder temp",
+    "M140 S{bed_temp} ; set bed temp",
+    "M190 S{bed_temp} ; wait for bed temp",
+    "M109 S{temp} ; wait for extruder temp",
+    "G28; move X/Y/Z to min endstops",
+    "G1 Z0.28; lift nozzle a bit",
+    "G92 E0",
+    "G1 Y3 F1800                                    ; zero the extruded length ",
+    "G1 X60  E25 F500                       ; Extrude 25mm of filament in a 5cm line. ",
+    "G92 E0                                     ; zero the extruded length again ",
+    "G1 E-2 F500                                ; Retract a little ",
+    "G1 X70 F4000                              ; Quickly wipe away from the filament line",
+    "M117"
+  ],
+  "post_gcode": [
+    "M104 S0; Extruder off",
+    "M140 S0 Heatbed off",
+    "M107                                       ; Fan off ",
+    "G91                                        ; relative positioning ",
+    "G1 E-5 F3000  ",
+    "G1 Z+0.3 F3000                             ; lift print head ",
+    "G28 X0  F3000",
+    "M84                    "
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "; AFTER_LAYER_CHANGE [layer_num] @ [layer_z]mm",
+  "heated_bed": true,
+  "speed_travel": null
+}

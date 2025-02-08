@@ -1,0 +1,40 @@
+{
+  "name": "Voron 0.1 0.2 nozzle",
+  "machine_name": "Voron 0.1 0.2 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.2,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    120,
+    120,
+    120
+  ],
+  "pre_gcode": [
+    "M190 S{bed_temp}",
+    "M109 S{temp}",
+    "PRINT_START EXTRUDER={temp} BED={bed_temp}",
+    "; You can use following code instead if your PRINT_START macro support Chamber and print area bedmesh",
+    "; PRINT_START EXTRUDER=[nozzle_temperature_initial_layer] BED=[bed_temperature_initial_layer_single] Chamber=[chamber_temperature] PRINT_MIN={first_layer_print_min[0]},{first_layer_print_min[1]} PRINT_MAX={first_layer_print_max[0]},{first_layer_print_max[1]}",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "PRINT_END"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

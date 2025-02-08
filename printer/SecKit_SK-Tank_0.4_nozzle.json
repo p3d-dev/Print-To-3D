@@ -1,0 +1,41 @@
+{
+  "name": "SecKit SK-Tank 0.4 nozzle",
+  "machine_name": "SecKit SK-Tank 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    350,
+    350,
+    400
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
+    "START_PRINT EXTRUDER_TEMP={temp} BED_TEMP={bed_temp}",
+    "G90",
+    "G92 E0"
+  ],
+  "post_gcode": [
+    "END_PRINT"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

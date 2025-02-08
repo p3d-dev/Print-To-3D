@@ -1,0 +1,46 @@
+{
+  "name": "DeltaMaker 2T 0.5 nozzle",
+  "machine_name": "DeltaMaker 2T 0.5 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.5,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    138,
+    138,
+    460
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp} ; set temp",
+    "G28",
+    "M109 S{temp} ; wait for temp",
+    "G28",
+    "G91 ; relative positioning",
+    "G1 Z-40 F4000",
+    "G90 ; absolute positioning",
+    ""
+  ],
+  "post_gcode": [
+    "G28",
+    "M104 S0",
+    "M84 ; disable motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

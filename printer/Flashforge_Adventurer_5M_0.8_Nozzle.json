@@ -1,0 +1,48 @@
+{
+  "name": "Flashforge Adventurer 5M 0.8 Nozzle",
+  "machine_name": "Flashforge Adventurer 5M 0.8 Nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.8,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    220
+  ],
+  "pre_gcode": [
+    "M190 S{bed_temp}",
+    "M104 S{temp}",
+    "G1 Z5 F6000",
+    "G1 E-1.5 F600",
+    "G1 E12 F800",
+    "G1 X85 Y110 Z0.3 F1200",
+    "G1 X-110 E30 F2400",
+    "G1 Y0 E8 F2400",
+    "G1 X-109.6 F2400",
+    "G1 Y110 E10 F2400",
+    "G92 E0",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "G1 E-3 F3600",
+    "G0 X50 Y50 F30000",
+    "M104 S0 ; turn off temperature"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

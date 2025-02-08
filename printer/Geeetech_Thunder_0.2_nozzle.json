@@ -1,0 +1,72 @@
+{
+  "name": "Geeetech Thunder 0.2 nozzle",
+  "machine_name": "Geeetech Thunder 0.2 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.2,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    250,
+    250,
+    260
+  ],
+  "pre_gcode": [
+    ";Official viki homepage for Thunder:https://www.geeetech.com/wiki/index.php/Geeetech_Thunder_3D_printer",
+    "",
+    "M104 S{temp} ; Set Hotend Temp.",
+    "M140 S{bed_temp} ; Set bed Temp.",
+    "M190 S{bed_temp} ; Wait for Bed Temp.",
+    "M109 S{temp} ; Wait for Hotend Temp.",
+    "M220 S100 ;Reset Feedrate",
+    "M221 S100 ;Reset Flowrate",
+    "G92 E0 ; Reset Extruder",
+    "G28 ; Home all axes",
+    "M107 P0 ;Off Main Fan",
+    "M107 P1 ;Off Aux Fan",
+    "M2012 P8 S1 F100 ; ON Light",
+    "G1 Z5.0 F3000 ;Move the Z-axis slightly up to prevent scratching the heatbed",
+    "G1 X0.1 Y20 Z0.8 F5000 ; Move to start position",
+    "G1 X0.1 Y200.0 Z1.2 F1500 E30 ; Draw the first line",
+    "G92 E0 ; Reset Extruder",
+    "G1 X0.4 Y200.0 Z1.2 F3000 ; Move to side a little",
+    "G1 X0.4 Y20 Z1.2 F1500 E25 ; Draw the second line",
+    "G92 E0 ; Reset Extruder",
+    "G1 Z2.0 F3000 ; Move the Z-axis slightly up to prevent scratching the heatbed",
+    "G1 X5 Y20 Z0.4 F3000.0 ; Scrape off nozzle residue",
+    "G92 E0",
+    ";---------------------------------------",
+    ";M106 P0 S383 ; ON MainFan 150% if need",
+    ";M106 P1 S255 ; ON Aux Fan 100% if need",
+    ";---------------------------------------",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "G91 ;Switch to relative positioning",
+    "G1 E-2.5 F2700 ;Retract filament",
+    "G1 E-1.5 Z0.2 F2400 ;Retract and raise Z",
+    "G1 X5 Y5 F3000 ;Move away",
+    "G1 Z10 ;lift print head",
+    "G90 ;Switch to absolute positioning",
+    "G28 X Y ;homing XY",
+    "M106 S0 ;off Fan",
+    "M104 S0 ;Cooldown hotend",
+    "M140 S0 ;Cooldown bed",
+    "M84 X Y E ;Disable steppers"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";------------------------------------\n;layer No：[layer_num] ———>Print Height：[layer_z] mm\n;------------------------------------",
+  "heated_bed": true,
+  "speed_travel": null
+}

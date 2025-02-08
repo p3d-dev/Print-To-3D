@@ -1,0 +1,73 @@
+{
+  "name": "Sovol SV06 Plus 0.4 nozzle",
+  "machine_name": "Sovol SV06 Plus 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    340
+  ],
+  "pre_gcode": [
+    "G90 ; use absoulte coordinates",
+    "M83 ; extruder relative mode",
+    "",
+    "M104 S150 ; set nozzle temp to 150",
+    "",
+    "G28 ; home all axes",
+    "M420 S1 ;load mesh",
+    "",
+    "M140 S{bed_temp} ; set bed temp",
+    "M190 S{bed_temp} ; wait for bed temp to stabilize",
+    "M104 S{temp} ; set final extruder temp",
+    "M109 S{temp} ; wait for extruder temp",
+    "",
+    "G1 X0.1 Y10 Z5.0 F1500 ; move to start position",
+    "G1 Z0.26 F150 ; Move lower",
+    "G4 S0.5 ; wait 0.5 seconds",
+    "",
+    "G1 X0.1 Y150 Z0.3 F1500 E10 ; prime the nozzle",
+    "G1 X0.3 F1500",
+    "G1 X0.4 Y15 Z0.3 F1500 E15 ; prime the nozzle",
+    "G4 S0.1 ; wait 0.1 seconds",
+    "",
+    "G1 Z0.6 F150 ; lift nozzle",
+    "G92 E0 ; Reset Extruder",
+    "G1 Z2 F150 ; lift nozzle more",
+    ""
+  ],
+  "post_gcode": [
+    "M117 READY",
+    "",
+    "G1 E0 F1000 ; reset extruder",
+    "",
+    "G91 ; relative positioning",
+    "G1 Z2 F1000 ; lift nozzle",
+    "",
+    "G90 ; absolute positioning",
+    "G27 P2 ; park extruder",
+    "",
+    "M140 S0 ; turn off heatbed",
+    "M104 S0 ; turn off temperature",
+    "M107 ; turn off fan",
+    "M84 X Y E ; disable motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

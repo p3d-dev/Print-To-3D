@@ -1,0 +1,60 @@
+{
+  "name": "FLSun Q5 0.4 nozzle",
+  "machine_name": "FLSun Q5 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    100,
+    100,
+    200
+  ],
+  "pre_gcode": [
+    ";STARTGCODE",
+    "M117 Initializing",
+    "; G90 ; use absolute coordinates",
+    "M83 ; extruder relative mode",
+    "M107",
+    "G28 ;Home",
+    "M140 S{bed_temp} ; set bed temp",
+    "M190 S{bed_temp} ; wait for bed temp",
+    "M104 S{temp} ; set extruder temp",
+    "M109 S{temp} ; wait for extruder temp",
+    "",
+    "G92 E0",
+    "G1 X-98 Y0 Z0.2 F4000 ; move to arc start",
+    "G3 X0 Y-98 I98 Z0.2 E40 F400 ; lay arc stripe 90deg",
+    "G0 Z1 ",
+    "G92 E0.0",
+    "",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "M107",
+    "M104 S0",
+    "M140 S0",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G28 X0 Y0",
+    ";M84",
+    "M18 S180 ;disable motors after 180s",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}

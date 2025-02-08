@@ -1,0 +1,73 @@
+{
+  "name": "Comgrow T300 0.4 nozzle",
+  "machine_name": "Comgrow T300 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    350
+  ],
+  "pre_gcode": [
+    "G28",
+    "G90",
+    "G1 X0 F3000",
+    "G1 Z0.300 F600",
+    "G1 Y0 F3000",
+    "G91 ",
+    "G1 X-2 Y-6 F3000",
+    "START_PRINT",
+    "M400",
+    "G90",
+    "M83",
+    "G90",
+    "G1 X0 F3000",
+    "G1 Z0.300 F600",
+    "G1 Y0 F3000",
+    "G91 ",
+    "G1 X-2 Y-6 F3000",
+    "M140 S{bed_temp} ;set bed temp",
+    "M104 S{temp} ;set extruder temp",
+    "M190 S{bed_temp} ;wait for bed temp",
+    "M109 S{temp};wait for extruder temp",
+    "G1 E25 F480",
+    "G4 P1000",
+    "G1 E-0.200 Z5 F600",
+    "G1 X90.000 F6000",
+    "G1 Z-5.200 F600",
+    "G1 X60.000 E14.4 F3000",
+    "G1 X60.000 E9.6 F3000",
+    "G1 Y1 E0.16 F3000",
+    "G1 X-60.000 E9.6 F3000",
+    "G1 X-60.000 E14.4 F3000",
+    "G1 Y1 E0.16 F3000",
+    "G1 X60.000 E14.4 F3000",
+    "G1 X60.000 E9.6 F3000",
+    "G1 E-0.100 Z0.5 F600",
+    "M400",
+    "",
+    ""
+  ],
+  "post_gcode": [
+    "END_PRINT",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "heated_bed": true,
+  "speed_travel": null
+}
