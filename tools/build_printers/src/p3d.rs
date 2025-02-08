@@ -29,52 +29,35 @@ impl P3dExtruder {
             deselect: "".to_string(),
         }
     }
-    pub fn from_gridapps(cfg: &dyn GenericExtruder) -> Option<Self> {
-        let nozzle = cfg.get_nozzle();
-        let filament = cfg.get_filament();
-        let offset_x = cfg.get_offset_x();
-        let offset_y = cfg.get_offset_y();
-        let select = cfg.get_select_gcode();
-        let deselect = cfg.get_deselect_gcode();
-        Some(P3dExtruder {
+    pub fn from(
+        extruder: &dyn GenericExtruder
+    ) -> Option<Self> {
+        let nozzle = extruder.get_nozzle();
+        let filament = extruder.get_filament();
+        let offset_x = extruder.get_offset_x();
+        let offset_y = extruder.get_offset_y();
+        let select = extruder.get_select_gcode();
+        let deselect = extruder.get_deselect_gcode();
+        let p3dExtruder = P3dExtruder {
             nozzle,
             filament,
             offset_x,
             offset_y,
             select,
             deselect,
-        })
-    }
-    pub fn from_cura(
-        all: &HashMap<String, Box<dyn GenericExtruder>>,
-        cfg_name: &String,
-    ) -> Option<Self> {
-        let cfg = all.get(cfg_name)?;
-        let nozzle = cfg.get_nozzle();
-        let filament = cfg.get_filament();
-        let offset_x = cfg.get_offset_x();
-        let offset_y = cfg.get_offset_y();
-        let select = cfg.get_select_gcode();
-        let deselect = cfg.get_deselect_gcode();
+        };
 
         if nozzle.abs() < 0.001 {
-            println!("nozzle: {} {:?} nozzle is zero", cfg_name, cfg);
+            println!("nozzle: {:?} nozzle is zero", p3dExtruder);
             return None;
         }
         if filament.abs() < 0.001 {
-            println!("nozzle: {} {:?} filament is zero", cfg_name, cfg);
+            println!("nozzle: {:?} filament is zero", p3dExtruder);
             return None;
         }
 
         //        println!("nozzle: {} {:?}", cfg_name, cfg);
-        Some(P3dExtruder {
-            nozzle,
-            filament,
-            offset_x,
-            offset_y,
-            select,
-            deselect,
-        })
+        Some(p3dExtruder)
     }
 }
 
@@ -121,7 +104,7 @@ impl P3dPrinter {
             extruders.push(P3dExtruder::standard());
         } else {
             for e in ga_extruders {
-                match P3dExtruder::from_gridapps(e) {
+                match P3dExtruder::from(e) {
                     Some(p3dextruder) => extruders.push(p3dextruder),
                     None => return None,
                 }
@@ -178,7 +161,8 @@ impl P3dPrinter {
         let cura_extruders = cfg.get_extruders(all);
         let mut extruders: Vec<P3dExtruder> = vec![];
         for e in cura_extruders {
-            match P3dExtruder::from_cura(all_extruders, &e) {
+            let extruder: &dyn GenericExtruder = all_extruders.get(&e)?.as_ref();
+            match P3dExtruder::from(extruder) {
                 Some(p3dextruder) => extruders.push(p3dextruder),
                 None => return None,
             }
