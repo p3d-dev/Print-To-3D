@@ -431,24 +431,24 @@ impl P3dPrinter {
         if need_hotend_temp {
             self.pre_gcode.insert(
                 0,
-                "M109 S{temp}       ; wait for nozzle temperature".to_string(),
+                "M109 S{temp}       ; p3d: wait for nozzle temperature".to_string(),
             );
             self.pre_gcode.insert(
                 0,
-                "M104 S{temp}       ; need to heat the nozzle".to_string(),
+                "M104 S{temp}       ; p3d: need to heat the nozzle".to_string(),
             );
         }
         if need_bed_temp {
             self.pre_gcode.insert(
                 0,
-                "M190 S{bed_temp}   ; wait for bed temperature".to_string(),
+                "M190 S{bed_temp}   ; p3d: wait for bed temperature".to_string(),
             );
             self.pre_gcode
-                .insert(0, "M140 S{bed_temp}   ; need to heat the bed".to_string());
+                .insert(0, "M140 S{bed_temp}   ; p3d: need to heat the bed".to_string());
         }
         if need_absolute_positioning {
             self.pre_gcode
-                .push("G90                ; absolute position required".to_string());
+                .push("G90                ; p3d: absolute position required".to_string());
         }
 
         if self.build_size.2 > 1000 {
