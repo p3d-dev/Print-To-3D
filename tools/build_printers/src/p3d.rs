@@ -4,6 +4,7 @@ use lazy_static::*;
 use regex::Regex;
 use serde::Serialize;
 
+use crate::traits::*;
 use crate::cura::*;
 use crate::gridapps::*;
 use crate::orca::*;
@@ -28,7 +29,7 @@ impl P3dExtruder {
             deselect: "".to_string(),
         }
     }
-    pub fn from_gridapps(cfg: &dyn GridAppsExtruder) -> Option<Self> {
+    pub fn from_gridapps(cfg: &dyn GenericExtruder) -> Option<Self> {
         let nozzle = cfg.get_nozzle();
         let filament = cfg.get_filament();
         let offset_x = cfg.get_offset_x();
@@ -95,7 +96,7 @@ pub struct P3dPrinter {
 }
 
 impl P3dPrinter {
-    pub fn from_gridapps(name: String, cfg: Box<dyn GridApps>) -> Option<Self> {
+    pub fn from_gridapps(name: String, cfg: Box<dyn GenericPrinter>) -> Option<Self> {
         let source = cfg.get_source();
         let license = cfg.get_license();
         let origin_center = cfg.get_origin_center();

@@ -10,11 +10,13 @@ use serde::Serialize;
 extern crate log;
 extern crate mowl;
 
+mod traits;
 mod cura;
 mod gridapps;
 mod orca;
 mod p3d;
 
+use traits::*;
 use cura::*;
 use gridapps::*;
 use orca::*;
@@ -132,14 +134,14 @@ fn main() -> Result<(), Error> {
 }
 
 struct LoadAndParseResult {
-    gridapps_entries: HashMap<String, Box<dyn GridApps>>,
+    gridapps_entries: HashMap<String, Box<dyn GenericPrinter>>,
     cura_entries: HashMap<String, CuraV2>,
     cura_extruder_entries: HashMap<String, CuraExtruderV2>,
     orca_entries: HashMap<String, OrcaV1>,
 }
 
 fn load_and_parse() -> Result<LoadAndParseResult, Error> {
-    let mut gridapps_entries: HashMap<String, Box<dyn GridApps>> = HashMap::new();
+    let mut gridapps_entries: HashMap<String, Box<dyn GenericPrinter>> = HashMap::new();
     let mut cura_entries: HashMap<String, CuraV2> = HashMap::new();
     let mut cura_extruder_entries: HashMap<String, CuraExtruderV2> = HashMap::new();
     let mut orca_entries: HashMap<String, OrcaV1> = HashMap::new();

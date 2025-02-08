@@ -1,32 +1,6 @@
 use serde::Deserialize;
 
-pub trait GridAppsExtruder {
-    fn get_nozzle(&self) -> f32;
-    fn get_filament(&self) -> f32;
-    fn get_offset_x(&self) -> f32;
-    fn get_offset_y(&self) -> f32;
-    fn get_select_gcode(&self) -> String;
-    fn get_deselect_gcode(&self) -> String;
-}
-
-pub trait GridApps {
-    fn get_license(&self) -> String {
-        return "MIT".to_string();
-    }
-    fn get_source(&self) -> String;
-    fn get_origin_center(&self) -> bool;
-    fn get_bed_circle(&self) -> bool;
-    fn get_bed_width(&self) -> u16;
-    fn get_bed_depth(&self) -> u16;
-    fn get_build_height(&self) -> u16;
-    fn get_pre_gcode(&self) -> Vec<String>;
-    fn get_post_gcode(&self) -> Vec<String>;
-    fn get_fan_gcode(&self) -> String;
-    fn get_progress_gcode(&self) -> String;
-    fn get_layer_gcode(&self) -> String;
-    fn get_bed_belt(&self) -> bool;
-    fn get_extruders(&self) -> Vec<&dyn GridAppsExtruder>;
-}
+use crate::traits::*;
 
 #[derive(Deserialize, Debug)]
 struct Extruder01 {
@@ -100,7 +74,7 @@ pub struct GridApps02 {
     //settings: Option<Settings02>,
 }
 
-impl GridAppsExtruder for Extruder01 {
+impl GenericExtruder for Extruder01 {
     fn get_nozzle(&self) -> f32 {
         self.nozzle
     }
@@ -123,7 +97,7 @@ impl GridAppsExtruder for Extruder01 {
             .unwrap_or_else(|| "".to_string())
     }
 }
-impl GridAppsExtruder for Extruder02 {
+impl GenericExtruder for Extruder02 {
     fn get_nozzle(&self) -> f32 {
         self.extNozzle
     }
@@ -143,8 +117,11 @@ impl GridAppsExtruder for Extruder02 {
         self.extDeselect.join("\n")
     }
 }
-impl GridApps for GridApps01 {
-    fn get_source(&self) -> String {
+impl GenericPrinter for GridApps01 {
+    fn get_license(&self) -> String {
+        "MIT".to_string()
+    }
+     fn get_source(&self) -> String {
         "GridApps01".to_string()
     }
     fn get_origin_center(&self) -> bool {
@@ -188,17 +165,20 @@ impl GridApps for GridApps01 {
     fn get_bed_belt(&self) -> bool {
         self.settings.bed_belt.unwrap_or(false)
     }
-    fn get_extruders(&self) -> Vec<&dyn GridAppsExtruder> {
+    fn get_extruders(&self) -> Vec<&dyn GenericExtruder> {
         if let Some(extruders) = self.extruders.as_ref() {
             return extruders
                 .iter()
-                .map(|e| e as &dyn GridAppsExtruder)
+                .map(|e| e as &dyn GenericExtruder)
                 .collect::<Vec<_>>();
         }
         vec![]
     }
 }
-impl GridApps for GridApps02 {
+impl GenericPrinter for GridApps02 {
+    fn get_license(&self) -> String {
+        "MIT".to_string()
+    }
     fn get_source(&self) -> String {
         "GridApps02".to_string()
     }
@@ -235,10 +215,10 @@ impl GridApps for GridApps02 {
     fn get_bed_belt(&self) -> bool {
         self.bedBelt
     }
-    fn get_extruders(&self) -> Vec<&dyn GridAppsExtruder> {
+    fn get_extruders(&self) -> Vec<&dyn GenericExtruder> {
         self.extruders
             .iter()
-            .map(|e| e as &dyn GridAppsExtruder)
+            .map(|e| e as &dyn GenericExtruder)
             .collect::<Vec<_>>()
     }
 }

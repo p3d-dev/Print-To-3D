@@ -56,6 +56,8 @@ pub struct OrcaFdmMachine {
     machine_type: String,
     #[merge(skip)]
     name: String,
+    #[merge(skip)]
+    instantiation: String, // "true" if a real printer
     printer_model: Option<String>,
     default_print_profile: Option<String>,
     inherits: Option<String>,
