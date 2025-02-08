@@ -1,0 +1,64 @@
+{
+  "name": "Sovol SV07 0.4 nozzle",
+  "machine_name": "Sovol SV07 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    250
+  ],
+  "pre_gcode": [
+    "G28",
+    "G90",
+    "G1 X0 F9000",
+    "G1 Y20 F9000",
+    "G1 Z0.300 F600",
+    "G1 Y0 F9000",
+    "G91",
+    "M83",
+    "M140 S{bed_temp} ;set bed temp",
+    "M104 S{temp} ;set extruder temp",
+    "M190 S{bed_temp} ;wait for bed temp",
+    "M109 S{temp};wait for extruder temp",
+    "G1 E25 F480",
+    "G4 P1000",
+    "G1 E-0.200 Z5 F600",
+    "G1 X55.000 Y0.000 F6000",
+    "G1 Z-4.800 F600",
+    "G1 X55.000 E13.2 F3000",
+    "G1 X55.000 E8.8 F3000",
+    "G1 Y1 E0.16 F3000",
+    "G1 X-55.000 E8.8 F3000",
+    "G1 X-55.000 E13.2 F3000",
+    "G1 Y1 E0.24 F3000",
+    "G1 X55.000 E13.2 F3000",
+    "G1 X55.000 E8.8 F3000",
+    "G1 E-0.200 Z1 F600",
+    "M400",
+    "",
+    ""
+  ],
+  "post_gcode": [
+    "END_PRINT",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

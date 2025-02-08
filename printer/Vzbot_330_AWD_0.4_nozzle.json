@@ -1,0 +1,70 @@
+{
+  "name": "Vzbot 330 AWD 0.4 nozzle",
+  "machine_name": "Vzbot 330 AWD 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    330,
+    330,
+    400
+  ],
+  "pre_gcode": [
+    "BED_MESH_PROFILE LOAD=default ",
+    "M190 S{bed_temp} ;set bed temp ",
+    "G28; ",
+    "G1 X2 Y2 Z0 F9000  ; move to corner ",
+    "M109 S{temp} ; set nozzle temp ",
+    "G1 Z0.2 F300 ; raise nozzle to 0.2",
+    "G92 E0.0 ; reset extruder distance position",
+    "G1 X60.0 E9.0 F1000.0 ; intro line",
+    "G1 X100.0 E21.5 F1000.0 ; intro line",
+    "G0 Z2",
+    "",
+    "G92 E0.0 ; reset extruder distance position",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "G91; //rel pos",
+    "G1 E-5 f2000",
+    "G1 Z10 F600 ; lift nozzle 10mm/s",
+    "G1 E-29 f600",
+    "M104 S0",
+    "M140 S0 ; turn off bed",
+    "",
+    "M107",
+    "G90",
+    "G0 X117 Y200  F6000; move to back",
+    "M84     ; disable motors",
+    "DSLR_SNAPSHOT",
+    "RSCS_off",
+    "",
+    "exhaustfan_on",
+    "TIMELAPSE_RENDER",
+    "",
+    "G4 P60000 ; //Dwell for 1min",
+    "M107 ",
+    "exhaustfan_off",
+    "",
+    "G4 P120000",
+    "",
+    "power_off ; //this is with moonraker"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";DSLR_SNAPSHOT\nTIMELAPSE_TAKE_FRAME",
+  "heated_bed": true,
+  "speed_travel": null
+}

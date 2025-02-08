@@ -1,0 +1,47 @@
+{
+  "name": "Folgertech FT-5 0.6 nozzle",
+  "machine_name": "Folgertech FT-5 0.6 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.6,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    400
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
+    "G28 ; Home all axis",
+    "G1 X0 Y5 Z0.2 F3000 ; Get ready to prime",
+    "G92 E0 ; Reset extrusion distance",
+    "G1 X250 E20 F600 ; Prime nozzle",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "M140 S0 ; turn off heatbed",
+    "M104 S0 ; turn off temperature",
+    "M107 ; turn off fan",
+    "G28 X Y ; Home X and Y axis",
+    "M84 X Y E ; disable motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

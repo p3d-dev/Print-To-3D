@@ -346,9 +346,11 @@ impl OrcaV1 {
         replacement.insert("[first_layer_bed_temperature]", "{bed_temp}");
         replacement.insert("[bed_temperature_initial_layer_single]", "{bed_temp}");
         replacement.insert("[bed_temperature_initial_layer]", "{bed_temp}");
+        replacement.insert("[hot_plate_temp_initial_layer]", "{bed_temp}");
         replacement.insert("[first_layer_temperature]", "{temp}");
         replacement.insert("[nozzle_temperature_initial_layer]", "{temp}");
         replacement.insert("{nozzle_temperature_initial_layer[initial_extruder]}", "{temp}");
+        replacement.insert("{nozzle_temperature[initial_no_support_extruder]}", "{temp}");
         replacement.insert("{+0.0}", "{+0.0}");
         replacement.insert("{0.0}", "{0.0}");
 
@@ -376,7 +378,7 @@ impl OrcaV1 {
         for mat in re.captures_iter(line) {
             let m = mat.get(0)?.as_str();
             if replacement.contains_key(m) {
-                warn!("{}: need to extend slicer processing for {}", self.name, m);
+                info!("{}: replace {}", self.name, m);
                 need_replace = true;
                 continue;
             }
@@ -389,7 +391,7 @@ impl OrcaV1 {
         for mat in re.captures_iter(line) {
             let m = mat.get(0)?.as_str();
             if replacement.contains_key(m) {
-                warn!("{}: need to extend slicer processing for {}", self.name, m);
+                info!("{}: replace {}", self.name, m);
                 need_replace = true;
                 continue;
             }
@@ -474,7 +476,7 @@ impl GenericPrinter for OrcaV1 {
     }
     fn get_layer_gcode(&self) -> Option<String> {
         if let Some(gcode) = self.machine.layer_change_gcode.as_ref() {
-            return Some(gcode.to_string())
+            return self.process_variables(gcode)
         }
         Some("".to_string())
     }

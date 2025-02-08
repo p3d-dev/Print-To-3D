@@ -1,0 +1,54 @@
+{
+  "name": "Dremel 3D40 0.4 nozzle",
+  "machine_name": "Dremel 3D40 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    255,
+    155,
+    170
+  ],
+  "pre_gcode": [
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
+    "G90",
+    "G28",
+    "M132 X Y Z A",
+    "G1 Z100 F3300",
+    "G1 X-110.5 Y-74 F6000",
+    "M6 T0",
+    "M907 X100 Y100 Z60 A100",
+    "G1 Z0.6 F3300",
+    "G4 P2000",
+    "M108 T0"
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G162 Z F600",
+    "G162 X Y F2000",
+    "M84"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

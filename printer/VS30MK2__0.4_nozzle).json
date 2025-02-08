@@ -1,0 +1,53 @@
+{
+  "name": "VS30MK2 (0.4 nozzle)",
+  "machine_name": "VS30MK2 (0.4 nozzle)",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    200,
+    300
+  ],
+  "pre_gcode": [
+    "M117 Demarrage",
+    "M106 S0",
+    "M140 S{bed_temp}",
+    "M104 T0 S{temp}",
+    "G28",
+    "G90",
+    "M82",
+    "G92 E0",
+    "G1 Z5 F600",
+    "G1 X1 Y299 F6000",
+    "M109 T0 S{temp}",
+    "M300 P350",
+    "G92 E0",
+    "M117 Impression"
+  ],
+  "post_gcode": [
+    "M107",
+    "M104 S0",
+    "M140 S0",
+    "G0 X1 Y299 F5000",
+    "M84",
+    "M300"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

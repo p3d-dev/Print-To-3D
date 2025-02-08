@@ -1,0 +1,58 @@
+{
+  "name": "MM slb 0.4 nozzle",
+  "machine_name": "MM slb 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    125,
+    125,
+    160
+  ],
+  "pre_gcode": [
+    "M190 S{bed_temp}",
+    "M109 S{temp}",
+    "PRINT_START EXTRUDER={temp} BED={bed_temp}",
+    "G21 ;metric values",
+    "G90 ;absolute positioning",
+    "M82 ;set extruder to absolute mode",
+    "M107 ;start with the fan off",
+    "G28 ;Home",
+    "G0 Z1",
+    "G0 X0 Y0",
+    "G92 E0",
+    "G0 Z0.5",
+    "G1 F1000 Y100 E20",
+    "G92 E0",
+    "M117 Printing..."
+  ],
+  "post_gcode": [
+    "M104 S0 ;extruder heater off",
+    "M140 S0 ;heated bed heater off (if you have it)",
+    "G91 ;relative positioning",
+    "G1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure",
+    "G28 X0",
+    "G0 Y120",
+    "G1 E-10 F9000",
+    "M84 ;steppers off",
+    "G90 ;absolute positioning",
+    "PRINT_END"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

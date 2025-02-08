@@ -1,0 +1,49 @@
+{
+  "name": "Qidi X-Max 0.4 nozzle",
+  "machine_name": "Qidi X-Max 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    250,
+    300
+  ],
+  "pre_gcode": [
+    "G28",
+    "G92 E0",
+    "G0 X300 Y5 Z50 F3600",
+    "M190 S{bed_temp}",
+    "M109 S{temp}",
+    "G92 E-19",
+    "",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    ";Retract the filament",
+    "G92 E0",
+    "G1 E-3 F300",
+    "G28",
+    "M84",
+    ""
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}
