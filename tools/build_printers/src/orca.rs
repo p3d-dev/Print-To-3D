@@ -476,7 +476,7 @@ impl GenericPrinter for OrcaV1 {
     }
     fn get_layer_gcode(&self) -> Option<String> {
         if let Some(gcode) = self.machine.layer_change_gcode.as_ref() {
-            return self.process_variables(gcode)
+            return self.process_gcode(gcode).map(|s|{s.join("\n")})
         }
         Some("".to_string())
     }
