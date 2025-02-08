@@ -22,8 +22,8 @@
     300
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "G28 ; home all axes",
     "G29 ;",
     "G1 Z5 F3000 ; lift",
@@ -32,7 +32,7 @@
     "G92 E0 ; reset extrusion distance",
     "G1 Y100 E20 F600 ; prime nozzle",
     "G1 Y140 F5000 ; quick wipe",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

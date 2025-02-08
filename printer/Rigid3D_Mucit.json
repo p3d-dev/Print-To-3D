@@ -22,8 +22,8 @@
     150
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "G21",
     "G28 ; Home extruder",
     "M420 S1 ; Enable MBL",

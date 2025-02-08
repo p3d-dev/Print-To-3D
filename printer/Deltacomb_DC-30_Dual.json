@@ -22,8 +22,8 @@
     300
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     ";---------------------------------------",
     ";Deltacomb start script",
     ";---------------------------------------",

@@ -22,10 +22,10 @@
     400
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; need to heat the bed",
-    "M190 S{bed_temp}   ; wait for bed temperature",
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "G28 ;Home",
     " G29 ;Auto Level",
     " G92 E0 ;Reset Extruder",
@@ -36,7 +36,7 @@
     " G1 X250 Y290.0 Z0.28 F1500.0 E30 ;Draw the second line",
     " G92 E0 ;Reset Extruder",
     " G1 Z5.0 F3000 ;Move Z Axis up",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

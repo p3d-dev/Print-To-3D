@@ -26,7 +26,7 @@
     "M104 S0 ",
     "START_PRINT EXTRUDER_TEMP={temp} BED_TEMP={bed_temp}",
     "",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "END_PRINT"

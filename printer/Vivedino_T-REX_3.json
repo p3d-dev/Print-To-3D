@@ -22,10 +22,10 @@
     500
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; need to heat the bed",
-    "M190 S{bed_temp}   ; wait for bed temperature",
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "M605 S1 ; Set dual carriage mode S0 slicer full control | S1 AutoPark inactive head | S2 duplicate",
     "T0",
     "M106 P0 S[fan_speed_pwm]",
@@ -46,7 +46,7 @@
     "T1",
     "G1 X440 F8000 ; park T0 head at X=440",
     "G92 E0 ; Zero extruder count",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "G28 X0 Y0",

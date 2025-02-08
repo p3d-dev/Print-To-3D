@@ -22,8 +22,8 @@
     102
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "G28 ;Home",
     ";Prime the extruder",
     "M117 Print",
@@ -35,7 +35,7 @@
     "G92 E0",
     "G92 E0",
     "G1 Z0.18 F2400 ;Move Z Axis up",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

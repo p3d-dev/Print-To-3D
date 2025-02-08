@@ -22,10 +22,10 @@
     250
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; need to heat the bed",
-    "M190 S{bed_temp}   ; wait for bed temperature",
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "M280 P0 S160 ; release BLTouch alarm (OK to send for Non BLTouch)",
     "M420 Z2 ; set fade leveling at 2mm for BLTouch (OK to send for Non BLTouch)",
     "G28 ; home all",
@@ -38,7 +38,7 @@
     "G1 Y100.0 E12.5 F1000.0 ; prime",
     "G92 E0 ; zero extruder again",
     "M117 Printing...",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "G92 E0 ; zero the extruded length again",

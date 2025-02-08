@@ -70,7 +70,7 @@
     "G92 E0                                        ; Reset Extruder\r",
     "M117 Lets make\r",
     "G1 X8 Y20 Z0.3 F5000.0                        ; Move over to prevent blob squish",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "                               ;BIQU Default End Gcode",

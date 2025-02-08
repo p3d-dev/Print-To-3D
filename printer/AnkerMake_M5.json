@@ -22,14 +22,14 @@
     250
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; need to heat the bed",
-    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
     "M104 S{temp} ; set final nozzle temp",
     "M190 S{bed_temp} ; set and wait for nozzle temp to stabilize",
     "M109 S{temp} ; wait for nozzle temp to stabilize",
     "G28 ;Home",
     "G1 E10 F3600; push out retracted filament(fix for over retraction after prime)",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M104 S0",

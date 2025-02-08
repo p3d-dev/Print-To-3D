@@ -22,8 +22,8 @@
     400
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "",
     ";Neither Hybrid AM Systems nor any of Hybrid AM Systems representatives has any liabilities or gives any warranties on this .gcode file, or on any or all objects made with this .gcode file.",
     "",
@@ -46,7 +46,7 @@
     "M190 S{bed_temp}",
     "",
     "M117 HMS434 Printing ...",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     ""

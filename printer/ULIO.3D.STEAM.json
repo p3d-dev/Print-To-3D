@@ -22,8 +22,8 @@
     55
   ],
   "pre_gcode": [
-    "M140 S{bed_temp}   ; need to heat the bed",
-    "M190 S{bed_temp}   ; wait for bed temperature",
+    "M140 S{bed_temp}   ; p3d: need to heat the bed",
+    "M190 S{bed_temp}   ; p3d: wait for bed temperature",
     "G90            ; use absolute coordinates",
     "M83            ; extruder relative mode",
     "M104 S{temp}   ; set extruder temp",

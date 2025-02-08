@@ -46,7 +46,7 @@
     "G1 X125 F3000",
     "G92 E0 ; Reset Extruder",
     "",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M104 S0 ;extruder heater off",

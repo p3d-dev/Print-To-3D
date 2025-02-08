@@ -22,8 +22,8 @@
     235
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     ";HEADER;",
     "G21; Set to metric [change to G20 if you want Imperial]",
     "G91;Force coordinates to be absolute relative to the origin ",

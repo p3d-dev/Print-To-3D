@@ -22,8 +22,8 @@
     190
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; need to heat the nozzle",
-    "M109 S{temp}       ; wait for nozzle temperature",
+    "M104 S{temp}       ; p3d: need to heat the nozzle",
+    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "M136",
     "G162 X Y F2000",
     "G161 Z F900",
@@ -38,7 +38,7 @@
     "G1 X0 Y115 Z0.5 F600 A12",
     "G92 A0",
     "",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M18 A B(Turn off A and B steppers)",

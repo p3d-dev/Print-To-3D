@@ -27,7 +27,7 @@
     "START_PRINT EXTRUDER_TEMP=220.000000 BED_TEMP=45.000000",
     "G92 E0",
     "G1 F2400 E-0.5",
-    "G90                ; absolute position required"
+    "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
     "M106 S0",
