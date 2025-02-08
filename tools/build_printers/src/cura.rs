@@ -2,6 +2,8 @@ use std::collections::HashMap;
 
 use serde::Deserialize;
 
+use crate::traits::*;
+
 #[derive(Deserialize, Debug)]
 struct OnlyDefault<T> {
     default_value: Option<T>,
@@ -211,6 +213,47 @@ impl CuraExtruderV2 {
             println!("parent not found: {}", inherits);
         }
         None
+    }
+}
+
+pub struct CuraExtruder {
+    nozzle: f32,
+    filament: f32,
+    offset_x: f32,
+    offset_y: f32,
+    select_gcode: String,
+    deselect_gcode: String,
+}
+impl CuraExtruder {
+    pub fn new(extruder: &CuraExtruderV2, all: &HashMap<String, CuraExtruderV2>) -> Option<Self> {
+        Some(Self {
+            nozzle: extruder.get_nozzle(all)?,
+            filament: extruder.get_filament(all)?,
+            offset_x: extruder.get_offset_x(all)?,
+            offset_y: extruder.get_offset_y(all)?,
+            select_gcode: extruder.get_select_gcode(all)?,
+            deselect_gcode: extruder.get_deselect_gcode(all)?,
+        })
+    }
+}
+impl GenericExtruder for CuraExtruder {
+    fn get_nozzle(&self) -> f32 {
+        self.nozzle
+    }
+    fn get_filament(&self) -> f32 {
+        self.filament
+    }
+    fn get_offset_x(&self) -> f32 {
+        self.offset_x
+    }
+    fn get_offset_y(&self) -> f32 {
+        self.offset_y
+    }
+    fn get_select_gcode(&self) -> String {
+        self.select_gcode.clone()
+    }
+    fn get_deselect_gcode(&self) -> String {
+        self.deselect_gcode.clone()
     }
 }
 

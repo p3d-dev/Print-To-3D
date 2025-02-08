@@ -1,3 +1,4 @@
+use std::fmt::{Debug, Formatter};
 
 pub trait GenericExtruder {
     fn get_nozzle(&self) -> f32;
@@ -6,6 +7,18 @@ pub trait GenericExtruder {
     fn get_offset_y(&self) -> f32;
     fn get_select_gcode(&self) -> String;
     fn get_deselect_gcode(&self) -> String;
+}
+impl Debug for dyn GenericExtruder {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Extruder")
+            .field("nozzle", &self.get_nozzle())
+            .field("filament", &self.get_filament())
+            .field("offset_x", &self.get_offset_x())
+            .field("offset_y", &self.get_offset_y())
+            .field("select_gcode", &self.get_select_gcode())
+            .field("deselect_gcode", &self.get_deselect_gcode())
+            .finish()
+    }
 }
 
 pub trait GenericPrinter {

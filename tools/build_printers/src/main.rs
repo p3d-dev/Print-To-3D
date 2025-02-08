@@ -10,17 +10,17 @@ use serde::Serialize;
 extern crate log;
 extern crate mowl;
 
-mod traits;
 mod cura;
 mod gridapps;
 mod orca;
 mod p3d;
+mod traits;
 
-use traits::*;
 use cura::*;
 use gridapps::*;
 use orca::*;
 use p3d::*;
+use traits::*;
 
 enum Source {
     Gridapps,
@@ -62,9 +62,7 @@ fn main() -> Result<(), Error> {
     }
     let mut collision = 0;
     for cura in lapr.cura_entries.values() {
-        if let Some(p3d) =
-            P3dPrinter::from_cura(&lapr.cura_entries, &lapr.cura_extruder_entries, cura)
-        {
+        if let Some(p3d) = P3dPrinter::from_cura(&lapr.cura_entries, &lapr.cura_extruders, cura) {
             let p3d_name = p3d.name.clone();
             let key = generalized(&p3d_name);
             if let Some(ga) = entries.remove(&key) {
@@ -136,7 +134,7 @@ fn main() -> Result<(), Error> {
 struct LoadAndParseResult {
     gridapps_entries: HashMap<String, Box<dyn GenericPrinter>>,
     cura_entries: HashMap<String, CuraV2>,
-    cura_extruder_entries: HashMap<String, CuraExtruderV2>,
+    cura_extruders: HashMap<String, Box<dyn GenericExtruder>>,
     orca_entries: HashMap<String, OrcaV1>,
 }
 
@@ -293,10 +291,17 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
             }
         }
     }
+    let mut cura_extruders: HashMap<String, Box<dyn GenericExtruder>> = HashMap::new();
+    for (name, cfg) in cura_extruder_entries.iter() {
+        if let Some(standard) = CuraExtruder::new(&cfg, &cura_extruder_entries) {
+            let e = Box::new(standard);
+            cura_extruders.insert(name.clone(), e);
+        }
+    }
     Ok(LoadAndParseResult {
         gridapps_entries,
         cura_entries,
-        cura_extruder_entries,
+        cura_extruders,
         orca_entries,
     })
 }

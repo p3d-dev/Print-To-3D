@@ -101,6 +101,10 @@ pub struct OrcaFdmMachine {
 }
 
 impl OrcaV1Header {
+    // OrcaSlicer is structured in dirs
+    // There is top level json-file, which directs which file in subpath are what.
+    // Inheritance is only within one subdirectory.
+    // During read all inherits can be resolved
     pub fn read(&self, cfg_dir: PathBuf) -> Result<Vec<OrcaV1>, Error> {
         let mut ret = Vec::new();
         if false {

@@ -121,7 +121,7 @@ impl GenericPrinter for GridApps01 {
     fn get_license(&self) -> String {
         "MIT".to_string()
     }
-     fn get_source(&self) -> String {
+    fn get_source(&self) -> String {
         "GridApps01".to_string()
     }
     fn get_origin_center(&self) -> bool {

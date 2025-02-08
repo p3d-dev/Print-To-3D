@@ -4,10 +4,10 @@ use lazy_static::*;
 use regex::Regex;
 use serde::Serialize;
 
-use crate::traits::*;
 use crate::cura::*;
 use crate::gridapps::*;
 use crate::orca::*;
+use crate::traits::*;
 
 #[derive(Serialize, Debug)]
 pub struct P3dExtruder {
@@ -45,14 +45,17 @@ impl P3dExtruder {
             deselect,
         })
     }
-    pub fn from_cura(all: &HashMap<String, CuraExtruderV2>, cfg_name: &String) -> Option<Self> {
+    pub fn from_cura(
+        all: &HashMap<String, Box<dyn GenericExtruder>>,
+        cfg_name: &String,
+    ) -> Option<Self> {
         let cfg = all.get(cfg_name)?;
-        let nozzle = cfg.get_nozzle(all)?;
-        let filament = cfg.get_filament(all)?;
-        let offset_x = cfg.get_offset_x(all)?;
-        let offset_y = cfg.get_offset_y(all)?;
-        let select = cfg.get_select_gcode(all)?;
-        let deselect = cfg.get_deselect_gcode(all)?;
+        let nozzle = cfg.get_nozzle();
+        let filament = cfg.get_filament();
+        let offset_x = cfg.get_offset_x();
+        let offset_y = cfg.get_offset_y();
+        let select = cfg.get_select_gcode();
+        let deselect = cfg.get_deselect_gcode();
 
         if nozzle.abs() < 0.001 {
             println!("nozzle: {} {:?} nozzle is zero", cfg_name, cfg);
@@ -147,7 +150,7 @@ impl P3dPrinter {
     }
     pub fn from_cura(
         all: &HashMap<String, CuraV2>,
-        all_extruders: &HashMap<String, CuraExtruderV2>,
+        all_extruders: &HashMap<String, Box<dyn GenericExtruder>>,
         cfg: &CuraV2,
     ) -> Option<Self> {
         let source = cfg.get_source();
