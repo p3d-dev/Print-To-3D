@@ -85,8 +85,22 @@ fn main() -> Result<(), Error> {
     }
     for orca in lapr.orca_entries.values() {
         if let Some(p3d) = P3dPrinter::from_orca(orca) {
-            let key = generalized(&p3d.name);
-            entries.insert(key, p3d);
+            let p3d_name = p3d.name.clone();
+            let key = generalized(&p3d_name);
+            if let Some(ga) = entries.remove(&key) {
+                collision += 1;
+                if let Some(p3d_new) = P3dPrinter::resolve_conflict(ga, p3d) {
+                    println!(
+                        "{}: resolved collision {} into {}",
+                        collision, key, p3d_new.name
+                    );
+                    entries.insert(key, p3d_new);
+                } else {
+                    println!("{}: UNRESOLVED collision {}", collision, key);
+                }
+            } else {
+                entries.insert(key, p3d);
+            }
         } else {
             println!("Incomplete orca definition: {}", orca.printer_name());
         }

@@ -37,4 +37,5 @@ pub trait GenericPrinter {
     fn get_layer_gcode(&self) -> Option<String>;
     fn get_bed_belt(&self) -> Option<bool>;
     fn get_extruders(&self) -> Option<Vec<&dyn GenericExtruder>>;
+    fn get_speed_travel(&self) -> Option<f32>;
 }

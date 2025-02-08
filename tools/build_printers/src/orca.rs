@@ -1,5 +1,5 @@
 use std::cmp::*;
-use std::collections::HashMap;
+use std::collections::{HashSet,HashMap};
 use std::default::Default;
 use std::fs::File;
 use std::io::{Error, Read};
@@ -7,6 +7,7 @@ use std::path::PathBuf;
 
 use merge::Merge;
 use serde::Deserialize;
+use regex::Regex;
 
 use crate::traits::*;
 
@@ -107,11 +108,11 @@ pub struct OrcaFdmMachine {
 #[derive(Default, Debug)]
 pub struct BuildVolume {
     pub round: bool,
-    pub height: u32,
+    pub height: u16,
     pub center: bool,
-    pub width: Option<u32>,
-    pub depth: Option<u32>,
-    pub diameter: Option<u32>,
+    pub width: Option<u16>,
+    pub depth: Option<u16>,
+    pub diameter: Option<u16>,
 }
 impl OrcaFdmMachine {
     pub fn get_build_volume(&self) -> Option<BuildVolume> {
@@ -126,31 +127,47 @@ impl OrcaFdmMachine {
             let mut v = s.split("x");
             let x = v.next()?.parse::<f32>().ok()?;
             let y = v.next()?.parse::<f32>().ok()?;
-            let x_int = x.round() as i32;
-            let y_int = y.round() as i32;
+            let x_int = x.round() as i16;
+            let y_int = y.round() as i16;
 
             min_x = min(min_x, x_int);
             max_x = max(max_x, x_int);
             min_y = min(min_y, y_int);
             max_y = max(max_y, y_int);
-            let r = (x * x + y * y).sqrt().round() as i32;
+            let r = (x * x + y * y).sqrt().round() as i16;
             max_r = max(max_r, r);
         }
-        println!("x={}..{} y={}..{} r={}", min_x, max_x, min_y, max_y, max_r);
+        println!("{}: x={}..{} y={}..{} r={}", self.name, min_x, max_x, min_y, max_y, max_r);
         let mut bv = BuildVolume::default();
         bv.center = (min_x + max_x == 0) && (min_y + max_y == 0);
         bv.round = bv.center && (max_r == max_x);
-        bv.height = z.round() as u32;
+        bv.height = z.round() as u16;
         if bv.round {
-            bv.diameter = Some(max_r as u32);
+            bv.diameter = Some(max_r as u16);
         } else {
-            bv.width = Some((max_x - min_x) as u32);
-            bv.depth = Some((max_y - min_y) as u32);
+            bv.width = Some((max_x - min_x) as u16);
+            bv.depth = Some((max_y - min_y) as u16);
             if !bv.center && ((min_x != 0) || (min_y != 0)) {
+                warn!("not centered");
                 return None;
             }
         }
         Some(bv)
+    }
+    pub fn get_extruders(&self) -> Option<Vec<OrcaExtruder>> {
+        let nozzles = self.nozzle_diameter.as_ref()?;
+        if nozzles.len() != 1 {
+            info!("{}: {:?} nozzles", self.name, nozzles);
+        }
+        let nd = nozzles.first()?.parse::<f32>().ok()?;
+        if nd < 0.1 || nd > 1.0 { 
+            warn!("{}: {:?} nozzles", self.name, nozzles);
+            return None;
+        }
+        let extruder = OrcaExtruder{
+            diameter: nd,
+        };
+        Some(vec![extruder])
     }
 }
 
@@ -168,7 +185,7 @@ impl OrcaV1Header {
                 let mut contents = String::new();
                 file.read_to_string(&mut contents)?;
                 let machine = serde_json::from_str::<OrcaMachine>(&contents)?;
-                println!("{}: {:?}", ns.name, machine);
+                // println!("{}: {:?}", ns.name, machine);
                 // split nozzle_diameter on ";"
                 let nd = machine.nozzle_diameter.split(";");
                 path.set_extension("");
@@ -265,7 +282,7 @@ impl OrcaV1Header {
                 match OrcaV1::init(name.clone(), fdm) {
                     Some(v1) => ret.push(v1),
                     None => {
-                        warn!("{}: no build volume", name);
+                        warn!("{}: Cannot create orca printer", name);
                     }
                 }
             }
@@ -275,33 +292,109 @@ impl OrcaV1Header {
 }
 
 #[derive(Debug)]
+pub struct OrcaExtruder {
+    diameter: f32,
+}
+impl GenericExtruder for OrcaExtruder {
+    fn get_nozzle(&self) -> f32 {
+        self.diameter
+    }
+    fn get_filament(&self) -> f32 {
+        1.75
+    }
+    fn get_offset_x(&self) -> f32 {
+        0.0
+    }
+    fn get_offset_y(&self) -> f32 {
+        0.0
+    }
+    fn get_select_gcode(&self) -> String {
+        "".to_string()
+    }
+    fn get_deselect_gcode(&self) -> String {
+        "".to_string()
+    }
+}
+
+#[derive(Debug)]
 pub struct OrcaV1 {
     pub name: String,
     pub machine: OrcaFdmMachine,
     pub build_volume: BuildVolume,
+    pub extruders: Vec<OrcaExtruder>,
 }
 impl OrcaV1 {
     pub fn init(name: String, machine: OrcaFdmMachine) -> Option<Self> {
         let bv = machine.get_build_volume()?;
+        let extruders = machine.get_extruders()?;
         Some(OrcaV1 {
             name,
             machine,
             build_volume: bv,
+            extruders,
         })
     }
     pub fn printer_name(&self) -> String {
         self.name.clone()
     }
-    pub fn get_build_size(&self) -> Option<(f32, f32, f32, bool)> {
-        if let Some(exclude) = self.machine.bed_exclude_area.as_ref() {
-            if exclude.len() != 1 {
-                return None;
+    pub fn process_variables(&self,line: &str) -> Option<String> {
+        // find each {..} in line
+        // Find all matches in the text
+        let mut known: HashSet<&str> = HashSet::new();
+        known.insert("[printer_model]");
+        known.insert("{filament_type[initial_no_support_extruder]}"); // Bambu
+        known.insert("[initial_no_support_extruder]"); // Bambu
+        known.insert("{nozzle_temperature_initial_layer[initial_extruder]}"); // Bambu
+        known.insert("{first_layer_bed_temperature[0]}");
+        known.insert("[bed_temperature_initial_layer]");
+        known.insert("[first_layer_temperature]");
+        known.insert("[first_layer_bed_temperature]");
+        known.insert("[nozzle_temperature_initial_layer]");
+        known.insert("[bed_temperature_initial_layer_single]");
+        known.insert("{+0.0}");
+        known.insert("{0.0}");
+        known.insert("{total_layer_count}");
+
+        known.clear();
+
+        // Create a regular expression to match "{..}"
+        let re = Regex::new(r"\{.*?\}").unwrap();
+        for mat in re.captures_iter(line) {
+            let m = mat.get(0)?.as_str();
+            if known.contains(m) {
+                warn!("{}: need to extend slicer processing for {}", self.name, m);
+                continue;
             }
-            if exclude[0] != "0x0" {
-                return None;
+            warn!("{}: {}", self.name, line);
+            warn!("Found '{{..}}': {:?}", mat.get(0)?.as_str());
+            return None;
+        } 
+        // Create a regular expression to match "{..}"
+        let re = Regex::new(r"\[.*?\]").unwrap();
+        for mat in re.captures_iter(line) {
+            let m = mat.get(0)?.as_str();
+            if known.contains(m) {
+                warn!("{}: need to extend slicer processing for {}", self.name, m);
+                continue;
+            }
+            warn!("{}: {}", self.name, line);
+            warn!("Found '{{..}}': {:?}", mat.get(0)?.as_str());
+            return None;
+        } 
+        Some(line.to_string())
+    }
+    pub fn process_gcode(&self, gcode: &str) -> Option<Vec<String>> {
+        let mut lines = vec![];
+        for line in gcode.split("\n") {
+            if line.trim().starts_with(";") {
+                lines.push(line.to_string());
+            }
+            else { 
+                let line = self.process_variables(line)?;
+                lines.push(line);
             }
         }
-        None
+        Some(lines)
     }
 }
 impl GenericPrinter for OrcaV1 {
@@ -312,39 +405,55 @@ impl GenericPrinter for OrcaV1 {
         "OrcaSlicerV1".to_string()
     }
     fn get_origin_center(&self) -> Option<bool> {
-        None
+        Some(self.build_volume.center)
     }
     fn get_bed_circle(&self) -> Option<bool> {
-        None
+        Some(self.build_volume.round)
     }
     fn get_bed_width(&self) -> Option<u16> {
-        None
+        if self.build_volume.round {
+            self.build_volume.diameter
+        } else {
+            self.build_volume.width
+        }
     }
     fn get_bed_depth(&self) -> Option<u16> {
-        None
+        if self.build_volume.round {
+            self.build_volume.diameter
+        } else {
+            self.build_volume.depth
+        }
     }
     fn get_build_height(&self) -> Option<u16> {
-        None
+        Some(self.build_volume.height)
     }
     fn get_pre_gcode(&self) -> Option<Vec<String>> {
-        None
+        let gcode = self.machine.machine_start_gcode.as_ref()?;
+        self.process_gcode(gcode)
     }
     fn get_post_gcode(&self) -> Option<Vec<String>> {
-        None
+        let gcode = self.machine.machine_end_gcode.as_ref()?;
+        self.process_gcode(gcode)
     }
     fn get_fan_gcode(&self) -> Option<String> {
-        None
+        Some("M106 S{fan_speed}".to_string())
     }
     fn get_progress_gcode(&self) -> Option<String> {
-        None
+        Some("".to_string())
     }
     fn get_layer_gcode(&self) -> Option<String> {
-        None
+        if let Some(gcode) = self.machine.layer_change_gcode.as_ref() {
+            return Some(gcode.to_string())
+        }
+        Some("".to_string())
     }
     fn get_bed_belt(&self) -> Option<bool> {
         Some(false)
     }
     fn get_extruders(&self) -> Option<Vec<&dyn GenericExtruder>> {
+        Some(self.extruders.iter().map(|e| e as &dyn GenericExtruder).collect())
+    }
+    fn get_speed_travel(&self) -> Option<f32> {
         None
     }
 }

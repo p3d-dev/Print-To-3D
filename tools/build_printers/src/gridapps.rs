@@ -180,6 +180,9 @@ impl GenericPrinter for GridApps01 {
         }
         Some(vec![])
     }
+    fn get_speed_travel(&self) -> Option<f32> {
+        None
+    }
 }
 impl GenericPrinter for GridApps02 {
     fn get_license(&self) -> String {
@@ -228,5 +231,8 @@ impl GenericPrinter for GridApps02 {
                 .map(|e| e as &dyn GenericExtruder)
                 .collect::<Vec<_>>(),
         )
+    }
+    fn get_speed_travel(&self) -> Option<f32> {
+        None
     }
 }

@@ -195,21 +195,22 @@ impl P3dPrinter {
         let name = cfg.printer_name();
         let source = cfg.get_source();
         let license = cfg.get_license();
-        let origin_center = cfg.get_origin_center()?;
-        let bed_elliptic = cfg.get_bed_circle()?;
-        let bed_width = cfg.get_bed_width()?;
-        let bed_depth = cfg.get_bed_depth()?;
-        let build_height = cfg.get_build_height()?;
+        let origin_center = cfg.get_origin_center().or_else(||{warn!("no center");return None})?;
+        let bed_elliptic = cfg.get_bed_circle().or_else(||{warn!("no bed_elliptic");return None})?;
+        let bed_width = cfg.get_bed_width().or_else(||{warn!("no bed_width");return None})?;
+        let bed_depth = cfg.get_bed_depth().or_else(||{warn!("no bed_depth");return None})?;
+        let build_height = cfg.get_build_height().or_else(||{warn!("no build_height");return None})?;
         let build_size = (bed_width, bed_depth, build_height);
-        let pre_gcode = cfg.get_pre_gcode()?;
-        let post_gcode = cfg.get_post_gcode()?;
-        let fan_gcode = cfg.get_fan_gcode()?;
-        let progress_gcode = cfg.get_progress_gcode()?;
-        let layer_gcode = cfg.get_layer_gcode()?;
+        let pre_gcode = cfg.get_pre_gcode().or_else(||{warn!("no pre_gcode");return None})?;
+        let post_gcode = cfg.get_post_gcode().or_else(||{warn!("no post_gcode");return None})?;
+        let fan_gcode = cfg.get_fan_gcode().or_else(||{warn!("no fan_gcode");return None})?;
+        let progress_gcode = cfg.get_progress_gcode().or_else(||{warn!("no progress_gcode");return None})?;
+        let layer_gcode = cfg.get_layer_gcode().or_else(||{warn!("no layer_gcode");return None})?;
         let bed_belt = cfg.get_bed_belt()?;
         let generic_extruders = cfg.get_extruders()?;
         let mut extruders: Vec<P3dExtruder> = vec![];
         if generic_extruders.is_empty() {
+            warn!("no extruders");
             return None;
         } else {
             for e in generic_extruders {
