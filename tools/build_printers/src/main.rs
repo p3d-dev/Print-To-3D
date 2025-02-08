@@ -12,7 +12,7 @@ extern crate mowl;
 
 mod cura;
 mod gridapps;
-mod orca;
+pub mod orca;
 mod p3d;
 mod traits;
 

@@ -124,55 +124,61 @@ impl GenericPrinter for GridApps01 {
     fn get_source(&self) -> String {
         "GridApps01".to_string()
     }
-    fn get_origin_center(&self) -> bool {
-        self.settings.origin_center
+    fn get_origin_center(&self) -> Option<bool> {
+        Some(self.settings.origin_center)
     }
-    fn get_bed_circle(&self) -> bool {
-        self.settings.bed_circle.unwrap_or(false)
+    fn get_bed_circle(&self) -> Option<bool> {
+        Some(self.settings.bed_circle.unwrap_or(false))
     }
-    fn get_bed_width(&self) -> u16 {
-        self.settings.bed_width
+    fn get_bed_width(&self) -> Option<u16> {
+        Some(self.settings.bed_width)
     }
-    fn get_bed_depth(&self) -> u16 {
-        self.settings.bed_depth
+    fn get_bed_depth(&self) -> Option<u16> {
+        Some(self.settings.bed_depth)
     }
-    fn get_build_height(&self) -> u16 {
-        self.settings.build_height
+    fn get_build_height(&self) -> Option<u16> {
+        Some(self.settings.build_height)
     }
-    fn get_pre_gcode(&self) -> Vec<String> {
-        self.pre.iter().cloned().collect::<Vec<String>>()
+    fn get_pre_gcode(&self) -> Option<Vec<String>> {
+        Some(self.pre.iter().cloned().collect::<Vec<String>>())
     }
-    fn get_post_gcode(&self) -> Vec<String> {
-        self.post.iter().cloned().collect::<Vec<String>>()
+    fn get_post_gcode(&self) -> Option<Vec<String>> {
+        Some(self.post.iter().cloned().collect::<Vec<String>>())
     }
-    fn get_fan_gcode(&self) -> String {
-        self.cmd.fan_power.clone()
+    fn get_fan_gcode(&self) -> Option<String> {
+        Some(self.cmd.fan_power.clone())
     }
-    fn get_progress_gcode(&self) -> String {
-        self.cmd
-            .progress
-            .as_ref()
-            .unwrap_or(&"".to_string())
-            .clone()
+    fn get_progress_gcode(&self) -> Option<String> {
+        Some(
+            self.cmd
+                .progress
+                .as_ref()
+                .unwrap_or(&"".to_string())
+                .clone(),
+        )
     }
-    fn get_layer_gcode(&self) -> String {
-        self.cmd
-            .layer
-            .as_ref()
-            .map(|x| x.join("\n"))
-            .unwrap_or_else(|| "".to_string())
+    fn get_layer_gcode(&self) -> Option<String> {
+        Some(
+            self.cmd
+                .layer
+                .as_ref()
+                .map(|x| x.join("\n"))
+                .unwrap_or_else(|| "".to_string()),
+        )
     }
-    fn get_bed_belt(&self) -> bool {
-        self.settings.bed_belt.unwrap_or(false)
+    fn get_bed_belt(&self) -> Option<bool> {
+        Some(self.settings.bed_belt.unwrap_or(false))
     }
-    fn get_extruders(&self) -> Vec<&dyn GenericExtruder> {
+    fn get_extruders(&self) -> Option<Vec<&dyn GenericExtruder>> {
         if let Some(extruders) = self.extruders.as_ref() {
-            return extruders
-                .iter()
-                .map(|e| e as &dyn GenericExtruder)
-                .collect::<Vec<_>>();
+            return Some(
+                extruders
+                    .iter()
+                    .map(|e| e as &dyn GenericExtruder)
+                    .collect::<Vec<_>>(),
+            );
         }
-        vec![]
+        Some(vec![])
     }
 }
 impl GenericPrinter for GridApps02 {
@@ -182,43 +188,45 @@ impl GenericPrinter for GridApps02 {
     fn get_source(&self) -> String {
         "GridApps02".to_string()
     }
-    fn get_origin_center(&self) -> bool {
-        self.originCenter
+    fn get_origin_center(&self) -> Option<bool> {
+        Some(self.originCenter)
     }
-    fn get_bed_circle(&self) -> bool {
-        self.bedRound
+    fn get_bed_circle(&self) -> Option<bool> {
+        Some(self.bedRound)
     }
-    fn get_bed_width(&self) -> u16 {
-        self.bedWidth
+    fn get_bed_width(&self) -> Option<u16> {
+        Some(self.bedWidth)
     }
-    fn get_bed_depth(&self) -> u16 {
-        self.bedDepth
+    fn get_bed_depth(&self) -> Option<u16> {
+        Some(self.bedDepth)
     }
-    fn get_build_height(&self) -> u16 {
-        self.maxHeight
+    fn get_build_height(&self) -> Option<u16> {
+        Some(self.maxHeight)
     }
-    fn get_pre_gcode(&self) -> Vec<String> {
-        self.gcodePre.iter().cloned().collect::<Vec<String>>()
+    fn get_pre_gcode(&self) -> Option<Vec<String>> {
+        Some(self.gcodePre.iter().cloned().collect::<Vec<String>>())
     }
-    fn get_post_gcode(&self) -> Vec<String> {
-        self.gcodePost.iter().cloned().collect::<Vec<String>>()
+    fn get_post_gcode(&self) -> Option<Vec<String>> {
+        Some(self.gcodePost.iter().cloned().collect::<Vec<String>>())
     }
-    fn get_fan_gcode(&self) -> String {
-        self.gcodeFan.join("\n")
+    fn get_fan_gcode(&self) -> Option<String> {
+        Some(self.gcodeFan.join("\n"))
     }
-    fn get_progress_gcode(&self) -> String {
-        self.gcodeTrack.join("\n")
+    fn get_progress_gcode(&self) -> Option<String> {
+        Some(self.gcodeTrack.join("\n"))
     }
-    fn get_layer_gcode(&self) -> String {
-        self.gcodeLayer.join("\n")
+    fn get_layer_gcode(&self) -> Option<String> {
+        Some(self.gcodeLayer.join("\n"))
     }
-    fn get_bed_belt(&self) -> bool {
-        self.bedBelt
+    fn get_bed_belt(&self) -> Option<bool> {
+        Some(self.bedBelt)
     }
-    fn get_extruders(&self) -> Vec<&dyn GenericExtruder> {
-        self.extruders
-            .iter()
-            .map(|e| e as &dyn GenericExtruder)
-            .collect::<Vec<_>>()
+    fn get_extruders(&self) -> Option<Vec<&dyn GenericExtruder>> {
+        Some(
+            self.extruders
+                .iter()
+                .map(|e| e as &dyn GenericExtruder)
+                .collect::<Vec<_>>(),
+        )
     }
 }

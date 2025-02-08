@@ -5,7 +5,7 @@ use regex::Regex;
 use serde::Serialize;
 
 use crate::cura::*;
-use crate::gridapps::*;
+//use crate::gridapps::*;
 use crate::orca::*;
 use crate::traits::*;
 
@@ -29,16 +29,14 @@ impl P3dExtruder {
             deselect: "".to_string(),
         }
     }
-    pub fn from(
-        extruder: &dyn GenericExtruder
-    ) -> Option<Self> {
+    pub fn from(extruder: &dyn GenericExtruder) -> Option<Self> {
         let nozzle = extruder.get_nozzle();
         let filament = extruder.get_filament();
         let offset_x = extruder.get_offset_x();
         let offset_y = extruder.get_offset_y();
         let select = extruder.get_select_gcode();
         let deselect = extruder.get_deselect_gcode();
-        let p3dExtruder = P3dExtruder {
+        let p3d_extruder = P3dExtruder {
             nozzle,
             filament,
             offset_x,
@@ -48,16 +46,16 @@ impl P3dExtruder {
         };
 
         if nozzle.abs() < 0.001 {
-            println!("nozzle: {:?} nozzle is zero", p3dExtruder);
+            println!("nozzle: {:?} nozzle is zero", p3d_extruder);
             return None;
         }
         if filament.abs() < 0.001 {
-            println!("nozzle: {:?} filament is zero", p3dExtruder);
+            println!("nozzle: {:?} filament is zero", p3d_extruder);
             return None;
         }
 
         //        println!("nozzle: {} {:?}", cfg_name, cfg);
-        Some(p3dExtruder)
+        Some(p3d_extruder)
     }
 }
 
@@ -85,19 +83,19 @@ impl P3dPrinter {
     pub fn from_gridapps(name: String, cfg: Box<dyn GenericPrinter>) -> Option<Self> {
         let source = cfg.get_source();
         let license = cfg.get_license();
-        let origin_center = cfg.get_origin_center();
-        let bed_elliptic = cfg.get_bed_circle();
-        let bed_width = cfg.get_bed_width();
-        let bed_depth = cfg.get_bed_depth();
-        let build_height = cfg.get_build_height();
+        let origin_center = cfg.get_origin_center()?;
+        let bed_elliptic = cfg.get_bed_circle()?;
+        let bed_width = cfg.get_bed_width()?;
+        let bed_depth = cfg.get_bed_depth()?;
+        let build_height = cfg.get_build_height()?;
         let build_size = (bed_width, bed_depth, build_height);
-        let pre_gcode = cfg.get_pre_gcode();
-        let post_gcode = cfg.get_post_gcode();
-        let fan_gcode = cfg.get_fan_gcode();
-        let progress_gcode = cfg.get_progress_gcode();
-        let layer_gcode = cfg.get_layer_gcode();
-        let bed_belt = cfg.get_bed_belt();
-        let ga_extruders = cfg.get_extruders();
+        let pre_gcode = cfg.get_pre_gcode()?;
+        let post_gcode = cfg.get_post_gcode()?;
+        let fan_gcode = cfg.get_fan_gcode()?;
+        let progress_gcode = cfg.get_progress_gcode()?;
+        let layer_gcode = cfg.get_layer_gcode()?;
+        let bed_belt = cfg.get_bed_belt()?;
+        let ga_extruders = cfg.get_extruders()?;
         let mut extruders: Vec<P3dExtruder> = vec![];
         if ga_extruders.is_empty() {
             println!("use standard nozzle for {}", name);
@@ -194,8 +192,53 @@ impl P3dPrinter {
         p3d.checked()
     }
     pub fn from_orca(cfg: &OrcaV1) -> Option<Self> {
-        println!("{:?}", cfg);
-        None
+        let name = cfg.printer_name();
+        let source = cfg.get_source();
+        let license = cfg.get_license();
+        let origin_center = cfg.get_origin_center()?;
+        let bed_elliptic = cfg.get_bed_circle()?;
+        let bed_width = cfg.get_bed_width()?;
+        let bed_depth = cfg.get_bed_depth()?;
+        let build_height = cfg.get_build_height()?;
+        let build_size = (bed_width, bed_depth, build_height);
+        let pre_gcode = cfg.get_pre_gcode()?;
+        let post_gcode = cfg.get_post_gcode()?;
+        let fan_gcode = cfg.get_fan_gcode()?;
+        let progress_gcode = cfg.get_progress_gcode()?;
+        let layer_gcode = cfg.get_layer_gcode()?;
+        let bed_belt = cfg.get_bed_belt()?;
+        let generic_extruders = cfg.get_extruders()?;
+        let mut extruders: Vec<P3dExtruder> = vec![];
+        if generic_extruders.is_empty() {
+            return None;
+        } else {
+            for e in generic_extruders {
+                match P3dExtruder::from(e) {
+                    Some(p3dextruder) => extruders.push(p3dextruder),
+                    None => return None,
+                }
+            }
+        }
+        let machine_name = name.clone();
+        let p3d = P3dPrinter {
+            source,
+            license,
+            name,
+            machine_name,
+            origin_center,
+            bed_elliptic,
+            build_size,
+            pre_gcode,
+            post_gcode,
+            fan_gcode,
+            progress_gcode,
+            layer_gcode,
+            bed_belt,
+            extruders,
+            heated_bed: true,
+            speed_travel: None,
+        };
+        p3d.checked()
     }
     pub fn resolve_conflict(mut this: Self, other: Self) -> Option<Self> {
         if this.license == "MIT" {

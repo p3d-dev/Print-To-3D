@@ -21,19 +21,20 @@ impl Debug for dyn GenericExtruder {
     }
 }
 
+#[allow(dead_code)]
 pub trait GenericPrinter {
     fn get_license(&self) -> String;
     fn get_source(&self) -> String;
-    fn get_origin_center(&self) -> bool;
-    fn get_bed_circle(&self) -> bool;
-    fn get_bed_width(&self) -> u16;
-    fn get_bed_depth(&self) -> u16;
-    fn get_build_height(&self) -> u16;
-    fn get_pre_gcode(&self) -> Vec<String>;
-    fn get_post_gcode(&self) -> Vec<String>;
-    fn get_fan_gcode(&self) -> String;
-    fn get_progress_gcode(&self) -> String;
-    fn get_layer_gcode(&self) -> String;
-    fn get_bed_belt(&self) -> bool;
-    fn get_extruders(&self) -> Vec<&dyn GenericExtruder>;
+    fn get_origin_center(&self) -> Option<bool>;
+    fn get_bed_circle(&self) -> Option<bool>;
+    fn get_bed_width(&self) -> Option<u16>;
+    fn get_bed_depth(&self) -> Option<u16>;
+    fn get_build_height(&self) -> Option<u16>;
+    fn get_pre_gcode(&self) -> Option<Vec<String>>;
+    fn get_post_gcode(&self) -> Option<Vec<String>>;
+    fn get_fan_gcode(&self) -> Option<String>;
+    fn get_progress_gcode(&self) -> Option<String>;
+    fn get_layer_gcode(&self) -> Option<String>;
+    fn get_bed_belt(&self) -> Option<bool>;
+    fn get_extruders(&self) -> Option<Vec<&dyn GenericExtruder>>;
 }
