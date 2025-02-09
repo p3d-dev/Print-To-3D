@@ -551,7 +551,9 @@ impl CuraV2 {
         }
         x
     })
-    .map(|x| x.trim_matches('\'').replace("' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", ""))
+    .map(|x| x.replace("' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", "\nM140 S0 ;heated bed heater off"))
+    .map(|x| x.replace("' + ('\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", "\nM140 S0 ;heated bed heater off"))
+    .map(|x| x.trim_matches('\'').to_string())
     .map(|x| x.replace("\\n","\n")) 
     }
     pub fn get_pre_gcode_base(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
