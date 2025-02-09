@@ -38,6 +38,7 @@
     "M164 S0"
   ],
   "post_gcode": [
+    "M104 S0           ; p3d: cooldown nozzle",
     "G92 Z0 E0",
     "G1 F1500 Z10 E-2",
     "M82",

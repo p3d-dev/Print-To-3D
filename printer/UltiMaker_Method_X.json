@@ -28,6 +28,7 @@
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
+    "M104 S0           ; p3d: cooldown nozzle",
     ""
   ],
   "fan_gcode": "M106 S{fan_speed}",

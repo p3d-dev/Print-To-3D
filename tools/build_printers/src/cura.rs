@@ -258,7 +258,8 @@ impl GenericExtruder for CuraExtruder {
 }
 
 #[derive(Deserialize, Debug)]
-struct MetaDataV2 {
+pub struct MetaDataV2 {
+    pub visible: Option<bool>,
     machine_extruder_trains: Option<HashMap<String, String>>,
 }
 
@@ -320,7 +321,7 @@ pub struct CuraV2 {
     inherits: Option<String>,
     overrides: Option<OverridesV2>,
     settings: Option<SettingsV2>,
-    metadata: Option<MetaDataV2>,
+    pub metadata: Option<MetaDataV2>,
 }
 
 impl CuraV2 {
@@ -566,6 +567,7 @@ impl CuraV2 {
         None
     }
     pub fn get_post_gcode(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
+        // 'M104 S0 ;extruder heater off' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '\\nG91 ;relative positioning\\nG1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure\\nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way\\nM84 ;steppers off\\nG90 ;absolute positioning\\nM107 ; Fans off'
         if let Some(overrides) = self.overrides.as_ref() {
             if let Some(def) = overrides.machine_end_gcode.as_ref() {
                 if let Some(v) = def.value.as_ref().or(def.default_value.as_ref()) {

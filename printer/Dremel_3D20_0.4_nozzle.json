@@ -38,6 +38,7 @@
     "M108 T0"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
     "M104 S0 T0",
     "G1 Z140 F3300",
     "G28 X0 Y0",

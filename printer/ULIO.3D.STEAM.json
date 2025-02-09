@@ -34,6 +34,7 @@
     "M117 ULIO 3D STEAM Printing"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
     "M104 S0        ; turn off right extruder",
     "M107           ; turn off filament cooling fan",
     "G1 Z55 F{180}  ; drop bed G1 55 mm ",

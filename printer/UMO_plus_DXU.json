@@ -30,6 +30,8 @@
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
+    "M104 S0           ; p3d: cooldown nozzle",
     "\"\"  if machine_gcode_flavor == \"UltiGCode\" else \";end code from UM3\\nG91 ;Relative movement\\nG0 F15000 X8.0 Y8.0 Z3.5 E-4.5 ;Wiping+material retraction ;increase bed lower 0.5>5.0 and add Y movement\\nG0 F10000 Z1.5 E4.5 ;Compensation for the retraction\\nG90 ;Disable relative movement\\n\\nG90 ;absolute positioning\\nM104 S0 T0 ;extruder heater off\\nM104 S0 T1\\nM140 S0 ;turn off bed\\nT0 ; move to the first head\\nM107 ;fan off\\nM355 S0 ;turn off case light\""
   ],
   "fan_gcode": "M106 S{fan_speed}",

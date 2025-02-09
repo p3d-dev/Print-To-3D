@@ -22,8 +22,6 @@
     350
   ],
   "pre_gcode": [
-    "M104 S{temp}       ; p3d: need to heat the nozzle",
-    "M109 S{temp}       ; p3d: wait for nozzle temperature",
     "M140 S{bed_temp} ;",
     "M190 S{material_bed_temper109 S{temp} ;",
     "G0 Z0.3 F300 ;",

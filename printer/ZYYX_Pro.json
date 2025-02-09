@@ -77,6 +77,7 @@
     "; End of start gcode"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
     "; ZYYX 3D Printer end gcode",
     "M73 P100 ; end build progress",
     "G0 Z195 F1000 ; send Z axis to bottom of machine",

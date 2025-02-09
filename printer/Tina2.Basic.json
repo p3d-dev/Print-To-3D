@@ -50,6 +50,7 @@
     "M203 Z5"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
     ";(**** end.gcode for tina2****)",
     "M203 Z15",
     "M104 S0",

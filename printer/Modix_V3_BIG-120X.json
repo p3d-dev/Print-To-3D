@@ -28,6 +28,7 @@
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
+    "M104 S0           ; p3d: cooldown nozzle",
     "M83 ; extruder relative moves ",
     "G1 E-5 F2700 ;retract a bit ",
     "G10 P0 S0 R0 ; turn off extruder 0 ",

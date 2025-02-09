@@ -28,6 +28,7 @@
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
+    "M104 S0           ; p3d: cooldown nozzle",
     "; Vertex Nano end G-Code G91 ; Relative positioning T0 G1 E-1 F1500; Reduce filament pressure M104 T0 S0 G90 ; Absolute positioning G92 E0 ; Reset extruder position G28 M84 ; Turn steppers off"
   ],
   "fan_gcode": "M106 S{fan_speed}",

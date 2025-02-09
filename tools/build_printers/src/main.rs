@@ -265,7 +265,7 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                                 cura_entries.insert(key, cfg);
                             }
                             Err(e1) => {
-                                println!("{:?}: {:?}", entry.file_name(), e1)
+                                println!("cura {:?}: {:?}", entry.file_name(), e1)
                             }
                         },
                         Source::CuraExtruder => {

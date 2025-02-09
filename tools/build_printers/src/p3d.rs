@@ -134,6 +134,11 @@ impl P3dPrinter {
         all_extruders: &HashMap<String, Box<dyn GenericExtruder>>,
         cfg: &CuraV2,
     ) -> Option<Self> {
+        if let Some(metadata) = cfg.metadata.as_ref() {
+            if metadata.visible == Some(false) {
+                return None;
+            }
+        }
         let source = cfg.get_source();
         let license = cfg.get_license();
         let name = cfg.printer_name();
@@ -387,10 +392,10 @@ impl P3dPrinter {
             }
         }
     }
-    fn does_not_contain(&self, pattern: &str) -> bool {
-        let re = Regex::new(&format!("^[^;]*{}", pattern)).unwrap();
-        for l in self.pre_gcode.iter() {
-            if re.is_match(l) {
+    fn does_not_contain(&self, pattern: &str, gcode: &Vec<String>) -> bool {
+        let re = Regex::new(&format!("^[^;]*{}", pattern.to_lowercase())).unwrap();
+        for l in gcode.iter() {
+            if re.is_match(&l.to_lowercase()) {
                 return false;
             }
         }
@@ -423,9 +428,13 @@ impl P3dPrinter {
         P3dPrinter::prune(&mut self.pre_gcode, &xref);
         P3dPrinter::prune(&mut self.post_gcode, &xref);
 
-        let need_absolute_positioning = self.does_not_contain("G90");
-        let need_hotend_temp = self.does_not_contain("M104") && self.does_not_contain("M109");
-        let need_bed_temp = self.heated_bed && (self.does_not_contain("M140") && self.does_not_contain("M190") );
+        let need_absolute_positioning = self.does_not_contain("G90", &self.pre_gcode);
+        let need_hotend_temp = self.does_not_contain("M104", &self.pre_gcode) && self.does_not_contain("M109", &self.pre_gcode) && self.does_not_contain("\\{temp\\}", &self.pre_gcode);
+        let need_bed_temp = self.heated_bed && self.does_not_contain("M140", &self.pre_gcode) && self.does_not_contain("M190", &self.pre_gcode)  && self.does_not_contain("\\{bed_temp\\}", &self.pre_gcode);
+
+        let no_print_end = self.does_not_contain("PRINT_END", &self.post_gcode) && self.does_not_contain("END_PRINT", &self.post_gcode) && self.does_not_contain("M801", &self.post_gcode) ;
+        let need_hotend_cooldown = no_print_end && self.does_not_contain("M104", &self.post_gcode) && self.does_not_contain("M109", &self.post_gcode);
+        let need_bed_cooldown = self.heated_bed && no_print_end && self.does_not_contain("M140", &self.post_gcode) && self.does_not_contain("M190", &self.post_gcode);
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {
@@ -438,6 +447,10 @@ impl P3dPrinter {
                 "M104 S{temp}       ; p3d: need to heat the nozzle".to_string(),
             );
         }
+        if need_hotend_cooldown {
+            self.post_gcode
+                .insert(0, "M104 S0           ; p3d: cooldown nozzle".to_string());
+        }
         if need_bed_temp {
             self.pre_gcode.insert(
                 0,
@@ -445,6 +458,10 @@ impl P3dPrinter {
             );
             self.pre_gcode
                 .insert(0, "M140 S{bed_temp}   ; p3d: need to heat the bed".to_string());
+        }
+        if need_bed_cooldown {
+            self.post_gcode
+                .insert(0, "M140 S0           ; p3d: cooldown bed".to_string());
         }
         if need_absolute_positioning {
             self.pre_gcode

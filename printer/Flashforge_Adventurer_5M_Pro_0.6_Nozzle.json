@@ -41,6 +41,7 @@
     "G92 E0"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
     "G1 E-3 F3600",
     "G0 X50 Y50 F30000",
     "M104 S0 ; turn off temperature"

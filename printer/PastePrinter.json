@@ -41,6 +41,7 @@
     "M117 Printing...;ENDHEADER"
   ],
   "post_gcode": [
+    "M104 S0           ; p3d: cooldown nozzle",
     ";FOOTER",
     "G91; relative positioning",
     "M107; turn off layer fan",

@@ -34,6 +34,7 @@
     ""
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
     "G28",
     "M104 S0",
     "M84 ; disable motors"

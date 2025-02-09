@@ -40,6 +40,8 @@
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
+    "M104 S0           ; p3d: cooldown nozzle",
     "; SC-20 Custom End G-code",
     "G4 ; Wait",
     "M220 S100 ; Reset Speed factor override percentage to default (100%)",

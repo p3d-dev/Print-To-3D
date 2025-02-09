@@ -35,6 +35,8 @@
     "G1 F600 Z3 ; perform Z hop"
   ],
   "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
+    "M104 S0           ; p3d: cooldown nozzle",
     "M0"
   ],
   "fan_gcode": "M106 S{fan_speed}",
