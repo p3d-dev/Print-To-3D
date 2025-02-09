@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use serde::Deserialize;
+use regex::Regex;
 
 use crate::traits::*;
 
@@ -541,7 +542,19 @@ impl CuraV2 {
         }
         None
     }
-    pub fn get_pre_gcode(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
+    fn cleanup(&self, gcode: Option<String>) -> Option<String> {
+       gcode.map(|x| {
+        let re = Regex::new(r"if machine_gcode_flavor == .*else ").unwrap();
+        let fields: Vec<&str> = re.split(&x).collect();
+        if fields.len() == 2 {
+            return fields[1].to_string();
+        }
+        x
+    })
+    .map(|x| x.trim_matches('\'').replace("' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", ""))
+    .map(|x| x.replace("\\n","\n")) 
+    }
+    pub fn get_pre_gcode_base(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
         if let Some(overrides) = self.overrides.as_ref() {
             if let Some(def) = overrides.machine_start_gcode.as_ref() {
                 if let Some(v) = def.value.as_ref().or(def.default_value.as_ref()) {
@@ -560,7 +573,7 @@ impl CuraV2 {
         }
         if let Some(inherits) = self.inherits.as_ref() {
             if let Some(parent) = all.get(inherits) {
-                return parent.get_pre_gcode(all);
+                return parent.get_pre_gcode_base(all);
             }
             println!("parent not found: {}", inherits);
         }
@@ -586,15 +599,17 @@ impl CuraV2 {
         }
         if let Some(inherits) = self.inherits.as_ref() {
             if let Some(parent) = all.get(inherits) {
-                return parent.get_post_gcode(all);
+                return parent.get_post_gcode_base(all);
             }
             println!("parent not found: {}", inherits);
         }
         None
     }
+    pub fn get_pre_gcode(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
+        self.cleanup(self.get_pre_gcode_base(all))
+    }
     pub fn get_post_gcode(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
-        self.get_post_gcode_base(all)
-            .map(|x| x.trim_matches('\'').replace("' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", "").replace("\\n","\n"))
+        self.cleanup(self.get_post_gcode_base(all))
     }
     pub fn get_extruders(&self, all: &HashMap<String, CuraV2>) -> Vec<String> {
         if let Some(trains) = self

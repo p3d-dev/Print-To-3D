@@ -26,7 +26,7 @@
     "M190 S{bed_temp}   ; p3d: wait for bed temperature",
     "M104 S{temp}       ; p3d: need to heat the nozzle",
     "M109 S{temp}       ; p3d: wait for nozzle temperature",
-    "''",
+    "",
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
