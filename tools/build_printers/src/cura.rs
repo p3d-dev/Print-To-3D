@@ -566,7 +566,7 @@ impl CuraV2 {
         }
         None
     }
-    pub fn get_post_gcode(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
+    pub fn get_post_gcode_base(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
         // 'M104 S0 ;extruder heater off' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '\\nG91 ;relative positioning\\nG1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure\\nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way\\nM84 ;steppers off\\nG90 ;absolute positioning\\nM107 ; Fans off'
         if let Some(overrides) = self.overrides.as_ref() {
             if let Some(def) = overrides.machine_end_gcode.as_ref() {
@@ -591,6 +591,10 @@ impl CuraV2 {
             println!("parent not found: {}", inherits);
         }
         None
+    }
+    pub fn get_post_gcode(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
+        self.get_post_gcode_base(all)
+            .map(|x| x.trim_matches('\'').replace("' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", "").replace("\\n","\n"))
     }
     pub fn get_extruders(&self, all: &HashMap<String, CuraV2>) -> Vec<String> {
         if let Some(trains) = self

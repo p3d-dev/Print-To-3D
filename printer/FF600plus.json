@@ -41,7 +41,13 @@
   ],
   "post_gcode": [
     "M140 S0           ; p3d: cooldown bed",
-    "'M104 S0 ;extruder heater off' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '\\nG91 ;relative positioning\\nG1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure\\nG28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way\\nM84 ;steppers off\\nG90 ;absolute positioning\\nM107 ; Fans off'"
+    "M104 S0 ;extruder heater off",
+    "G91 ;relative positioning",
+    "G1 E-1 F300  ;retract the filament a bit before lifting the nozzle, to release some of the pressure",
+    "G28 X0 Y0 ;move X/Y to min endstops, so the head is out of the way",
+    "M84 ;steppers off",
+    "G90 ;absolute positioning",
+    "M107 ; Fans off"
   ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",
