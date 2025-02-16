@@ -202,6 +202,14 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                 .status()?;
             println!("{:?}", output);
         }
+	else {
+            let output = Command::new("git")
+                .arg("-C")
+		.arg(repo_dir)
+                .arg("pull")
+                .status()?;
+            println!("{:?}", output);
+	}
 
         let cfg_dir = temp_dir.join(dir);
 

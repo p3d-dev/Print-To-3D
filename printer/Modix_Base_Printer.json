@@ -32,6 +32,7 @@
     "M83 ; extruder relative moves ",
     "G1 E-5 F2700 ;retract a bit ",
     "G10 P0 S0 R0 ; turn off extruder 0 ",
+    "G10 P1 S0 R0 ; turn off extruder 1 ",
     "M106 S0 ; turn off fans ",
     "T-1 P0 ; deselect any tools ",
     "G4 P1 ; dwell 1ms ",
