@@ -29,18 +29,17 @@ License situation:
 - The json files in the subdirectory printer/ are generated files from the build tool.
   These have been added to the repository for convenience.
   Each of the json-files in the repository contain information about their applicable valid license.
-  The key "source"/"license" state either GridApps01/MIT or LGPL-3.0/CuraV2
+  The key "source"/"license" state either GridApps01/MIT, CuraV2/LGPL-3.0/CuraV2 or OrcaSlicerV1/AGPL-3.0
 
 For AGPL-3.0/Orca:
-OrcaSlicer and Bambuslicer are released under the terms of the AGPLv3 or higher. A copy of this license should be included with the software.
+OrcaSlicer and BambuSlicer are released under the terms of the AGPLv3 or higher. A copy of this license should be included with the software.
 License text in printer.LICENSE-AGPL
-
 
 For LGPL-3.0/CuraV2:
 Cura is released under the terms of the LGPLv3 or higher. A copy of this license should be included with the software.
 License text in printer.LICENSE-GPL
 
 For GridApps01/MIT:
-Copyright 2014-2018 Stewart Allen <sa@grid.space>
+Copyright 2014-2018 Stewart Allen <sa@grid.space>.
 License text in printer.LICENSE-GridApps
 
