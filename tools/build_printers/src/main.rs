@@ -127,7 +127,7 @@ fn main() -> Result<(), Error> {
         let file = File::create(fname)?;
         let writer = BufWriter::new(file);
         serde_json::to_writer_pretty(writer, &e)?;
-        //        println!("{}: {:#?}", name, e);
+        println!("Insert {}: {:#?}", e.name, xname);
 
         printers.printers.insert(e.name, xname);
     }
@@ -258,13 +258,15 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                     match source {
                         Source::Gridapps => match serde_json::from_str::<GridApps01>(&contents) {
                             Ok(cfg) => {
-                                gridapps_entries.insert(name, Box::new(cfg));
+                                let key = name.replace(".json", "");
+                                gridapps_entries.insert(key, Box::new(cfg));
                             }
                             Err(e1) => match serde_json::from_str::<GridApps02>(&contents) {
                                 Ok(cfg) => {
-                                    gridapps_entries.insert(name, Box::new(cfg));
+                                    let key = name.replace(".json", "");
+                                    gridapps_entries.insert(key, Box::new(cfg));
                                 }
-                                Err(e2) => println!("{:?}: {:?} {:?}", entry.file_name(), e1, e2),
+                                Err(e2) => println!("{:?}: V01={:?} V02={:?}", entry.file_name(), e1, e2),
                             },
                         },
                         Source::Cura => match serde_json::from_str::<CuraV2>(&contents) {

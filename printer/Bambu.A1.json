@@ -12,14 +12,6 @@
       "filament": 1.75,
       "offset_x": 0.0,
       "offset_y": 0.0,
-      "select": "; BEGIN tool change from {last_tool} to {tool}\nM620 S{tool}A                 ; prepare tool change\nM204 S9000                    ; Set acceleration to 9000 mm/s^2\nM620.11 S0                    ; Reset filament retraction state\nM400                          ; wait for moves to complete\nM620.1 E F187 T240            ; set purge rate 187 temp 240\nT{tool}                       ; initiate tool change\nM620.1 E F374 T240            ; set purge rate 374 temp 240\nM620.11 S0                    ; Reset filament retraction state\nG92 E0                        ; reset extruder position\nM400                          ; wait for moves to complete\n                              ; -- PURGE --\nM109 S240                     ; Set nozzle temperature to 240°C\nG1 E23.7 F187                 ; Extrude 23.7mm of filament at flowrate 187\nG1 E0.914611 F50              ; Pulsatile extrusion\nG1 E10.518 F187               ; Continue extrusion at flowrate 187\nG1 E0.914611 F50              ; Pulsatile extrusion\nG1 E10.518 F374               ; Continue extrusion at flowrate 374\nG1 E0.914611 F50              ; Pulsatile extrusion\nG1 E10.518 F374               ; Continue extrusion at flowrate 374\nG1 E0.914611 F50              ; Pulsatile extrusion\nG1 E10.518 F374               ; Continue extrusion at flowrate 374\nG1 E-2 F1800                  ; Retract filament by 2mm\nG1 E2 F300                    ; Recover retraction slowly\nM400                          ; Wait for all movements to complete\nM109 S{temp}                  ; Set nozzle temperature back to print temp\n                              ; -- SHAKE --\nM106 P1 S255                  ; Turn on nozzle cooling fan to full speed\nM400 S3                       ; Wait for all movements to complete\nG1 X70 F5000                  ; Move to X70\nG1 X90 F3000                  ; Move to X90\nG1 Y255 F4000                 ; Move to Y255\nG1 X105 F5000                 ; Move to X105\nG1 Y265                       ; Move to Y265\nG1 X70 F10000                 ; Rapid move to X70\nG1 X100 F5000                 ; Move to X100\nG1 X70 F10000                 ; Rapid move back to X70\nG1 X100 F5000                 ; Move to X100\nG1 X70 F10000                 ; Shake filament residue\nG1 X80 F15000\nG1 X60\nG1 X80\nG1 X60\nG1 X80                        ; Shake to put down garbage\nG1 X100 F5000                 ; Move to X100\nG1 X165 F15000                ; Wipe and shake\nG1 Y256                       ; Move Y aside to prevent collision\nM400                          ; Wait for all movements to complete\nM204 S10000                   ; Set acceleration to 10000 mm/s^2\nM621 S{tool}A                 ; complete tool change\n; END tool change",
-      "deselect": ""
-    },
-    {
-      "nozzle": 0.4,
-      "filament": 1.75,
-      "offset_x": 0.0,
-      "offset_y": 0.0,
       "select": "",
       "deselect": ""
     },
@@ -36,7 +28,15 @@
       "filament": 1.75,
       "offset_x": 0.0,
       "offset_y": 0.0,
-      "select": "T3",
+      "select": "",
+      "deselect": ""
+    },
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
       "deselect": ""
     }
   ],
@@ -47,6 +47,7 @@
   ],
   "pre_gcode": [
     "; total layer number: {layers}",
+    "; model label id: {model_labels}",
     ";; PREAMBLE",
     ";; DEFINE BAMBU-AMS 0,1,2,3",
     "; ===== HEADER ====================================",

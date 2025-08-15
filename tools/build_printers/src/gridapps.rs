@@ -8,7 +8,7 @@ struct Extruder01 {
     filament: f32,
     offset_x: f32,
     offset_y: f32,
-    select: Vec<String>,
+    select: Option<Vec<String>>,
     deselect: Option<Vec<String>>,
 }
 
@@ -44,8 +44,8 @@ pub struct GridApps01 {
 struct Extruder02 {
     extFilament: f32,
     extNozzle: f32,
-    extSelect: Vec<String>,
-    extDeselect: Vec<String>,
+    extSelect: Option<Vec<String>>,
+    extDeselect: Option<Vec<String>>,
     extOffsetX: f32,
     extOffsetY: f32,
 }
@@ -59,7 +59,7 @@ pub struct GridApps02 {
     //deviceName: String,
     bedWidth: u16,
     bedDepth: u16,
-    maxHeight: u16,
+    maxHeight: f32,
     bedRound: bool,
     bedBelt: bool,
     //deviceZMax: Option<i16>,
@@ -88,7 +88,10 @@ impl GenericExtruder for Extruder01 {
         self.offset_y
     }
     fn get_select_gcode(&self) -> String {
-        self.select.join("\n")
+        self.select
+            .as_ref()
+            .map(|x| x.join("\n"))
+            .unwrap_or_else(|| "".to_string())
     }
     fn get_deselect_gcode(&self) -> String {
         self.deselect
@@ -111,10 +114,16 @@ impl GenericExtruder for Extruder02 {
         self.extOffsetY
     }
     fn get_select_gcode(&self) -> String {
-        self.extSelect.join("\n")
+        self.extSelect
+            .as_ref()
+            .map(|x| x.join("\n"))
+            .unwrap_or_else(|| "".to_string())
     }
     fn get_deselect_gcode(&self) -> String {
-        self.extDeselect.join("\n")
+        self.extDeselect
+            .as_ref()
+            .map(|x| x.join("\n"))
+            .unwrap_or_else(|| "".to_string())
     }
 }
 impl GenericPrinter for GridApps01 {
@@ -204,7 +213,7 @@ impl GenericPrinter for GridApps02 {
         Some(self.bedDepth)
     }
     fn get_build_height(&self) -> Option<u16> {
-        Some(self.maxHeight)
+        Some(self.maxHeight as u16)
     }
     fn get_pre_gcode(&self) -> Option<Vec<String>> {
         Some(self.gcodePre.iter().cloned().collect::<Vec<String>>())
