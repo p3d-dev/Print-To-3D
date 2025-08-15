@@ -341,24 +341,35 @@ impl OrcaV1 {
         // find each {..} in line
         // Find all matches in the text
         let mut replacement: HashMap<&str, &str> = HashMap::new();
-        //replacement.insert("[printer_model]".to_string(), self.name.clone());
+        replacement.insert("[printer_model]", &self.name);
         replacement.insert("{first_layer_bed_temperature[0]}", "{bed_temp}");
         replacement.insert("[first_layer_bed_temperature]", "{bed_temp}");
         replacement.insert("[bed_temperature_initial_layer_single]", "{bed_temp}");
         replacement.insert("[bed_temperature_initial_layer]", "{bed_temp}");
         replacement.insert("[hot_plate_temp_initial_layer]", "{bed_temp}");
         replacement.insert("[first_layer_temperature]", "{temp}");
+        replacement.insert("{first_layer_temperature[0]}", "{temp}");
+        replacement.insert("[first_layer_temperature[initial_tool]]", "{temp}");
         replacement.insert("[nozzle_temperature_initial_layer]", "{temp}");
         replacement.insert("{nozzle_temperature_initial_layer[initial_extruder]}", "{temp}");
         replacement.insert("{nozzle_temperature[initial_no_support_extruder]}", "{temp}");
         replacement.insert("{+0.0}", "{+0.0}");
         replacement.insert("{0.0}", "{0.0}");
+        // for Anycubic Kobra S1
+        replacement.insert("{if max_layer_z < max_print_height-1}G1 Z{z_offset+min(max_layer_z+2, max_print_height)} F900 ; Move print head further up{endif}", "G1 Z{z_max+2}");
 
+        let mut newline = line.to_string();
+        for (k, v) in replacement.iter() {
+            newline = newline.replace(k, v);
+        }
 
         let mut known: HashSet<&str> = HashSet::new();
-        known.insert("[printer_model]");
-        known.insert("{filament_type[initial_no_support_extruder]}"); // Bambu
-        known.insert("[initial_no_support_extruder]"); // Bambu
+        known.insert("{temp}");
+        known.insert("{bed_temp}");
+        known.insert("{z_max+2}");
+        //known.insert("[printer_model]");
+        //known.insert("{filament_type[initial_no_support_extruder]}"); // Bambu
+        //known.insert("[initial_no_support_extruder]"); // Bambu
         //known.insert("{nozzle_temperature_initial_layer[initial_extruder]}"); // Bambu
         //known.insert("{first_layer_bed_temperature[0]}");
         //known.insert("[bed_temperature_initial_layer]");
@@ -370,43 +381,29 @@ impl OrcaV1 {
         //known.insert("{0.0}");
         known.insert("{total_layer_count}");
 
-        known.clear();
-
         // Create a regular expression to match "{..}"
-        let mut need_replace = false;
         let re = Regex::new(r"\{.*?\}").unwrap();
-        for mat in re.captures_iter(line) {
+        for mat in re.captures_iter(&newline) {
             let m = mat.get(0)?.as_str();
-            if replacement.contains_key(m) {
-                info!("{}: replace {}", self.name, m);
-                need_replace = true;
+            if known.contains(m) {
                 continue;
             }
-            warn!("{}: {}", self.name, line);
+            warn!("{}: {} : {}", self.name, newline, m);
             warn!("Found '{{..}}': {:?}", mat.get(0)?.as_str());
             return None;
         } 
-        // Create a regular expression to match "{..}"
+        // Create a regular expression to match "[..]"
         let re = Regex::new(r"\[.*?\]").unwrap();
-        for mat in re.captures_iter(line) {
+        for mat in re.captures_iter(&newline) {
             let m = mat.get(0)?.as_str();
-            if replacement.contains_key(m) {
-                info!("{}: replace {}", self.name, m);
-                need_replace = true;
+            if known.contains(m) {
                 continue;
             }
-            warn!("{}: {}", self.name, line);
-            warn!("Found '{{..}}': {:?}", mat.get(0)?.as_str());
+            warn!("{}: {} : {}", self.name, newline, m);
+            warn!("Found '[..]': {:?}", mat.get(0)?.as_str());
             return None;
         } 
-        if need_replace {
-            let mut ret = line.to_string();
-            for (k, v) in replacement.iter() {
-                ret = ret.replace(k, v);
-            }
-            return Some(ret);
-        }
-        Some(line.to_string())
+        Some(newline)
     }
     pub fn process_gcode(&self, gcode: &str) -> Option<Vec<String>> {
         let mut err = false;

@@ -1,0 +1,49 @@
+{
+  "name": "Anycubic Kobra S1 0.4 nozzle",
+  "machine_name": "Anycubic Kobra S1 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    250,
+    250,
+    250
+  ],
+  "pre_gcode": [
+    "G9111 bedTemp={bed_temp} extruderTemp={temp}",
+    "M117",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "G92 E0",
+    "G1 E-2 F3000",
+    "G1 Z{z_max+2} ",
+    "G1 F12000; present print",
+    "G1 X44;  throw_position_x",
+    "G1 Y270; throw_position_y",
+    "M140 S0 ; turn off heatbed",
+    "M104 S0 ; turn off temperature",
+    "M106 P1 S0 ; turn off fan",
+    "M106 P2 S0",
+    "M106 P3 S0",
+    "M84; disable motors                  ",
+    "; disable stepper motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "; AFTER_LAYER_CHANGE [layer_num] @ [layer_z]mm",
+  "heated_bed": true,
+  "speed_travel": null
+}

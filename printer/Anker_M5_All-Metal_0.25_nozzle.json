@@ -1,0 +1,46 @@
+{
+  "name": "Anker M5 All-Metal 0.25 nozzle",
+  "machine_name": "Anker M5 All-Metal 0.25 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.25,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    235,
+    235,
+    250
+  ],
+  "pre_gcode": [
+    "M4899 T3 ; Enable v3 jerk and S-curve acceleration ",
+    "M104 S150 ; Set hotend temp to 150 degrees to prevent ooze",
+    "M190 S{bed_temp} ; set and wait for bed temp to stabilize",
+    "M109 S{temp} ; set final nozzle temp to stabilize",
+    "G28 ;Home",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "M104 S0",
+    "M140 S0",
+    ";Retract the filament",
+    "G92 E1",
+    "G1 E-1 F300",
+    "G28 X0 Y0",
+    "M18"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}
