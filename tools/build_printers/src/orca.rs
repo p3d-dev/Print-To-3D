@@ -355,10 +355,15 @@ impl OrcaV1 {
         replacement.insert("{nozzle_temperature[initial_no_support_extruder]}", "{temp}");
         replacement.insert("[layer_num]", "{layer}");
         replacement.insert("[layer_z]", "{z}");
+        replacement.insert("[total_layer_count]", "{layers");
         replacement.insert("{+0.0}", "{+0.0}");
         replacement.insert("{0.0}", "{0.0}");
         // for Anycubic Kobra S1
         replacement.insert("{if max_layer_z < max_print_height-1}G1 Z{z_offset+min(max_layer_z+2, max_print_height)} F900 ; Move print head further up{endif}", "G1 Z{z_max+2}");
+        // Raise3D Pro3 Plus 0.4 nozzle (Right): G1 X170 Y{random(2,8)} E15 F200 : {random(2,8)}
+        replacement.insert("{random(2,8)}", "{Math.floor(Math.random() * 6 + 2)}");
+        // Others
+        replacement.insert("{random(-160,-152)}", "{Math.floor(Math.random() * 8 - 160)}");
 
         let mut newline = line.to_string();
         for (k, v) in replacement.iter() {
@@ -366,6 +371,9 @@ impl OrcaV1 {
         }
 
         let mut known: HashSet<&str> = HashSet::new();
+        for v in replacement.values() {
+           known.insert(v);
+        }
         known.insert("{z}");
         known.insert("{layer}");
         known.insert("{temp}");
