@@ -1,0 +1,56 @@
+{
+  "name": "Anycubic Kobra 2 0.4 nozzle",
+  "machine_name": "Anycubic Kobra 2 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    250
+  ],
+  "pre_gcode": [
+    "G90 ;Use absolute coordinates",
+    "M83 ;Extruder relative mode",
+    "M104 S{temp} ;Set extruder temp",
+    "M140 S{bed_temp} ;Set bed temp",
+    "M190 S{bed_temp} ;Wait for bed temp",
+    "M109 S{temp} ;Wait for extruder temp",
+    "G28 ;Move X/Y/Z to min endstops",
+    "G1 Z0.28 ;Lift nozzle a bit",
+    "G92 E0 ;Specify current extruder position as zero",
+    "G1 Y3 F1800 ;Move Y to purge point",
+    "G1 X60 E25 F500 ;Extrude 25mm of filament in a 5cm line",
+    "G92 E0 ;Zero the extruded length again",
+    "G1 E-2 F500 ;Retract a little",
+    "G1 X70 F4000 ;Quickly wipe away from the filament line",
+    "M117"
+  ],
+  "post_gcode": [
+    "M104 S0 ;Extruder off",
+    "M140 S0 ;Heatbed off",
+    "M107 ;Fan off",
+    "G91 ;Relative positioning",
+    "G1 E-5 F3000 ;Retract filament",
+    "G1 Z+0.3 F3000 ;Lift print head",
+    "G28 X0 F3000 ;Home X axis",
+    "M84 ;Disable stepper motors"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n{layer} @ {z}mm",
+  "heated_bed": true,
+  "speed_travel": null
+}

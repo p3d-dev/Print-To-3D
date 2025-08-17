@@ -55,7 +55,7 @@
   ],
   "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
   "progress_gcode": "",
-  "layer_gcode": ";AFTER_LAYER_CHANGE\n;[layer_z]",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;{z}",
   "heated_bed": true,
   "speed_travel": null
 }

@@ -353,6 +353,8 @@ impl OrcaV1 {
         replacement.insert("[nozzle_temperature_initial_layer]", "{temp}");
         replacement.insert("{nozzle_temperature_initial_layer[initial_extruder]}", "{temp}");
         replacement.insert("{nozzle_temperature[initial_no_support_extruder]}", "{temp}");
+        replacement.insert("[layer_num]", "{layer}");
+        replacement.insert("[layer_z]", "{z}");
         replacement.insert("{+0.0}", "{+0.0}");
         replacement.insert("{0.0}", "{0.0}");
         // for Anycubic Kobra S1
@@ -364,6 +366,8 @@ impl OrcaV1 {
         }
 
         let mut known: HashSet<&str> = HashSet::new();
+        known.insert("{z}");
+        known.insert("{layer}");
         known.insert("{temp}");
         known.insert("{bed_temp}");
         known.insert("{z_max+2}");
@@ -410,7 +414,12 @@ impl OrcaV1 {
         let mut lines = vec![];
         for line in gcode.split("\n") {
             if line.trim().starts_with(";") {
-                lines.push(line.to_string());
+                if let Some(line) = self.process_variables(line) {
+                    lines.push(line);
+                }
+                else {
+                    lines.push(line.to_string());
+                }
             }
             else { 
                 if let Some(line) = self.process_variables(line) {
