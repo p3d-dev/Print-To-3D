@@ -24,6 +24,8 @@
   "pre_gcode": [
     "M190 S{bed_temp}",
     "M104 S{temp}",
+    "G90",
+    "M83",
     "G1 Z5 F6000",
     "G90 E0",
     "M83",

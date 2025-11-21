@@ -1,0 +1,36 @@
+{
+  "name": "EXO42 Performance (0.4 nozzle)",
+  "machine_name": "EXO42 Performance (0.4 nozzle)",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    420,
+    420,
+    420
+  ],
+  "pre_gcode": [
+    "START_PRINT BED={bed_temp} EXTRUDER={temp}",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "END_PRINT"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "TIMELAPSE_TAKE_FRAME",
+  "heated_bed": true,
+  "speed_travel": null
+}

@@ -32,11 +32,11 @@
     ";Filament weight = {filament_weight}",
     "; M190 S{material_bed_temperature_layer_0}",
     "; M109 S{material_print_temperature_layer_0}",
-    "; PLEASE CHECK: print_start EXTRUDER={material_print_temperature_layer_0} BED={material_bed_temperature_layer_0} CHAMBER={build_volume_temperature}",
+    "; PLEASE CHECK: PRINT_START EXTRUDER={material_print_temperature_layer_0} BED={material_bed_temperature_layer_0} CHAMBER={build_volume_temperature}",
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [
-    "print_end"
+    "PRINT_END"
   ],
   "fan_gcode": "M106 S{fan_speed}",
   "progress_gcode": "",

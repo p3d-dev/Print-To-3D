@@ -1,0 +1,46 @@
+{
+  "name": "Flashforge Guider4 0.4 HF nozzle",
+  "machine_name": "Flashforge Guider4 0.4 HF nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    300
+  ],
+  "pre_gcode": [
+    "START_GCODE",
+    "M190 S{bed_temp}",
+    "M109 S{temp}",
+    "G90",
+    "M83",
+    "G1 Z2 F6000",
+    "G1 X2 Y150 F1800",
+    "G1 Z0.3 F6000",
+    "G1 Y2 E30 F1800"
+  ],
+  "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
+    "G1 E-3 F3600",
+    "G0 X50 Y50 F30000",
+    "M104 S0 ; turn off temperature"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;{z}",
+  "heated_bed": true,
+  "speed_travel": null
+}

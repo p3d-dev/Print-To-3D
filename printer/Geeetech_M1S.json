@@ -1,0 +1,63 @@
+{
+  "name": "Geeetech M1S",
+  "machine_name": "Geeetech M1S",
+  "source": "CuraV2",
+  "license": "LGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    105,
+    105,
+    95
+  ],
+  "pre_gcode": [
+    ";Official wiki URL for Geeetech M1S:https://www.geeetech.com/wiki/index.php/Geeetech_M1S_3D_printer ",
+    "M104 S{temp} ; Set Hotend Temperature",
+    "M140 S{bed_temp} ; Set Bed Temperature",
+    ";M190 S{material_bed_temperature_layer_0} ; Wait for Bed Temperature",
+    "M109 S{temp} ; Wait for Hotend Temperature",
+    "G92 E0 ; Reset Extruder",
+    "G28 ; Home all axes",
+    "M107 ;Off Fan",
+    "M300 S2500 P1000 ;Play a short tune",
+    "G1 Z0.28 ;Move Z Axis up little to prevent scratching of Heat Bed",
+    "G92 E0 ;Reset Extruder",
+    "G1 Y3 F2400 ;Move to start position",
+    "G1 X75 E40 F500 ;Draw a filament line",
+    "G92 E0 ;Reset Extruder",
+    ";G1 E-0.2 F3000 ;Retract a little",
+    "G1 Z2.0 F3000 ;Move Z Axis up little to prevent scratching of Heat Bed",
+    "G1 X70 Y3 Z0.27 F3000 ;Quickly wipe away from the filament line",
+    "G92 E0 ;Reset Extruder",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "G91 ;Switch to relative positioning",
+    "G1 E-2.5 F2700 ;Retract filament",
+    "G1 E-1.5 Z0.2 F2400 ;Retract and raise Z",
+    "G1 X5 Y5 F3000 ;Move away",
+    "G1 Z10 ;lift print head",
+    "G90 ;Switch to absolute positioning",
+    "G28 X Y ;homing XY",
+    "M106 S0 ;off Fan",
+    "M104 S0 ;Cooldown hotend",
+    "M140 S0 ;Cooldown bed",
+    "M84 X Y E ;Disable steppers"
+  ],
+  "fan_gcode": "M106 S{fan_speed}",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": 120.0
+}

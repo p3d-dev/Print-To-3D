@@ -1,0 +1,73 @@
+{
+  "name": "Anycubic Predator 0.4 nozzle",
+  "machine_name": "Anycubic Predator 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": true,
+  "bed_elliptic": true,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    185,
+    185,
+    455
+  ],
+  "pre_gcode": [
+    "G21 ; use millimeters",
+    "G90 ; absolute positioning",
+    "M82 ; absolute extrusion",
+    "M107 T0 ; turn off part cooling fan",
+    "",
+    "M140 S{bed_temp} ; set bed temp",
+    "M104 S{temp} T0  ; set nozzle temp",
+    "M190 S{bed_temp} ; wait for bed",
+    "M109 S{temp} T0  ; wait for nozzle",
+    "",
+    "G28 ; home all",
+    "G1 X0 Y0 Z5.0 F4000 ; jump to center",
+    "G1 X-180 Y0 Z0.4 F2000 ; move to near bed edge",
+    "G92 E0 ; reset the extruder",
+    "",
+    "; --- Prime line ---",
+    "G1 E5 F300 ; initial prime",
+    "G0 X-180.00 Y0.00 Z0.30 E0 F1000",
+    "G1 X-179.385 Y-14.864 Z0.30 E3.57042",
+    "G1 X-177.545 Y-29.627 Z0.30 E7.14094",
+    "G1 X-174.492 Y-44.187 Z0.30 E10.71134",
+    "G1 X-170.247 Y-58.446 Z0.30 E14.28195",
+    "G1 X-164.839 Y-72.305 Z0.30 E17.85235",
+    "G1 X-158.305 Y-85.671 Z0.30 E21.42298",
+    "G1 X-150.690 Y-98.451 Z0.30 E24.99339",
+    "G1 X-142.045 Y-110.558 Z0.30 E27.56379 ; gradually reducing extrusion",
+    "G1 F1500 E26.56379 ; retract 1mm",
+    "G1 Z0.5 F3000 ; lift Z slightly",
+    "G92 E0 ; reset the extruder",
+    "; --- End priming line ---"
+  ],
+  "post_gcode": [
+    "M107 T0",
+    "M104 S0",
+    "M104 S0 T1",
+    "M140 S0",
+    "G92 E0",
+    "G91",
+    "G1 E-1 F300",
+    "G1 Z+0.5  F6000",
+    "G28 ",
+    "G90 ;absolute positioning"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "",
+  "heated_bed": true,
+  "speed_travel": null
+}

@@ -1,0 +1,39 @@
+{
+  "name": "Tiertime UP600 HS 0.8 nozzle",
+  "machine_name": "Tiertime UP600 HS 0.8 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.8,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    500,
+    400,
+    600
+  ],
+  "pre_gcode": [
+    ";M190 S{bed_temp}",
+    ";M109 S{temp}",
+    "PRINT_START EXTRUDER={temp} BED={bed_temp}",
+    "",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "PRINT_END"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;{z}",
+  "heated_bed": true,
+  "speed_travel": null
+}

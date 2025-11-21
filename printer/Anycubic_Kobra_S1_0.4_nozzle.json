@@ -29,7 +29,7 @@
   "post_gcode": [
     "G92 E0",
     "G1 E-2 F3000",
-    "G1 Z{z_max+2} ",
+    "G1 Z{z+2} ",
     "G1 F12000; present print",
     "G1 X44;  throw_position_x",
     "G1 Y270; throw_position_y",

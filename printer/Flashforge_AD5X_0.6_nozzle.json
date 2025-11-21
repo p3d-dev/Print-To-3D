@@ -1,0 +1,48 @@
+{
+  "name": "Flashforge AD5X 0.6 nozzle",
+  "machine_name": "Flashforge AD5X 0.6 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.6,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    220,
+    220,
+    220
+  ],
+  "pre_gcode": [
+    "M190 S{bed_temp}",
+    "M104 S{temp}",
+    "G90",
+    "M83",
+    "G1 Z2 F6000",
+    "G1 X50 Y220 Z0.25 F4800",
+    "G1 X70 E3 F900",
+    "G1 X200 E10 F1800",
+    "G0 Y219.6",
+    "G1 X130 E5 F1800",
+    "G92 E0"
+  ],
+  "post_gcode": [
+    "M140 S0           ; p3d: cooldown bed",
+    "G1 E-3 F3600",
+    "G0 X50 Y50 F30000",
+    "M104 S0 ; turn off temperature"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;{z}",
+  "heated_bed": true,
+  "speed_travel": null
+}

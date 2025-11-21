@@ -24,6 +24,8 @@
   "pre_gcode": [
     "M190 S{bed_temp}",
     "M104 S{temp}",
+    "G90",
+    "M83",
     "G1 Z5 F6000",
     "G1 E-1.5 F600",
     "G1 E12 F800",
@@ -32,8 +34,7 @@
     "G1 Y0 E8 F2400",
     "G1 X-109.6 F2400",
     "G1 Y110 E10 F2400",
-    "G92 E0",
-    "G90                ; p3d: absolute position required"
+    "G92 E0"
   ],
   "post_gcode": [
     "M140 S0           ; p3d: cooldown bed",

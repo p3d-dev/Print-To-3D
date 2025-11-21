@@ -27,6 +27,7 @@
     "M190 S{bed_temp} ; set and wait for bed temp to stabilize",
     "M109 S{temp} ; set final nozzle temp to stabilize",
     "G28 ;Home",
+    ";LAYER_COUNT:{total_layer_count}",
     "G90                ; p3d: absolute position required"
   ],
   "post_gcode": [

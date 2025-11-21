@@ -22,7 +22,7 @@
     260
   ],
   "pre_gcode": [
-    ";Official viki homepage for Thunder:https://www.geeetech.com/wiki/index.php/Geeetech_Thunder_3D_printer  ",
+    ";Official wiki URL for Thunder:https://www.geeetech.com/wiki/index.php/Geeetech_Thunder_3D_printer  ",
     "",
     "M104 S{temp} ; Set Hotend Temperature",
     "M190 S{bed_temp} ; Wait for Bed Temperature",

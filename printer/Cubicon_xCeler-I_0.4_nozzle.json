@@ -1,0 +1,36 @@
+{
+  "name": "Cubicon xCeler-I 0.4 nozzle",
+  "machine_name": "Cubicon xCeler-I 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    250,
+    250,
+    290
+  ],
+  "pre_gcode": [
+    "START_PRINT EXTRUDER_TEMP={temp} BED_TEMP={bed_temp}",
+    "G90                ; p3d: absolute position required"
+  ],
+  "post_gcode": [
+    "END_PRINT"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": ";AFTER_LAYER_CHANGE\n;{z}",
+  "heated_bed": true,
+  "speed_travel": null
+}

@@ -1,0 +1,54 @@
+{
+  "name": "Phrozen Arco 0.4 nozzle",
+  "machine_name": "Phrozen Arco 0.4 nozzle",
+  "source": "OrcaSlicerV1",
+  "license": "AGPL-3.0",
+  "origin_center": false,
+  "bed_elliptic": false,
+  "bed_belt": false,
+  "extruders": [
+    {
+      "nozzle": 0.4,
+      "filament": 1.75,
+      "offset_x": 0.0,
+      "offset_y": 0.0,
+      "select": "",
+      "deselect": ""
+    }
+  ],
+  "build_size": [
+    300,
+    300,
+    300
+  ],
+  "pre_gcode": [
+    "M107",
+    "G90",
+    "M140 S65 ; set bed temperature",
+    "M104 S140 ; set temperature",
+    "M190 S65 ; set bed temperature",
+    "M109 S140 ; set temperature",
+    "PG28",
+    "M106 S255 ",
+    "G30",
+    ";AUTO_LEVELING_2",
+    "M106 S0",
+    "G21",
+    "M83",
+    "M140 S{bed_temp}",
+    "M104 S{temp}",
+    "M109 S{temp}",
+    "M190 S{bed_temp}",
+    "P0 M1",
+    "P28",
+    "P2 A1"
+  ],
+  "post_gcode": [
+    "PRINT_END"
+  ],
+  "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
+  "progress_gcode": "",
+  "layer_gcode": "; AFTER_LAYER_CHANGE {layer} @ {z}mm",
+  "heated_bed": true,
+  "speed_travel": null
+}
