@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
-use serde::Deserialize;
 use regex::Regex;
+use serde::Deserialize;
 
 use crate::traits::*;
 
@@ -543,18 +543,29 @@ impl CuraV2 {
         None
     }
     fn cleanup(&self, gcode: Option<String>) -> Option<String> {
-       gcode.map(|x| {
-        let re = Regex::new(r"if machine_gcode_flavor == .*else ").unwrap();
-        let fields: Vec<&str> = re.split(&x).collect();
-        if fields.len() == 2 {
-            return fields[1].to_string();
-        }
-        x
-    })
-    .map(|x| x.replace("' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", "\nM140 S0 ;heated bed heater off"))
-    .map(|x| x.replace("' + ('\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '", "\nM140 S0 ;heated bed heater off"))
-    .map(|x| x.trim_matches('\'').to_string())
-    .map(|x| x.replace("\\n","\n")) 
+        gcode
+            .map(|x| {
+                let re = Regex::new(r"if machine_gcode_flavor == .*else ").unwrap();
+                let fields: Vec<&str> = re.split(&x).collect();
+                if fields.len() == 2 {
+                    return fields[1].to_string();
+                }
+                x
+            })
+            .map(|x| {
+                x.replace(
+                    "' + ('\\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '",
+                    "\nM140 S0 ;heated bed heater off",
+                )
+            })
+            .map(|x| {
+                x.replace(
+                    "' + ('\nM140 S0 ;heated bed heater off' if machine_heated_bed else '') + '",
+                    "\nM140 S0 ;heated bed heater off",
+                )
+            })
+            .map(|x| x.trim_matches('\'').to_string())
+            .map(|x| x.replace("\\n", "\n"))
     }
     pub fn get_pre_gcode_base(&self, all: &HashMap<String, CuraV2>) -> Option<String> {
         if let Some(overrides) = self.overrides.as_ref() {

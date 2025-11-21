@@ -200,17 +200,47 @@ impl P3dPrinter {
         let name = cfg.printer_name();
         let source = cfg.get_source();
         let license = cfg.get_license();
-        let origin_center = cfg.get_origin_center().or_else(||{warn!("no center");return None})?;
-        let bed_elliptic = cfg.get_bed_circle().or_else(||{warn!("no bed_elliptic");return None})?;
-        let bed_width = cfg.get_bed_width().or_else(||{warn!("no bed_width");return None})?;
-        let bed_depth = cfg.get_bed_depth().or_else(||{warn!("no bed_depth");return None})?;
-        let build_height = cfg.get_build_height().or_else(||{warn!("no build_height");return None})?;
+        let origin_center = cfg.get_origin_center().or_else(|| {
+            warn!("no center");
+            return None;
+        })?;
+        let bed_elliptic = cfg.get_bed_circle().or_else(|| {
+            warn!("no bed_elliptic");
+            return None;
+        })?;
+        let bed_width = cfg.get_bed_width().or_else(|| {
+            warn!("no bed_width");
+            return None;
+        })?;
+        let bed_depth = cfg.get_bed_depth().or_else(|| {
+            warn!("no bed_depth");
+            return None;
+        })?;
+        let build_height = cfg.get_build_height().or_else(|| {
+            warn!("no build_height");
+            return None;
+        })?;
         let build_size = (bed_width, bed_depth, build_height);
-        let pre_gcode = cfg.get_pre_gcode().or_else(||{warn!("no pre_gcode");return None})?;
-        let post_gcode = cfg.get_post_gcode().or_else(||{warn!("no post_gcode");return None})?;
-        let fan_gcode = cfg.get_fan_gcode().or_else(||{warn!("no fan_gcode");return None})?;
-        let progress_gcode = cfg.get_progress_gcode().or_else(||{warn!("no progress_gcode");return None})?;
-        let layer_gcode = cfg.get_layer_gcode().or_else(||{warn!("no layer_gcode");return None})?;
+        let pre_gcode = cfg.get_pre_gcode().or_else(|| {
+            warn!("no pre_gcode");
+            return None;
+        })?;
+        let post_gcode = cfg.get_post_gcode().or_else(|| {
+            warn!("no post_gcode");
+            return None;
+        })?;
+        let fan_gcode = cfg.get_fan_gcode().or_else(|| {
+            warn!("no fan_gcode");
+            return None;
+        })?;
+        let progress_gcode = cfg.get_progress_gcode().or_else(|| {
+            warn!("no progress_gcode");
+            return None;
+        })?;
+        let layer_gcode = cfg.get_layer_gcode().or_else(|| {
+            warn!("no layer_gcode");
+            return None;
+        })?;
         let bed_belt = cfg.get_bed_belt()?;
         let generic_extruders = cfg.get_extruders()?;
         let mut extruders: Vec<P3dExtruder> = vec![];
@@ -429,12 +459,24 @@ impl P3dPrinter {
         P3dPrinter::prune(&mut self.post_gcode, &xref);
 
         let need_absolute_positioning = self.does_not_contain("G90", &self.pre_gcode);
-        let need_hotend_temp = self.does_not_contain("M104", &self.pre_gcode) && self.does_not_contain("M109", &self.pre_gcode) && self.does_not_contain("\\{temp\\}", &self.pre_gcode);
-        let need_bed_temp = self.heated_bed && self.does_not_contain("M140", &self.pre_gcode) && self.does_not_contain("M190", &self.pre_gcode)  && self.does_not_contain("\\{bed_temp\\}", &self.pre_gcode);
+        let need_hotend_temp = self.does_not_contain("M104", &self.pre_gcode)
+            && self.does_not_contain("M109", &self.pre_gcode)
+            && self.does_not_contain("\\{temp\\}", &self.pre_gcode);
+        let need_bed_temp = self.heated_bed
+            && self.does_not_contain("M140", &self.pre_gcode)
+            && self.does_not_contain("M190", &self.pre_gcode)
+            && self.does_not_contain("\\{bed_temp\\}", &self.pre_gcode);
 
-        let no_print_end = self.does_not_contain("PRINT_END", &self.post_gcode) && self.does_not_contain("END_PRINT", &self.post_gcode) && self.does_not_contain("M801", &self.post_gcode) ;
-        let need_hotend_cooldown = no_print_end && self.does_not_contain("M104", &self.post_gcode) && self.does_not_contain("M109", &self.post_gcode);
-        let need_bed_cooldown = self.heated_bed && no_print_end && self.does_not_contain("M140", &self.post_gcode) && self.does_not_contain("M190", &self.post_gcode);
+        let no_print_end = self.does_not_contain("PRINT_END", &self.post_gcode)
+            && self.does_not_contain("END_PRINT", &self.post_gcode)
+            && self.does_not_contain("M801", &self.post_gcode);
+        let need_hotend_cooldown = no_print_end
+            && self.does_not_contain("M104", &self.post_gcode)
+            && self.does_not_contain("M109", &self.post_gcode);
+        let need_bed_cooldown = self.heated_bed
+            && no_print_end
+            && self.does_not_contain("M140", &self.post_gcode)
+            && self.does_not_contain("M190", &self.post_gcode);
 
         // Attention: the added commands are here reversed, because inserted at beginning of list
         if need_hotend_temp {
@@ -456,8 +498,10 @@ impl P3dPrinter {
                 0,
                 "M190 S{bed_temp}   ; p3d: wait for bed temperature".to_string(),
             );
-            self.pre_gcode
-                .insert(0, "M140 S{bed_temp}   ; p3d: need to heat the bed".to_string());
+            self.pre_gcode.insert(
+                0,
+                "M140 S{bed_temp}   ; p3d: need to heat the bed".to_string(),
+            );
         }
         if need_bed_cooldown {
             self.post_gcode

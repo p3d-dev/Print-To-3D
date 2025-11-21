@@ -162,7 +162,7 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
         (
             "https://github.com/GridSpace/grid-apps.git",
             "grid-apps",
-            "grid-apps/src/kiri-dev/fdm",
+            "grid-apps/src/kiri/dev/fdm",
             Source::Gridapps,
         ),
         (
@@ -201,15 +201,14 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                 .arg(repo_dir)
                 .status()?;
             println!("{:?}", output);
-        }
-	else {
+        } else {
             let output = Command::new("git")
                 .arg("-C")
-		.arg(repo_dir)
+                .arg(repo_dir)
                 .arg("pull")
                 .status()?;
             println!("{:?}", output);
-	}
+        }
 
         let cfg_dir = temp_dir.join(dir);
 
@@ -227,10 +226,12 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                     println!("fdm_extruder: {:?}", e1)
                 }
             }
-        }
+        }   
 
+        println!("Here {}", cfg_dir.display());
         for entry in std::fs::read_dir(cfg_dir)? {
             let entry = entry?;
+
             if entry.file_type()?.is_dir() {
                 println!("skip sub directory {:?}", entry.path());
             } else {
@@ -266,7 +267,9 @@ fn load_and_parse() -> Result<LoadAndParseResult, Error> {
                                     let key = name.replace(".json", "");
                                     gridapps_entries.insert(key, Box::new(cfg));
                                 }
-                                Err(e2) => println!("{:?}: V01={:?} V02={:?}", entry.file_name(), e1, e2),
+                                Err(e2) => {
+                                    println!("{:?}: V01={:?} V02={:?}", entry.file_name(), e1, e2)
+                                }
                             },
                         },
                         Source::Cura => match serde_json::from_str::<CuraV2>(&contents) {

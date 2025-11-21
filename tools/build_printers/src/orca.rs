@@ -1,13 +1,13 @@
 use std::cmp::*;
-use std::collections::{HashSet,HashMap};
+use std::collections::{HashMap, HashSet};
 use std::default::Default;
 use std::fs::File;
 use std::io::{Error, Read};
 use std::path::PathBuf;
 
 use merge::Merge;
-use serde::Deserialize;
 use regex::Regex;
+use serde::Deserialize;
 
 use crate::traits::*;
 
@@ -137,7 +137,10 @@ impl OrcaFdmMachine {
             let r = (x * x + y * y).sqrt().round() as i16;
             max_r = max(max_r, r);
         }
-        println!("{}: x={}..{} y={}..{} r={}", self.name, min_x, max_x, min_y, max_y, max_r);
+        println!(
+            "{}: x={}..{} y={}..{} r={}",
+            self.name, min_x, max_x, min_y, max_y, max_r
+        );
         let mut bv = BuildVolume::default();
         bv.center = (min_x + max_x == 0) && (min_y + max_y == 0);
         bv.round = bv.center && (max_r == max_x);
@@ -160,13 +163,11 @@ impl OrcaFdmMachine {
             info!("{}: {:?} nozzles", self.name, nozzles);
         }
         let nd = nozzles.first()?.parse::<f32>().ok()?;
-        if nd < 0.1 || nd > 1.0 { 
+        if nd < 0.1 || nd > 1.0 {
             warn!("{}: {:?} nozzles", self.name, nozzles);
             return None;
         }
-        let extruder = OrcaExtruder{
-            diameter: nd,
-        };
+        let extruder = OrcaExtruder { diameter: nd };
         Some(vec![extruder])
     }
 }
@@ -337,7 +338,7 @@ impl OrcaV1 {
     pub fn printer_name(&self) -> String {
         self.name.clone()
     }
-    pub fn process_variables(&self,line: &str) -> Option<String> {
+    pub fn process_variables(&self, line: &str) -> Option<String> {
         // find each {..} in line
         // Find all matches in the text
         let mut replacement: HashMap<&str, &str> = HashMap::new();
@@ -351,8 +352,14 @@ impl OrcaV1 {
         replacement.insert("{first_layer_temperature[0]}", "{temp}");
         replacement.insert("[first_layer_temperature[initial_tool]]", "{temp}");
         replacement.insert("[nozzle_temperature_initial_layer]", "{temp}");
-        replacement.insert("{nozzle_temperature_initial_layer[initial_extruder]}", "{temp}");
-        replacement.insert("{nozzle_temperature[initial_no_support_extruder]}", "{temp}");
+        replacement.insert(
+            "{nozzle_temperature_initial_layer[initial_extruder]}",
+            "{temp}",
+        );
+        replacement.insert(
+            "{nozzle_temperature[initial_no_support_extruder]}",
+            "{temp}",
+        );
         replacement.insert("[layer_num]", "{layer}");
         replacement.insert("[layer_z]", "{z}");
         replacement.insert("[total_layer_count]", "{layers");
@@ -363,7 +370,10 @@ impl OrcaV1 {
         // Raise3D Pro3 Plus 0.4 nozzle (Right): G1 X170 Y{random(2,8)} E15 F200 : {random(2,8)}
         replacement.insert("{random(2,8)}", "{Math.floor(Math.random() * 6 + 2)}");
         // Others
-        replacement.insert("{random(-160,-152)}", "{Math.floor(Math.random() * 8 - 160)}");
+        replacement.insert(
+            "{random(-160,-152)}",
+            "{Math.floor(Math.random() * 8 - 160)}",
+        );
 
         let mut newline = line.to_string();
         for (k, v) in replacement.iter() {
@@ -372,7 +382,7 @@ impl OrcaV1 {
 
         let mut known: HashSet<&str> = HashSet::new();
         for v in replacement.values() {
-           known.insert(v);
+            known.insert(v);
         }
         known.insert("{z}");
         known.insert("{layer}");
@@ -403,7 +413,7 @@ impl OrcaV1 {
             warn!("{}: {} : {}", self.name, newline, m);
             warn!("Found '{{..}}': {:?}", mat.get(0)?.as_str());
             return None;
-        } 
+        }
         // Create a regular expression to match "[..]"
         let re = Regex::new(r"\[.*?\]").unwrap();
         for mat in re.captures_iter(&newline) {
@@ -414,7 +424,7 @@ impl OrcaV1 {
             warn!("{}: {} : {}", self.name, newline, m);
             warn!("Found '[..]': {:?}", mat.get(0)?.as_str());
             return None;
-        } 
+        }
         Some(newline)
     }
     pub fn process_gcode(&self, gcode: &str) -> Option<Vec<String>> {
@@ -424,16 +434,13 @@ impl OrcaV1 {
             if line.trim().starts_with(";") {
                 if let Some(line) = self.process_variables(line) {
                     lines.push(line);
-                }
-                else {
+                } else {
                     lines.push(line.to_string());
                 }
-            }
-            else { 
+            } else {
                 if let Some(line) = self.process_variables(line) {
                     lines.push(line);
-                }
-                else {
+                } else {
                     err = true;
                 }
             }
@@ -490,7 +497,7 @@ impl GenericPrinter for OrcaV1 {
     }
     fn get_layer_gcode(&self) -> Option<String> {
         if let Some(gcode) = self.machine.layer_change_gcode.as_ref() {
-            return self.process_gcode(gcode).map(|s|{s.join("\n")})
+            return self.process_gcode(gcode).map(|s| s.join("\n"));
         }
         Some("".to_string())
     }
@@ -498,7 +505,12 @@ impl GenericPrinter for OrcaV1 {
         Some(false)
     }
     fn get_extruders(&self) -> Option<Vec<&dyn GenericExtruder>> {
-        Some(self.extruders.iter().map(|e| e as &dyn GenericExtruder).collect())
+        Some(
+            self.extruders
+                .iter()
+                .map(|e| e as &dyn GenericExtruder)
+                .collect(),
+        )
     }
     fn get_speed_travel(&self) -> Option<f32> {
         None
