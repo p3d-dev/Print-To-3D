@@ -374,6 +374,18 @@ impl OrcaV1 {
             "{random(-160,-152)}",
             "{Math.floor(Math.random() * 8 - 160)}",
         );
+        // for Elegoo Centauri Carbon: 256*256*256mm
+        replacement.insert("{print_bed_max[0]*0.5}", "128");
+        replacement.insert("{print_bed_max[0]*0.5-10}", "118");
+        replacement.insert("{print_bed_max[0]*0.5-30}", "98");
+        replacement.insert("{print_bed_max[0]*0.5-50}", "78");
+        replacement.insert("{print_bed_max[0]*0.5+10}", "138");
+        replacement.insert("{print_bed_max[0]*0.5+30}", "158");
+        replacement.insert("{print_bed_max[0]*0.5+50}", "178");
+        // use filament_max_volumetric_speed[initial_no_support_extruder] = 12 mm^3/s (not ok for TPU)
+        replacement.insert("{0.2*min(12000, max(1200, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "960");
+        replacement.insert("{min(12000, max(1200, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "4800");
+        replacement.insert("{min(6000, max(900, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "4800");
 
         let mut newline = line.to_string();
         for (k, v) in replacement.iter() {
