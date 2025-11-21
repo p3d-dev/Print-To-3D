@@ -66,8 +66,8 @@
     "G3 I-1 J0 Z0.6 F1200.0 ;Move to side a little",
     "G1 F20000",
     "G92 E0 ;Reset Extruder",
-    "SET_PRINT_STATS_INFO TOTAL_LAYER={layers",
-    ";LAYER_COUNT:{layers",
+    "SET_PRINT_STATS_INFO TOTAL_LAYER={layers}",
+    ";LAYER_COUNT:{layers}",
     ";LAYER:0"
   ],
   "post_gcode": [

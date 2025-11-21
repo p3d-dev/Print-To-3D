@@ -362,7 +362,7 @@ impl OrcaV1 {
         );
         replacement.insert("[layer_num]", "{layer}");
         replacement.insert("[layer_z]", "{z}");
-        replacement.insert("[total_layer_count]", "{layers");
+        replacement.insert("[total_layer_count]", "{layers}");
         replacement.insert("{+0.0}", "{+0.0}");
         replacement.insert("{0.0}", "{0.0}");
         // for Anycubic Kobra S1
