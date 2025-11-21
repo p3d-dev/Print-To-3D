@@ -366,7 +366,7 @@ impl OrcaV1 {
         replacement.insert("{+0.0}", "{+0.0}");
         replacement.insert("{0.0}", "{0.0}");
         // for Anycubic Kobra S1
-        replacement.insert("{if max_layer_z < max_print_height-1}G1 Z{z_offset+min(max_layer_z+2, max_print_height)} F900 ; Move print head further up{endif}", "G1 Z{z_max+2}");
+        replacement.insert("{if max_layer_z < max_print_height-1}G1 Z{z_offset+min(max_layer_z+2, max_print_height)} F900 ; Move print head further up{endif}", "G1 Z{z+2}");
         // Raise3D Pro3 Plus 0.4 nozzle (Right): G1 X170 Y{random(2,8)} E15 F200 : {random(2,8)}
         replacement.insert("{random(2,8)}", "{Math.floor(Math.random() * 6 + 2)}");
         // Others
@@ -386,6 +386,8 @@ impl OrcaV1 {
         replacement.insert("{0.2*min(12000, max(1200, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "960");
         replacement.insert("{min(12000, max(1200, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "4800");
         replacement.insert("{min(6000, max(900, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "4800");
+        replacement.insert("{min(20000,max(1000,outer_wall_acceleration))}", "6000");
+        replacement.insert("{max_layer_z+0.5}", "{z+0.5}");
 
         let mut newline = line.to_string();
         for (k, v) in replacement.iter() {
