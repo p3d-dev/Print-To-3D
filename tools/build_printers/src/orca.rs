@@ -388,7 +388,6 @@ impl OrcaV1 {
         replacement.insert("{min(6000, max(900, filament_max_volumetric_speed[initial_no_support_extruder]/0.5/0.3*60))}", "4800");
         replacement.insert("{min(20000,max(1000,outer_wall_acceleration))}", "6000");
         replacement.insert("{max_layer_z+0.5}", "{z+0.5}");
-        replacement.insert("{layer + 1}", "");
         replacement.insert("{layer_num + 1}", "{layer + 1}");
 
         let mut newline = line.to_string();
@@ -407,6 +406,7 @@ impl OrcaV1 {
         known.insert("{z_max+2}");
         known.insert("{z+2}");
         known.insert("{Math.min(z+50, z_max+0.5)}");
+        known.insert("{layer + 1}");
         //known.insert("[printer_model]");
         //known.insert("{filament_type[initial_no_support_extruder]}"); // Bambu
         //known.insert("[initial_no_support_extruder]"); // Bambu

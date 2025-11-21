@@ -98,7 +98,7 @@
   ],
   "fan_gcode": "M106 S{fan_speed}  ; p3d: add for orca slicer",
   "progress_gcode": "",
-  "layer_gcode": "SET_PRINT_STATS_INFO CURRENT_LAYER=",
+  "layer_gcode": "SET_PRINT_STATS_INFO CURRENT_LAYER={layer + 1}",
   "heated_bed": true,
   "speed_travel": null
 }
